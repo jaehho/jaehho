@@ -1,1 +1,1 @@
-hello
+![](https://github.com/GitJaehoCho/GitJaehoCho/blob/main/github_README/github_README.gif)
