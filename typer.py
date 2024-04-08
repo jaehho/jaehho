@@ -5,7 +5,7 @@
 import pyautogui
 import time
 
-delay = 2
+delay = 5
 while delay > 0:
 	print(f"select window to type in | will start in {delay:.1f} seconds")
 	time.sleep(0.1)
