@@ -1,1 +1,1 @@
-![](https://github.com/GitJaehoCho/GitJaehoCho/blob/main/screentogif/Animation.gif)
+![](https://github.com/GitJaehoCho/GitJaehoCho/blob/main/readme_animation/screentogif/Animation.gif)
