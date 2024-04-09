@@ -13,10 +13,10 @@ while delay > 0:
 print("typing...")
 
 strings = [
-    "Hi!",
-    "I_am_an_Electrical_Engineering_Major",
-    "Driven_by_dual_passions_in_robotics_and_medicine",
-    "Feel_free_to_reach_out_and_say_hi!"
+	"Hi!"
+	"I_am_studying_Electrical_Engineering"
+	"Driven_by_my_passions_in_robotics_and_medicine"
+	"Feel_free_to_reach_out_and_say_hi!"
 ]
 
 interval = 0.03   # In Seconds
