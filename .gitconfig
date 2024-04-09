@@ -1,0 +1,10 @@
+[user]
+	email = jaeho2025@gmail.com
+	name = Jaeho Cho
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	ll = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+	unstage = reset HEAD --
