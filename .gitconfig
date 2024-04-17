@@ -1,8 +1,16 @@
 [user]
 	email = jaeho2025@gmail.com
 	name = Jaeho Cho
+<<<<<<< HEAD
 [init]
 	defaultBranch = main
+=======
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[pull]
+	rebase = false
+>>>>>>> 8cd0713e6455ee16d06b53bfa2335813999da5a8
 [alias]
 	co = checkout
 	br = branch
