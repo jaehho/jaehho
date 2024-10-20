@@ -1,3 +1,6 @@
+# Paste this into cmd line to update local gitconfig
+# curl -s "https://raw.githubusercontent.com/jaehho/jaehho/refs/heads/main/.gitconfig" -o ~/.gitconfig
+
 [user]
 	email = jaeho2025@gmail.com
 	name = Jaeho Cho
