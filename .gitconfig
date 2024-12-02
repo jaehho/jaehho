@@ -11,6 +11,8 @@
 	editor = nvim
 [pull]
 	rebase = false
+[push]
+	autoSetupRemote = true
 [alias]
 	co = checkout
 	br = branch
@@ -19,5 +21,3 @@
 	unstage = reset HEAD --
     lg = log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
 	update-config = "!curl -s 'https://raw.githubusercontent.com/jaehho/jaehho/refs/heads/main/.gitconfig' -o ~/.gitconfig"
-[push]
-	autoSetupRemote = true
