@@ -362,6 +362,11 @@
             "title": "Position",
             "type": "string"
           },
+          "position_details": {
+            "description": "Additional details about the position.",
+            "title": "Position Details",
+            "type": "string"
+          },
           "date": {
             "default": null,
             "description": "The date field can be filled in YYYY-MM-DD, YYYY-MM, or YYYY formats or as an arbitrary string like \"Fall 2023\".",

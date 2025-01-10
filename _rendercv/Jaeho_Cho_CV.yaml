@@ -15,20 +15,22 @@ cv:
         degree: Bachelor of Engineering
         end_date: 2026
         highlights:
-          - Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
+          - Half Tuition Scholarship \textbar{} Myron Coe Scholarship \textbar{} Full Tuition Scholarship 2025-2026
           - "Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability"
     experience:
       - company: PWC
-        position: Data and AI Intern | Hanwha TotalEnergies Petrochemical
+        position: Data and AI Intern
+        position_details: Hanwha TotalEnergies Petrochemical
         location: Seoul, South Korea
         start_date: 2024-05
         end_date: 2024-08
         highlights:
-          - Designed and optimized time-series forecasting models using libraries such as GluonTS, Chronos, and Darts, delivering actionable price predictions for flagship petrochemical products (e.g., styrene monomer (SM), paraxylene (PX)).
+          - Developed and optimized advanced time-series forecasting models using GluonTS, Chronos, and Darts to generate actionable price predictions for flagship petrochemical products, enabling data-driven decision-making.
           - Refactored backend data pipelines, transitioning from MongoDB to ClickHouse and improving data flow efficiency.
-          - Developed a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned predictive forecasting models to enhance market insights.
+          - Developed a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned forecasting models to enhance market insights.
       - company: The Cooper Union
-        position: Teacher Assistant | Design and Drawing
+        position: Teacher Assistant 
+        position_details: Design and Drawing
         location: New York, NY
         start_date: 2023-06
         end_date: 2023-08
@@ -37,7 +39,8 @@ cv:
           - Led workshops on Arduinos and circuit design, culminating in students building 3D printed 4-DoF robotic arms.
     extracurricular activities:
       - company: The Cooper Union
-        position: Founder/President | The Pre-Medical & Pre-Dental Society
+        position: Founder/President 
+        position_details: The Pre-Medical & Pre-Dental Society
         location: New York, NY
         start_date: 2024-09
         end_date: present
@@ -45,29 +48,32 @@ cv:
           - Established a support network for pre-medical/dental students, bridging gaps in guidance at the Cooper Union.
           - Coordinated events such as a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
       - company: The Cooper Union
-        position: Project Lead | Bioengineering Vertically Integrated Projects
+        position: Project Lead 
+        position_details: Bioengineering Vertically Integrated Projects
         location: New York, NY
         start_date: 2022-09
         end_date: present
         highlights:
           - Building open-source robotic arms for compliant human interaction, leveraging Mediapipe and OpenCV for real-time pose detection and integrating ROS2 for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
-          - Simulated pose mimicking systems in Gazebo, utilizing MoveIt2 & ros2 control for collision detection and motion planning.
+          - Simulated pose mimicking systems in Gazebo, using MoveIt2 & ros2_control for collision detection and motion planning.
           - Designed & fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
       - company: Mount Sinai
-        position: Research Assistant | Mechanical Exposure Study
+        position: Research Assistant 
+        position_details: Mechanical Exposure Study
         location: New York, NY
         start_date: 2024-02
         end_date: 2024-08
         highlights:
-          - Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure among industrial workers.
+          - Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure in industrial workers.
           - Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
       - company: St. Joseph’s Medical Center
-        position: Shadow | Dr. Steve Doh (anesthesiologist)
+        position: Shadow 
+        position_details: Dr. Steve Doh (anesthesiologist)
         location: Yonkers, NY
         start_date: 2023-06
         end_date: 2023-07
         highlights:
-          - Observed various medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
+          - Observed medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
           - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
     # projects:
     #   - name: Differential to Single-ended Amplifier
@@ -100,7 +106,7 @@ design:
   color: '#004f90'
   disable_external_link_icons: false
   header_font_size: 24 pt
-  text_alignment: justified
+  text_alignment: left-aligned
   seperator_between_connections: ''
   use_icons_for_connections: true
   margins:

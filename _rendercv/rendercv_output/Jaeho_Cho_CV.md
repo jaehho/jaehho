@@ -12,20 +12,20 @@
 ## The Cooper Union for the Advancement of Science and Art, Bachelor of Engineering in Electrical Engineering, Bioengineering Minor
 
 - 2026
-- Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
+- Half Tuition Scholarship \textbar{} Myron Coe Scholarship \textbar{} Full Tuition Scholarship 2025-2026
 - Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability
 
 # Experience
 
-## PWC, Data and AI Intern | Hanwha TotalEnergies Petrochemical
+## PWC, Data and AI Intern
 
 - May 2024 – Aug 2024
 - Seoul, South Korea
-- Designed and optimized time-series forecasting models using libraries such as GluonTS, Chronos, and Darts, delivering actionable price predictions for flagship petrochemical products (e.g., styrene monomer (SM), paraxylene (PX)).
+- Developed and optimized advanced time-series forecasting models using GluonTS, Chronos, and Darts to generate actionable price predictions for flagship petrochemical products, enabling data-driven decision-making.
 - Refactored backend data pipelines, transitioning from MongoDB to ClickHouse and improving data flow efficiency.
-- Developed a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned predictive forecasting models to enhance market insights.
+- Developed a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned forecasting models to enhance market insights.
 
-## The Cooper Union, Teacher Assistant | Design and Drawing
+## The Cooper Union, Teacher Assistant
 
 - June 2023 – Aug 2023
 - New York, NY
@@ -34,33 +34,33 @@
 
 # Extracurricular Activities
 
-## The Cooper Union, Founder/President | The Pre-Medical & Pre-Dental Society
+## The Cooper Union, Founder/President
 
 - Sept 2024 – present
 - New York, NY
 - Established a support network for pre-medical/dental students, bridging gaps in guidance at the Cooper Union.
 - Coordinated events such as a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
 
-## The Cooper Union, Project Lead | Bioengineering Vertically Integrated Projects
+## The Cooper Union, Project Lead
 
 - Sept 2022 – present
 - New York, NY
 - Building open-source robotic arms for compliant human interaction, leveraging Mediapipe and OpenCV for real-time pose detection and integrating ROS2 for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
-- Simulated pose mimicking systems in Gazebo, utilizing MoveIt2 & ros2 control for collision detection and motion planning.
+- Simulated pose mimicking systems in Gazebo, using MoveIt2 & ros2_control for collision detection and motion planning.
 - Designed & fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
 
-## Mount Sinai, Research Assistant | Mechanical Exposure Study
+## Mount Sinai, Research Assistant
 
 - Feb 2024 – Aug 2024
 - New York, NY
-- Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure among industrial workers.
+- Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure in industrial workers.
 - Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
 
-## St. Joseph’s Medical Center, Shadow | Dr. Steve Doh (anesthesiologist)
+## St. Joseph’s Medical Center, Shadow
 
 - June 2023 – July 2023
 - Yonkers, NY
-- Observed various medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
+- Observed medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
 - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
 
 # Skills
