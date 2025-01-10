@@ -1,0 +1,347 @@
+\documentclass[11pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=1 cm, % separation between body and page edge from the top
+    bottom=1 cm, % separation between body and page edge from the bottom
+    left=1 cm, % separation between body and page edge from the left
+    right=1 cm, % separation between body and page edge from the right
+    footskip=0.5 cm, % separation between body and footer
+    % showframe % for debugging
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed-width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 79, 144} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Jaeho Cho's CV},
+    pdfauthor={Jaeho Cho},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata, and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one-column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three-column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page break right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex, or luatex
+
+% Ensure that generated PDF is machine-readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[utf8]{inputenc}
+\fi
+
+% Fonts:
+% if latin modern serif or latin modern sans serif or latin modern mono
+\usepackage[scaled]{helvet} % Load Helvetica
+\renewcommand{\familydefault}{\sfdefault} % Set sans-serif as the default
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0cm} % set column separation
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.3 cm
+}{
+    % bottom space:
+    0.2 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\bullet$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.1 cm,
+        parsep=0.1 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.1 cm,
+        parsep=0.1 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0 cm + 0.00001 cm
+    }{
+        0 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one-column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two-column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
+
+    \begin{header}
+        \textbf{\fontsize{24 pt}{24 pt}\selectfont Jaeho Cho}
+
+        \vspace{0 cm}
+
+        \normalsize
+        \mbox{{\color{black}\footnotesize\faMapMarker*}\hspace*{0.13cm}New York City, NY}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{mailto:jaeho2025@gmail.com}{\color{black}{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}jaeho2025@gmail.com}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{tel:+1-201-406-5974}{\color{black}{\footnotesize\faPhone*}\hspace*{0.13cm}(201) 406-5974}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://jaehho.github.io/}{\color{black}{\footnotesize\faLink}\hspace*{0.13cm}jaehho.github.io}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://linkedin.com/in/jaeho-cho}{\color{black}{\footnotesize\faLinkedinIn}\hspace*{0.13cm}jaeho-cho}}%
+    \end{header}
+
+    \vspace{0.1 cm - 0.3 cm}
+
+
+    \section{Education}
+
+
+
+        
+        \begin{twocolentry}{
+            
+            
+        \textit{Graduating 2026}}
+            \textbf{The Cooper Union for the Advancement of Science and Art}
+
+            \textit{Bachelor of Engineering in Electrical Engineering, Bioengineering Minor}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
+                \item Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures \& Algorithms, Computer Architecture, Linear Algebra, Ordinary \& Partial Differential Equations, Probability
+            \end{highlights}
+        \end{onecolentry}
+
+
+
+    
+    \section{Experience}
+
+
+
+        
+        \begin{twocolentry}{
+        \textit{Seoul, South Korea}    
+            
+        \textit{May 2024 – Aug 2024}}
+            \textbf{Data and AI Intern | Hanwha TotalEnergies Petrochemical}
+            
+            \textit{PWC}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Designed and optimized time-series forecasting models using libraries such as GluonTS, Chronos, and Darts, delivering actionable price predictions for flagship petrochemical products (e.g., styrene monomer (SM), paraxylene (PX)).
+                \item Refactored backend data pipelines, transitioning from MongoDB to ClickHouse and improving data flow efficiency.
+                \item Developed a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned predictive forecasting models to enhance market insights.
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.15 cm}
+
+        \begin{twocolentry}{
+        \textit{New York, NY}    
+            
+        \textit{June 2023 – Aug 2023}}
+            \textbf{Teacher Assistant | Design and Drawing}
+            
+            \textit{The Cooper Union}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Taught 24 high school students the fundamentals of engineering design, circuit design, Arduino and Onshape CAD.
+                \item Led workshops on Arduinos and circuit design, culminating in students building 3D printed 4-DoF robotic arms.
+            \end{highlights}
+        \end{onecolentry}
+
+
+
+    
+    \section{Extracurricular Activities}
+
+
+
+        
+        \begin{twocolentry}{
+        \textit{New York, NY}    
+            
+        \textit{Sept 2024 – present}}
+            \textbf{Founder/President | The Pre-Medical \& Pre-Dental Society}
+            
+            \textit{The Cooper Union}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Established a support network for pre-medical/dental students, bridging gaps in guidance at the Cooper Union.
+                \item Coordinated events such as a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.15 cm}
+
+        \begin{twocolentry}{
+        \textit{New York, NY}    
+            
+        \textit{Sept 2022 – present}}
+            \textbf{Project Lead | Bioengineering Vertically Integrated Projects}
+            
+            \textit{The Cooper Union}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Building open-source robotic arms for compliant human interaction, leveraging Mediapipe and OpenCV for real-time pose detection and integrating ROS2 for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
+                \item Simulated pose mimicking systems in Gazebo, utilizing MoveIt2 \& ros2 control for collision detection and motion planning.
+                \item Designed \& fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.15 cm}
+
+        \begin{twocolentry}{
+        \textit{New York, NY}    
+            
+        \textit{Feb 2024 – Aug 2024}}
+            \textbf{Research Assistant | Mechanical Exposure Study}
+            
+            \textit{Mount Sinai}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure among industrial workers.
+                \item Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
+            \end{highlights}
+        \end{onecolentry}
+
+
+        \vspace{0.15 cm}
+
+        \begin{twocolentry}{
+        \textit{Yonkers, NY}    
+            
+        \textit{June 2023 – July 2023}}
+            \textbf{Shadow | Dr. Steve Doh (anesthesiologist)}
+            
+            \textit{St. Joseph’s Medical Center}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+        \begin{onecolentry}
+            \begin{highlights}
+                \item Observed various medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
+                \item Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
+            \end{highlights}
+        \end{onecolentry}
+
+
+
+    
+    \section{Skills}
+
+
+
+        
+        \begin{onecolentry}
+            \textbf{Programming:} Python, MATLAB, C, C++, Verilog, VHDL, Git, Docker, SQL, Django, React
+        \end{onecolentry}
+
+        \vspace{0.15 cm}
+
+        \begin{onecolentry}
+            \textbf{Software:} Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
+        \end{onecolentry}
+
+        \vspace{0.15 cm}
+
+        \begin{onecolentry}
+            \textbf{Certification:} NYS EMT, CPR
+        \end{onecolentry}
+
+
+    
+
+\end{document}

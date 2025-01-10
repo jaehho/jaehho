@@ -1,0 +1,126 @@
+# yaml-language-server: $schema=./schema.json
+cv:
+  name: Jaeho Cho
+  location: New York City, NY
+  email: jaeho2025@gmail.com
+  phone: tel:+1-201-406-5974
+  website: https://jaehho.github.io
+  social_networks:
+    - network: LinkedIn
+      username: jaeho-cho
+  sections:
+    education:
+      - institution: The Cooper Union for the Advancement of Science and Art
+        area: Electrical Engineering, Bioengineering Minor
+        degree: Bachelor of Engineering
+        end_date: 2026
+        highlights:
+          - Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
+          - "Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability"
+    experience:
+      - company: PWC
+        position: Data and AI Intern | Hanwha TotalEnergies Petrochemical
+        location: Seoul, South Korea
+        start_date: 2024-05
+        end_date: 2024-08
+        highlights:
+          - Designed and optimized time-series forecasting models using libraries such as GluonTS, Chronos, and Darts, delivering actionable price predictions for flagship petrochemical products (e.g., styrene monomer (SM), paraxylene (PX)).
+          - Refactored backend data pipelines, transitioning from MongoDB to ClickHouse and improving data flow efficiency.
+          - Developed a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned predictive forecasting models to enhance market insights.
+      - company: The Cooper Union
+        position: Teacher Assistant | Design and Drawing
+        location: New York, NY
+        start_date: 2023-06
+        end_date: 2023-08
+        highlights:
+          - Taught 24 high school students the fundamentals of engineering design, circuit design, Arduino and Onshape CAD.
+          - Led workshops on Arduinos and circuit design, culminating in students building 3D printed 4-DoF robotic arms.
+    extracurricular activities:
+      - company: The Cooper Union
+        position: Founder/President | The Pre-Medical & Pre-Dental Society
+        location: New York, NY
+        start_date: 2024-09
+        end_date: present
+        highlights:
+          - Established a support network for pre-medical/dental students, bridging gaps in guidance at the Cooper Union.
+          - Coordinated events such as a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
+      - company: The Cooper Union
+        position: Project Lead | Bioengineering Vertically Integrated Projects
+        location: New York, NY
+        start_date: 2022-09
+        end_date: present
+        highlights:
+          - Building open-source robotic arms for compliant human interaction, leveraging Mediapipe and OpenCV for real-time pose detection and integrating ROS2 for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
+          - Simulated pose mimicking systems in Gazebo, utilizing MoveIt2 & ros2 control for collision detection and motion planning.
+          - Designed & fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
+      - company: Mount Sinai
+        position: Research Assistant | Mechanical Exposure Study
+        location: New York, NY
+        start_date: 2024-02
+        end_date: 2024-08
+        highlights:
+          - Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure among industrial workers.
+          - Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
+      - company: St. Joseph’s Medical Center
+        position: Shadow | Dr. Steve Doh (anesthesiologist)
+        location: Yonkers, NY
+        start_date: 2023-06
+        end_date: 2023-07
+        highlights:
+          - Observed various medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
+          - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
+    # projects:
+    #   - name: Differential to Single-ended Amplifier
+    #     start_date: 2024-11
+    #     end_date: 2024-12
+    #     highlights:
+    #       - Designed schematic and layout using Virtuoso, performed layout-versus-schematic (LVS) and design rule check (DRC).
+    #   - name: 32-bit Pipelined MIPS Processor
+    #     start_date: 2024-09
+    #     end_date: 2024-10
+    #     highlights:
+    #       - Designed, implemented and simulated the processor in Vivado, achieved full positive slack with a clock period of 14 ns.
+    #   - name: Prosthetic Hand
+    #     start_date: 2021-08
+    #     end_date: 2023-09
+    #     highlights:
+    #       - Designed and built a 6-DoF myoelectric prosthetic hand with a friend who has a congenital left-hand anomaly (acheiria).
+    skills:
+      - label: Programming
+        details: Python, MATLAB, C, C++, Verilog, VHDL, Git, Docker, SQL, Django, React
+      - label: Software
+        details: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
+      - label: Certification
+        details: NYS EMT, CPR
+design:
+  theme: v0 # v0
+  font: Helvetica
+  font_size: 11pt
+  page_size: letterpaper
+  color: '#004f90'
+  disable_external_link_icons: false
+  header_font_size: 24 pt
+  text_alignment: justified
+  seperator_between_connections: ''
+  use_icons_for_connections: true
+  margins:
+    page:
+      top: 1 cm
+      bottom: 1 cm
+      left: 1 cm
+      right: 1 cm
+    section_title:
+      top: 0.3 cm
+      bottom: 0.2 cm
+    entry_area:
+      left_and_right: 0 cm
+      vertical_between: 0.15 cm
+      date_and_location_width: 4.5 cm
+    highlights_area:
+      top: 0.1 cm
+      left: 0 cm
+      vertical_between_bullet_points: 0.1 cm
+    header:
+      vertical_between_name_and_connections: 0 cm
+      bottom: 0.1 cm
+      horizontal_between_connections: 0.5 cm
