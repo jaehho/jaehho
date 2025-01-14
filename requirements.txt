@@ -1,4 +1,4 @@
 pyyaml
 setuptools
 typeguard
-rendercv
+rendercv[full]
