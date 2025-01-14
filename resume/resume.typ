@@ -1,17 +1,12 @@
-#import "@preview/scienceicons:0.0.6": orcid-icon
+#import "@preview/fontawesome:0.5.0": fa-icon
 
 #let resume(
   author: "",
-  author-position: left,
-  personal-info-position: left,
-  pronouns: "",
   location: "",
   email: "",
-  github: "",
   linkedin: "",
   phone: "",
-  personal-site: "",
-  orcid: "",
+  website: "",
   accent-color: "#000000",
   font: "New Computer Modern",
   paper: "us-letter",
@@ -23,7 +18,6 @@
 
   // Document-wide formatting, including font and margins
   set text(
-    // LaTeX style font
     font: font,
     size: 10pt,
     lang: "en",
@@ -31,15 +25,11 @@
     ligatures: false
   )
 
-  // Reccomended to have 0.5in margin on all sides
+  // Page formatting
   set page(
     margin: (0.5in),
     paper: paper,
   )
-
-  // Link styles
-  show link: underline
-
 
   // Small caps for section titles
   show heading.where(level: 2): it => [
@@ -56,53 +46,47 @@
     fill: rgb(accent-color),
   )
 
-  // Name will be aligned left, bold and big
+  // Name Styling
   show heading.where(level: 1): it => [
-    #set align(author-position)
+    #set align(center)
     #set text(
       weight: 700,
       size: 20pt,
     )
     #pad(it.body)
   ]
-
-  // Level 1 Heading
   [= #(author)]
 
   // Personal Info Helper
   let contact-item(value, prefix: "", link-type: "") = {
     if value != "" {
       if link-type != "" {
-        link(link-type + value)[#(prefix + value)]
+        link(link-type + value)[#(prefix + " " + value)]
       } else {
-        value
+        prefix + " " + value
       }
     }
   }
 
+  let fa-icon-size = 8pt
+
   // Personal Info
   pad(
     top: 0.25em,
-    align(personal-info-position)[
+    align(center)[
       #{
         let items = (
-          contact-item(pronouns),
-          contact-item(phone),
-          contact-item(location),
-          contact-item(email, link-type: "mailto:"),
-          contact-item(github, link-type: "https://"),
-          contact-item(linkedin, link-type: "https://"),
-          contact-item(personal-site, link-type: "https://"),
-          contact-item(orcid, prefix: [#orcid-icon(color: rgb("#AECD54"))orcid.org/], link-type: "https://orcid.org/"),
+          contact-item(location, prefix: fa-icon("location-dot", size: fa-icon-size)),
+          contact-item(phone, prefix: fa-icon("phone", size: fa-icon-size)),
+          contact-item(email, prefix: fa-icon("envelope", size: fa-icon-size), link-type: "mailto:"),
+          contact-item(linkedin, prefix: fa-icon("linkedin-in", size: fa-icon-size), link-type: "https://linkedin.com/in/"),
+          contact-item(website, prefix: fa-icon("link", size: fa-icon-size), link-type: "https://"),
         )
-        items.filter(x => x != none).join("  |  ")
+        items.filter(x => x != none).join("    ")
       }
     ],
   )
-
-  // Main body.
-  set par(justify: true)
-
+  
   body
 }
 
@@ -129,12 +113,11 @@
   ]
 }
 
-// Cannot just use normal --- ligature becuase ligatures are disabled for good reasons
 #let dates-helper(
   start-date: "",
   end-date: "",
 ) = {
-  start-date + " " + $dash.em$ + " " + end-date
+  start-date + " " + sym.dash.en + " " + end-date
 }
 
 // Section components below
