@@ -1,4 +1,0 @@
-pyyaml
-setuptools
-typeguard
-rendercv[full]
