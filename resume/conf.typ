@@ -6,13 +6,14 @@
   accent-color: "#000000",
   font: "New Computer Modern",
   paper: "us-letter",
+  section-heading-pad-bottom: -10pt,
   doc,
 ) = {
 
   // Sets document metadata
   set document(author: author, title: author.replace(" ", "_") + "_Resume")
 
-  // Document-wide formatting, including font and margins
+  // Document-wide formatting
   set text(
     font: font,
     size: 10pt,
@@ -27,9 +28,9 @@
     paper: paper,
   )
 
-  // Small caps for section titles
+  // Section headings
   show heading.where(level: 2): it => [
-    #pad(top: 0pt, bottom: -10pt, [#smallcaps(it.body)])
+    #pad(top: 0pt, bottom: section-heading-pad-bottom, [#smallcaps(it.body)]) // smallcaps does not work with arial
     #line(length: 100%, stroke: 1pt)
   ]
 

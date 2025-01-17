@@ -10,4 +10,4 @@ compile: ## Compile a file once
 	@typst compile resume/main.typ Jaeho_Cho_Resume.pdf
 
 watch: ## Compile a file on every change
-	@typst watch resume/main.typ
+	@typst watch resume/main.typ Jaeho_Cho_Resume.pdf

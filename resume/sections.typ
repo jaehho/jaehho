@@ -17,28 +17,30 @@
 }
 
 #let work(
-  title: "",
+  position: "",
+  details: "",
   start-date: "",
   end-date: "",
   company: "",
   location: "",
 ) = {
   generic-two-by-two(
-    top-left: strong(title),
-    top-right: dates-helper(start-date: start-date, end-date: end-date),
-    bottom-left: company,
-    bottom-right: emph(location),
+    top-left: [#strong(position) #if details != "" [ | #details]],
+    top-right: emph(dates-helper(start-date: start-date, end-date: end-date)),
+    bottom-left: [#emph(company) #text(0.5em, baseline: -0.3em, sym.circle.filled) #location],
+    bottom-right: "",
   )
 }
 
 #let extracurricular(
-  activity: "",
+  title: "",
+  details: "",
   start-date: "",
   end-date: "",
 ) = {
   generic-one-by-two(
-    left: strong(activity),
-    right: dates-helper(start-date: start-date, end-date: end-date),
+    left: [#strong(title) #if details != "" [ | #details]],
+    right: emph(dates-helper(start-date: start-date, end-date: end-date)),
   )
 }
 
@@ -57,7 +59,7 @@
       }
     },
     right: {
-        dates-helper(start-date: start-date, end-date: end-date)
+        emph(dates-helper(start-date: start-date, end-date: end-date))
     },
   )
 }

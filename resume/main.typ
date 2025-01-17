@@ -6,8 +6,9 @@
 #show: conf.with(
   author: name,
   accent-color: "#000000",
-  font: "New Computer Modern",
+  font: "Arial",
   paper: "us-letter",
+  section-heading-pad-bottom: -10pt,
 )
 
 #header(
@@ -26,7 +27,7 @@
   location: "New York City, NY",
   start-date: "Aug 2022",
   end-date: "May 2026",
-  degree: "Bachelor of Engineering, Electrical Engineering, Bioengineering Minor",
+  degree: "Bachelor of Engineering in Electrical Engineering, Bioengineering Minor",
 )
 - Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
 - "Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability"
@@ -35,7 +36,8 @@
 == Work Experience
 
 #work(
-  title: "Data and AI Intern",
+  position: "Data and AI Intern",
+  details: "Hanwha TotalEnergies Petrochemical",
   location: "Seoul, South Korea",
   company: "PWC",
   start-date: "May 2024",
@@ -46,7 +48,8 @@
 - Built a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned forecasting models to enhance market insights.
 
 #work(
-  title: "Teacher Assistant - Design and Drawing",
+  position: "Teacher Assistant",
+  details: "Design and Drawing",
   location: "New York, NY",
   company: "The Cooper Union",
   start-date: "Jun 2023",
@@ -59,7 +62,8 @@
 == Extracurricular Activities
 
 #extracurricular(
-  activity: "Founder/President - The Pre-Medical & Pre-Dental Society",
+  title: "Founder/President",
+  details: "The Pre-Medical & Pre-Dental Society",
   start-date: "Sep 2024",
   end-date: "Present",
 )
@@ -67,7 +71,8 @@
 - Coordinated events including a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
 
 #extracurricular(
-  activity: "Project Lead - Bioengineering Vertically Integrated Projects",
+  title: "Project Lead",
+  details: "Bioengineering Vertically Integrated Projects",
   start-date: "Sep 2022",
   end-date: "Present",
 )
@@ -76,7 +81,8 @@
 - Designed & fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
 
 #extracurricular(
-  activity: "Research Assistant - Mechanical Exposure Study",
+  title: "Research Assistant",
+  details: "Mechanical Exposure Study",
   start-date: "Feb 2024",
   end-date: "Aug 2024",
 )
@@ -84,18 +90,21 @@
 - Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
 
 #extracurricular(
-  activity: "Shadow - Dr. Steve Doh (Anesthesiologist)",
+  title: "Shadow",
+  details: "Dr. Steve Doh (Anesthesiologist)",
   start-date: "Jun 2023",
   end-date: "Jul 2023",
 )
 - Observed medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
 - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
 
+
 == Skills
 
-- *Programming*: Python, MATLAB, C, C++, Verilog, VHDL, Git, Docker, SQL, Django, React
+- *Programming*: Python, MATLAB, Rust, C, C++, Verilog, VHDL, Git, Docker, Django, SQL
 - *Software*: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
 - *Certification*: NYS EMT, CPR
+
 
 == Projects
 
