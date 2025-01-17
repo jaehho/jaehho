@@ -2,7 +2,8 @@
 
 #let edu(
   institution: "",
-  dates: "",
+  start-date: "",
+  end-date: "",
   degree: "",
   gpa: "",
   location: "",
@@ -11,31 +12,33 @@
     top-left: strong(institution),
     top-right: location,
     bottom-left: emph(degree),
-    bottom-right: emph(dates),
+    bottom-right: emph(dates-helper(start-date: start-date, end-date: end-date)),
   )
 }
 
 #let work(
   title: "",
-  dates: "",
+  start-date: "",
+  end-date: "",
   company: "",
   location: "",
 ) = {
   generic-two-by-two(
     top-left: strong(title),
-    top-right: dates,
+    top-right: dates-helper(start-date: start-date, end-date: end-date),
     bottom-left: company,
     bottom-right: emph(location),
   )
 }
 
-#let extracurriculars(
+#let extracurricular(
   activity: "",
-  dates: "",
+  start-date: "",
+  end-date: "",
 ) = {
   generic-one-by-two(
     left: strong(activity),
-    right: dates,
+    right: dates-helper(start-date: start-date, end-date: end-date),
   )
 }
 
@@ -43,21 +46,22 @@
   role: "",
   name: "",
   url: "",
-  dates: "",
+  start-date: "",
+  end-date: "",
 ) = {
   generic-one-by-two(
     left: {
       if role == "" {
-        [*#name* #if url != "" and dates != "" [ (#link("https://" + url)[#url])]]
+        [*#name* #if url != "" and dates-helper(start-date: start-date, end-date: end-date) != "" [ (#link("https://" + url)[#url])]]
       } else {
-        [*#role*, #name #if url != "" and dates != ""  [ (#link("https://" + url)[#url])]]
+        [*#role*, #name #if url != "" and dates-helper(start-date: start-date, end-date: end-date) != ""  [ (#link("https://" + url)[#url])]]
       }
     },
     right: {
       if dates == "" and url != "" {
         link("https://" + url)[#url]
       } else {
-        dates
+        dates-helper(start-date: start-date, end-date: end-date)
       }
     },
   )
