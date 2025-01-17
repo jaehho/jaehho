@@ -43,26 +43,21 @@
 }
 
 #let project(
-  role: "",
   name: "",
-  url: "",
+  role: "",
   start-date: "",
   end-date: "",
 ) = {
   generic-one-by-two(
     left: {
       if role == "" {
-        [*#name* #if url != "" and dates-helper(start-date: start-date, end-date: end-date) != "" [ (#link("https://" + url)[#url])]]
+        [*#name*]
       } else {
-        [*#role*, #name #if url != "" and dates-helper(start-date: start-date, end-date: end-date) != ""  [ (#link("https://" + url)[#url])]]
+        [*#name* (#role)]
       }
     },
     right: {
-      if dates == "" and url != "" {
-        link("https://" + url)[#url]
-      } else {
         dates-helper(start-date: start-date, end-date: end-date)
-      }
     },
   )
 }

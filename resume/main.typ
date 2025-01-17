@@ -97,19 +97,25 @@
 - *Software*: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
 - *Certification*: NYS EMT, CPR
 
+== Projects
 
-// - name: Differential to Single-ended Amplifier
-//   start_date: 2024-11
-//   end_date: 2024-12
-//   highlights:
-//     - Designed schematic and layout using Virtuoso, performed layout-versus-schematic (LVS) and design rule check (DRC).
-// - name: 32-bit Pipelined MIPS Processor
-//   start_date: 2024-09
-//   end_date: 2024-10
-//   highlights:
-//     - Designed, implemented and simulated the processor in Vivado, achieved full positive slack with a clock period of 14 ns.
-// - name: Prosthetic Hand
-//   start_date: 2021-08
-//   end_date: 2023-09
-//   highlights:
-//     - Designed and built a 6-DoF myoelectric prosthetic hand with a friend who has a congenital left-hand anomaly (acheiria).
+#project(
+  name: "Differential to Single-ended Amplifier",
+  start-date: "Nov 2024",
+  end-date: "Dec 2024",
+)
+- Designed schematic and layout using Virtuoso, performed layout-versus-schematic (LVS) and design rule check (DRC).
+
+#project(
+  name: "32-bit Pipelined MIPS Processor",
+  start-date: "Sep 2024",
+  end-date: "Oct 2024",
+)
+- Designed, implemented and simulated the processor in Vivado, achieved full positive slack with a clock period of 14 ns.
+
+#project(
+  name: "Prosthetic Hand",
+  start-date: "Aug 2021",
+  end-date: "Sep 2023",
+)
+- Designed and built a 6-DoF myoelectric prosthetic hand with a friend who has a congenital left-hand anomaly (acheiria).
