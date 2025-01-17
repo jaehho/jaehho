@@ -1,12 +1,20 @@
-#import "conf.typ": resume
+#import "conf.typ": conf
 #import "functions.typ": *
 #import "sections.typ": *
 
-#show: resume.with(
-  name: "Jaeho Cho",
+#let name = "Jaeho Cho"
+#show: conf.with(
+  author: name,
+  accent-color: "#000000",
+  font: "New Computer Modern",
+  paper: "us-letter",
+)
+
+#header(
+  name: name,
   location: "New York, NY",
-  email: "jaeho2025@gmail.com",
   phone: "+1 (201) 406-5974",
+  email: "jaeho2025@gmail.com",
   linkedin: "jaeho-cho",
   website: "https://jaehho.github.io"
 )

@@ -29,6 +29,16 @@
   )
 }
 
+#let extracurriculars(
+  activity: "",
+  dates: "",
+) = {
+  generic-one-by-two(
+    left: strong(activity),
+    right: dates,
+  )
+}
+
 #let project(
   role: "",
   name: "",
@@ -50,30 +60,5 @@
         dates
       }
     },
-  )
-}
-
-#let certificates(
-  name: "",
-  issuer: "",
-  url: "",
-  date: "",
-) = {
-  [
-    *#name*, #issuer
-    #if url != "" {
-      [ (#link("https://" + url)[#url])]
-    }
-    #h(1fr) #date
-  ]
-}
-
-#let extracurriculars(
-  activity: "",
-  dates: "",
-) = {
-  generic-one-by-two(
-    left: strong(activity),
-    right: dates,
   )
 }
