@@ -1,15 +1,18 @@
-#import "resume.typ": *
-#import "@preview/fontawesome:0.5.0": *
+#import "conf.typ": resume
+#import "functions.typ": *
+#import "sections.typ": *
+
 #show: resume.with(
-  author: "Jaeho Cho",
+  name: "Jaeho Cho",
   location: "New York, NY",
   email: "jaeho2025@gmail.com",
-  linkedin: "jaeho-cho",
   phone: "+1 (201) 406-5974",
+  linkedin: "jaeho-cho",
   website: "https://jaehho.github.io"
 )
 
 == Education
+
 #edu(
   institution: "The Cooper Union for the Advancement of Science and Art",
   location: "New York City, NY",
@@ -18,6 +21,7 @@
 )
 - Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
 - "Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability"
+
 
 == Work Experience
 
@@ -39,6 +43,7 @@
 )
 - Taught 24 high school students the fundamentals of engineering design, circuit design, Arduino and Onshape CAD.
 - Led workshops on Arduinos and circuit design, culminating in students building 3D printed 4-DoF robotic arms.
+
 
 == Extracurricular Activities
 
@@ -71,8 +76,26 @@
 - Observed medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
 - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
 
+
 == Skills
 
 - *Programming*: Python, MATLAB, C, C++, Verilog, VHDL, Git, Docker, SQL, Django, React
 - *Software*: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
 - *Certification*: NYS EMT, CPR
+
+
+// - name: Differential to Single-ended Amplifier
+//   start_date: 2024-11
+//   end_date: 2024-12
+//   highlights:
+//     - Designed schematic and layout using Virtuoso, performed layout-versus-schematic (LVS) and design rule check (DRC).
+// - name: 32-bit Pipelined MIPS Processor
+//   start_date: 2024-09
+//   end_date: 2024-10
+//   highlights:
+//     - Designed, implemented and simulated the processor in Vivado, achieved full positive slack with a clock period of 14 ns.
+// - name: Prosthetic Hand
+//   start_date: 2021-08
+//   end_date: 2023-09
+//   highlights:
+//     - Designed and built a 6-DoF myoelectric prosthetic hand with a friend who has a congenital left-hand anomaly (acheiria).
