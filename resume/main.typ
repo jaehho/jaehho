@@ -6,7 +6,8 @@
 #show: conf.with(
   author: name,
   accent-color: "#000000",
-  font: "Arial",
+  font: "Libertinus Serif",
+  font-size: 10.5pt,
   paper: "us-letter",
   par-leading: 0.6em,
   par-spacing: 1em,
@@ -34,7 +35,7 @@
   degree: "Bachelor of Engineering in Electrical Engineering, Bioengineering Minor",
 )
 - Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
-- "Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability"
+- Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability
 
 
 == Work Experience
