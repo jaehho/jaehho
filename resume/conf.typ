@@ -7,8 +7,8 @@
   font: "New Computer Modern",
   font-size: 10pt,
   paper: "us-letter",
-  par-leading: 0.65em,
-  par-spacing: 1.2em,
+  paragraph-leading: 0.65em,
+  paragraph-spacing: 1.2em,
   section-heading-margin-bottom: -10pt,
   border-padding: 0.3in,
   doc,
@@ -36,8 +36,8 @@
 
   // Paragraph formatting
   set par(
-    leading: par-leading,
-    spacing: par-spacing,
+    leading: paragraph-leading,
+    spacing: paragraph-spacing,
   )
 
   // List formatting

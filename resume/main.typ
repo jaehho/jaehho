@@ -9,8 +9,8 @@
   font: "Arial",
   font-size: 10pt,
   paper: "us-letter",
-  par-leading: 0.6em,
-  par-spacing: 1em,
+  paragraph-leading: 0.6em,
+  paragraph-spacing: 1em,
   section-heading-margin-bottom: 0.1em,
   border-padding: 0.3in,
 )
