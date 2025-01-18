@@ -6,6 +6,8 @@
   accent-color: "#000000",
   font: "New Computer Modern",
   paper: "us-letter",
+  par-leading: 0.65em,
+  par-spacing: 1.2em,
   section-heading-pad-bottom: -10pt,
   doc,
 ) = {
@@ -28,10 +30,23 @@
     paper: paper,
   )
 
+  // Paragraph formatting
+  set par(
+    leading: par-leading,
+    spacing: par-spacing,
+  )
+
+  // List formatting
+  set list(
+    
+  )
+
   // Section headings
   show heading.where(level: 2): it => [
-    #pad(top: 0pt, bottom: section-heading-pad-bottom, [#smallcaps(it.body)]) // smallcaps does not work with arial
-    #line(length: 100%, stroke: 1pt)
+    #pad(top: 0pt, bottom: section-heading-pad-bottom, [#smallcaps(it.body)
+    #place(dy: 0.2em ,line(length: 100%, stroke: 1pt))]) // smallcaps does not work with arial
+    
+    // #line(length: 100%, stroke: 1pt)
   ]
 
   // Accent Color Styling

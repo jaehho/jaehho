@@ -8,7 +8,9 @@
   accent-color: "#000000",
   font: "Arial",
   paper: "us-letter",
-  section-heading-pad-bottom: -10pt,
+  par-leading: 0.6em,
+  par-spacing: 1em,
+  section-heading-pad-bottom: 0.1em,
 )
 
 #header(
@@ -99,13 +101,6 @@
 - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
 
 
-== Skills
-
-- *Programming*: Python, MATLAB, Rust, C, C++, Verilog, VHDL, Git, Docker, Django, SQL
-- *Software*: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
-- *Certification*: NYS EMT, CPR
-
-
 == Projects
 
 #project(
@@ -128,3 +123,10 @@
   end-date: "Sep 2023",
 )
 - Designed and built a 6-DoF myoelectric prosthetic hand with a friend who has a congenital left-hand anomaly (acheiria).
+
+
+== Skills
+
+- *Programming*: Python, MATLAB, Rust, C, C++, Verilog, VHDL, Git, Docker, Django, SQL
+- *Software*: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
+- *Certification*: NYS EMT, CPR

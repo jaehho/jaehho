@@ -27,7 +27,7 @@
   generic-two-by-two(
     top-left: [#strong(position) #if details != "" [ | #details]],
     top-right: emph(dates-helper(start-date: start-date, end-date: end-date)),
-    bottom-left: [#emph(company) #text(0.5em, baseline: -0.3em, sym.circle.filled) #location],
+    bottom-left: [#emph(company) #sym.bullet #location],
     bottom-right: "",
   )
 }
