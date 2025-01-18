@@ -9,8 +9,9 @@
   paper: "us-letter",
   paragraph-leading: 0.65em,
   paragraph-spacing: 1.2em,
-  section-heading-margin-bottom: -10pt,
-  border-padding: 0.3in,
+  section-heading-margin-top: 1em,
+  section-heading-margin-bottom: 0pt,
+  border-margin: 0.3in,
   doc,
 ) = {
 
@@ -30,7 +31,7 @@
     margin: (0.5in),
     paper: paper,
     background: context {
-      place(dx: border-padding, dy: border-padding, rect(width: page.width - border-padding*2, height: page.height - border-padding*2, stroke: 0.5pt))
+      place(dx: border-margin, dy: border-margin, rect(width: page.width - border-margin*2, height: page.height - border-margin*2, stroke: 0.5pt))
     }
   )
 
@@ -47,7 +48,8 @@
 
   // Section headings
   show heading.where(level: 2): it => [
-    #pad(top: 0pt, bottom: section-heading-margin-bottom, [#smallcaps(it.body)
+    #v(-1em)
+    #pad(top: section-heading-margin-top, bottom: section-heading-margin-bottom, [#smallcaps(it.body)
     #place(dy: 0.2em ,line(length: 100%, stroke:0.5pt))]) // smallcaps does not work with arial
   ]
 

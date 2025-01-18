@@ -3,16 +3,18 @@
 #import "sections.typ": *
 
 #let name = "Jaeho Cho"
+
 #show: conf.with(
   author: name,
   accent-color: "#000000",
   font: "Arial",
   font-size: 10pt,
   paper: "us-letter",
-  paragraph-leading: 0.6em,
-  paragraph-spacing: 1em,
-  section-heading-margin-bottom: 0.1em,
-  border-padding: 0.3in,
+  paragraph-leading: 0.55em,
+  paragraph-spacing: 0.7em,
+  section-heading-margin-top: 0.5em,
+  section-heading-margin-bottom: 0.2em,
+  border-margin: 0.3in,
 )
 
 #header(
