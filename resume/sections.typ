@@ -19,10 +19,10 @@
 #let work(
   position: "",
   details: "",
-  start-date: "",
-  end-date: "",
   company: "",
   location: "",
+  start-date: "",
+  end-date: "",
 ) = {
   generic-two-by-two(
     top-left: [#strong(position) #if details != "" [ | #details]],
@@ -33,14 +33,18 @@
 }
 
 #let extracurricular(
-  title: "",
+  position: "",
   details: "",
+  company: "",
+  location: "",
   start-date: "",
   end-date: "",
 ) = {
-  generic-one-by-two(
-    left: [#strong(title) #if details != "" [ | #details]],
-    right: emph(dates-helper(start-date: start-date, end-date: end-date)),
+  generic-two-by-two(
+    top-left: [#strong(position) #if details != "" [ | #details]],
+    top-right: emph(dates-helper(start-date: start-date, end-date: end-date)),
+    bottom-left: [#emph(company) #sym.bullet #location],
+    bottom-right: "",
   )
 }
 

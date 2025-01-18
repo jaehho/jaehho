@@ -43,8 +43,8 @@
 #work(
   position: "Data and AI Intern",
   details: "Hanwha TotalEnergies Petrochemical",
-  location: "Seoul, South Korea",
   company: "PWC",
+  location: "Seoul, South Korea",
   start-date: "May 2024",
   end-date: "Aug 2024",
 )
@@ -55,8 +55,8 @@
 #work(
   position: "Teacher Assistant",
   details: "Design and Drawing",
-  location: "New York, NY",
   company: "The Cooper Union",
+  location: "New York, NY",
   start-date: "Jun 2023",
   end-date: "Aug 2023",
 )
@@ -67,8 +67,10 @@
 == Extracurricular Activities
 
 #extracurricular(
-  title: "Founder/President",
+  position: "Founder/President",
   details: "The Pre-Medical & Pre-Dental Society",
+  company: "The Cooper Union",
+  location: "New York, NY",
   start-date: "Sep 2024",
   end-date: "Present",
 )
@@ -76,8 +78,10 @@
 - Coordinated events including a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
 
 #extracurricular(
-  title: "Project Lead",
+  position: "Project Lead",
   details: "Bioengineering Vertically Integrated Projects",
+  company: "The Cooper Union",
+  location: "New York, NY",
   start-date: "Sep 2022",
   end-date: "Present",
 )
@@ -86,8 +90,10 @@
 - Designed & fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
 
 #extracurricular(
-  title: "Research Assistant",
+  position: "Research Assistant",
   details: "Mechanical Exposure Study",
+  company: "Mount Sinai",
+  location: "New York, NY",
   start-date: "Feb 2024",
   end-date: "Aug 2024",
 )
@@ -95,8 +101,10 @@
 - Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
 
 #extracurricular(
-  title: "Shadow",
+  position: "Shadow",
   details: "Dr. Steve Doh (Anesthesiologist)",
+  company: "St. Joseph's Medical Center",
+  location: "Yonkers, NY",
   start-date: "Jun 2023",
   end-date: "Jul 2023",
 )
