@@ -114,7 +114,7 @@
 - Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
 
 
-== Projects
+== #link("https://jaehho.github.io/portfolio/")[Projects]
 
 #project(
   name: "Differential to Single-ended Amplifier",
