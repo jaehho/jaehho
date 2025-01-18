@@ -8,7 +8,8 @@
   paper: "us-letter",
   par-leading: 0.65em,
   par-spacing: 1.2em,
-  section-heading-pad-bottom: -10pt,
+  section-heading-margin-bottom: -10pt,
+  border-padding: 0.3in,
   doc,
 ) = {
 
@@ -28,6 +29,12 @@
   set page(
     margin: (0.5in),
     paper: paper,
+    background: [ // Replace with rect when context page.width can be converted to length type
+      #place(top + left, dx: border-padding, dy: border-padding, line(length: 100% - border-padding*2, stroke: 1pt))
+      #place(top + left, dx: border-padding, dy: border-padding, line(length: 100% - border-padding*2, stroke: 1pt, angle: 90deg))
+      #place(bottom + right, dx: -border-padding, dy: -border-padding, line(length: 100% - border-padding*2, stroke: 1pt))
+      #place(bottom + right, dx: -border-padding, dy: -border-padding, line(length: 100% - border-padding*2, stroke: 1pt, angle: 90deg))
+      ]
   )
 
   // Paragraph formatting
@@ -43,10 +50,8 @@
 
   // Section headings
   show heading.where(level: 2): it => [
-    #pad(top: 0pt, bottom: section-heading-pad-bottom, [#smallcaps(it.body)
+    #pad(top: 0pt, bottom: section-heading-margin-bottom, [#smallcaps(it.body)
     #place(dy: 0.2em ,line(length: 100%, stroke: 1pt))]) // smallcaps does not work with arial
-    
-    // #line(length: 100%, stroke: 1pt)
   ]
 
   // Accent Color Styling

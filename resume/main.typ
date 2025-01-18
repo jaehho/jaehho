@@ -10,7 +10,8 @@
   paper: "us-letter",
   par-leading: 0.6em,
   par-spacing: 1em,
-  section-heading-pad-bottom: 0.1em,
+  section-heading-margin-bottom: 0.1em,
+  border-padding: 0.3in,
 )
 
 #header(
@@ -21,6 +22,7 @@
   linkedin: "jaeho-cho",
   website: "https://jaehho.github.io"
 )
+
 
 == Education
 
