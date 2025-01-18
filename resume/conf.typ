@@ -29,12 +29,9 @@
   set page(
     margin: (0.5in),
     paper: paper,
-    background: [ // Replace with rect when context page.width can be converted to length type
-      #place(top + left, dx: border-padding, dy: border-padding, line(length: 100% - border-padding*2, stroke:0.5pt))
-      #place(top + left, dx: border-padding, dy: border-padding, line(length: 100% - border-padding*2, stroke:0.5pt, angle: 90deg))
-      #place(bottom + right, dx: -border-padding, dy: -border-padding, line(length: 100% - border-padding*2, stroke:0.5pt))
-      #place(bottom + right, dx: -border-padding, dy: -border-padding, line(length: 100% - border-padding*2, stroke:0.5pt, angle: 90deg))
-      ]
+    background: context {
+      place(dx: border-padding, dy: border-padding, rect(width: page.width - border-padding*2, height: page.height - border-padding*2, stroke: 0.5pt))
+    }
   )
 
   // Paragraph formatting

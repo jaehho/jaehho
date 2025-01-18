@@ -6,8 +6,8 @@
 #show: conf.with(
   author: name,
   accent-color: "#000000",
-  font: "Libertinus Serif",
-  font-size: 10.5pt,
+  font: "Arial",
+  font-size: 10pt,
   paper: "us-letter",
   par-leading: 0.6em,
   par-spacing: 1em,
