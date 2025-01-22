@@ -76,7 +76,7 @@
   start-date: "Sep 2024",
   end-date: "Present",
 )
-- Established a support network for pre-medical/dental students, bridging gaps in guidance at the Cooper Union.
+- Established a support network for pre-medical and pre-dental students, bridging gaps in guidance at the Cooper Union.
 - Coordinated events including a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
 
 #extracurricular(
