@@ -1,0 +1,4 @@
+#!/bin/sh
+commit_hash=$(git rev-parse --short HEAD)
+echo -n $commit_hash | xclip -selection clipboard
+echo "Commit hash copied to clipboard: $commit_hash"

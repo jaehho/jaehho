@@ -9,6 +9,7 @@
 	helper = !/usr/bin/gh auth git-credential
 [core]
 	editor = nvim
+	hooksPath = /home/jaeho/.git-hooks
 [pull]
 	rebase = false
 [push]
