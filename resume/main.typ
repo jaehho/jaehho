@@ -49,9 +49,9 @@
   start-date: "May 2024",
   end-date: "Aug 2024",
 )
-- Developed and optimized advanced time-series forecasting models using GluonTS, Chronos, and Darts to generate actionable price predictions for flagship petrochemical products, enabling data-driven decision-making.
+- Developed and optimized advanced time-series forecasting models utilizing GluonTS, Chronos, and Darts Python libraries to generate price predictions for flagship petrochemical products with a 3-month forecasting horizon.
 - Refactored backend data pipelines in Django, transitioning from MongoDB to ClickHouse and improving performance.
-- Built a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned forecasting models to enhance market insights.
+- Developed a web backend that automates news and article aggregation via private and public APIs, algorithmically integrating forecasts and market indicators to enhance LLM-driven sentiment analysis and deliver actionable insights.
 
 #work(
   position: "Teacher Assistant",
@@ -61,8 +61,8 @@
   start-date: "Jun 2023",
   end-date: "Aug 2023",
 )
-- Taught 24 high school students the fundamentals of engineering design, circuit design, Arduino and Onshape CAD.
-- Led workshops on Arduinos and circuit design, culminating in students building 3D printed 4-DoF robotic arms.
+- Instructed 24 students in engineering design fundamentals, circuit design, Arduino programming, and Onshape CAD.
+- Led workshops on Arduinos and circuit design, culminating in students building 3D-printed 4-DoF robotic arms.
 
 
 == Extracurricular Activities
@@ -75,8 +75,8 @@
   start-date: "Sep 2024",
   end-date: "Present",
 )
-- Established a support network for pre-medical and pre-dental students, bridging gaps in guidance at the Cooper Union.
-- Coordinated events including a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
+- Established a support network for pre-medical and pre-dental students, bridging gaps in guidance at Cooper Union.
+- Organized and led events, including a blood drive that resulted in 37 whole blood donations, and alumni networking sessions that successfully connected students with current medical school students and healthcare professionals.
 
 #extracurricular(
   position: "Project Lead",
@@ -86,9 +86,9 @@
   start-date: "Sep 2022",
   end-date: "Present",
 )
-- Building open-source robotic arms for compliant human interaction, leveraging Mediapipe and OpenCV for real-time pose detection and integrating ROS2 for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
-- Simulated pose mimic systems in Gazebo, using MoveIt2 & ros2_control for collision detection and motion planning.
-- Designed & fabricated a PCB in Altium for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
+- Building open-source robotic arms for compliant human interaction, using Mediapipe and OpenCV Python libraries for pose landmark detection and ROS2 for the kinematic mapping of joint positions to the OpenMANIPULATOR-X system.
+- Simulated pose mimic systems in Gazebo using MoveIt2 and ros2_control for collision detection and motion planning.
+- Designed and fabricated a PCB in Altium for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
 
 #extracurricular(
   position: "Research Assistant",
@@ -98,8 +98,8 @@
   start-date: "Feb 2024",
   end-date: "Aug 2024",
 )
-- Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure in industrial workers.
-- Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
+- Led the analysis of Xsens IMU data using MATLAB to analyize and quantify mechanical exposure in industrial workers.
+- Automated data collection, labeling, and analysis pipelines to streamline research processes and minimize human error.
 
 #extracurricular(
   position: "Shadow",
@@ -109,8 +109,8 @@
   start-date: "Jun 2023",
   end-date: "Jul 2023",
 )
-- Observed medical procedures, including endoscopies, laparoscopies, orthopedic surgeries, and open surgeries.
-- Gained insight into the integration of advanced technology in surgeries, including the Da Vinci surgical system.
+- Observed medical procedures, including endoscopies, laparoscopies, lithotripsies, orthopedic, and open surgeries.
+- Gained insight into medical equipment, from ultrasound and anesthesia machines to the Da Vinci surgical system.
 
 
 == #link("https://jaehho.github.io/portfolio/")[Projects]
@@ -120,21 +120,21 @@
   start-date: "Nov 2024",
   end-date: "Dec 2024",
 )
-- Designed schematic and layout using Virtuoso, with clean layout-versus-schematic (LVS) and design rule check (DRC).
+- Designed schematic and layout with Virtuoso; clean layout-versus-schematic (LVS) and design rule check (DRC).
 
 #project(
   name: "32-bit Pipelined MIPS Processor",
   start-date: "Sep 2024",
   end-date: "Oct 2024",
 )
-- Designed, implemented and simulated the processor in Vivado, achieved full positive slack with a clock period of 14 ns.
+- Designed, implemented, and simulated the processor in Vivado, achieving full positive slack with a 14 ns clock period.
 
 #project(
   name: "Prosthetic Hand",
   start-date: "Aug 2021",
   end-date: "Sep 2023",
 )
-- Designed and built a 6-DoF myoelectric prosthetic hand with a friend who has a congenital left-hand anomaly (acheiria).
+- Designed and built a 6-DoF myoelectric prosthetic hand for a friend with a congenital left-hand anomaly (acheiria).
 
 
 == Skills
