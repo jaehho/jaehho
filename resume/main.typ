@@ -36,7 +36,7 @@
   degree: "Bachelor of Engineering in Electrical Engineering, Bioengineering Minor",
 )
 - Half Tuition Scholarship | Myron Coe Scholarship | Full Tuition Scholarship 2025-2026
-- Courses: Machine Learning, Digital Signal Processing, Communication Theory, Hardware Design, Electronics, Data Structures & Algorithms, Computer Architecture, Linear Algebra, Ordinary & Partial Differential Equations, Probability
+- Courses: Frequentist Machine Learning, Digital Signal Processing, Communication Theory, Computer Architecture, Integrated Circuit Engineering, Theoretical Neuroscience, Medical Imaging, Bio-Instrumentation & Sensing
 
 
 == Work Experience
