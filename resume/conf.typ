@@ -3,10 +3,10 @@
 
 #let conf(
   author: "",
+  paper: "us-letter",
   accent-color: "#000000",
   font: "New Computer Modern",
   font-size: 10pt,
-  paper: "us-letter",
   paragraph-leading: 0.65em,
   paragraph-spacing: 1.2em,
   section-heading-margin-top: 1em,

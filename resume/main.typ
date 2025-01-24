@@ -6,10 +6,10 @@
 
 #show: conf.with(
   author: name,
+  paper: "us-letter",
   accent-color: "#000000",
   font: "Arial",
   font-size: 10pt,
-  paper: "us-letter",
   paragraph-leading: 0.57em,
   paragraph-spacing: 0.68em,
   section-heading-margin-top: 0.5em,
@@ -25,7 +25,6 @@
   linkedin: "jaeho-cho",
   website: "https://jaehho.github.io"
 )
-
 
 == Education
 
@@ -50,8 +49,8 @@
   start-date: "May 2024",
   end-date: "Aug 2024",
 )
-- Developed and optimized advanced time-series forecasting models using GluonTS, Chronos, and Darts to generate actionable price predictions for flagship petrochemical products, enabling data-driven decision-making.
-- Refactored backend data pipelines, transitioning from MongoDB to ClickHouse and improving data flow efficiency.
+- Developed and optimized advanced *time-series forecasting* models using *GluonTS*, *Chronos*, and *Darts* to generate actionable price predictions for flagship petrochemical products, enabling data-driven decision-making.
+- Refactored backend data pipelines in *Django*, transitioning from *MongoDB* to *ClickHouse* and improving performance.
 - Built a web backend for business analysts, automating the aggregation of news and articles via APIs and integrating LLM-driven sentiment analysis with aforementioned forecasting models to enhance market insights.
 
 #work(
@@ -77,7 +76,7 @@
   end-date: "Present",
 )
 - Established a support network for pre-medical and pre-dental students, bridging gaps in guidance at the Cooper Union.
-- Coordinated events including a blood drive that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
+- Coordinated events including a *blood drive* that attracted 40 donors and resulted in 37 blood donations, as well as alumni networking sessions that facilitated connections between students, medical school attendees, and professionals.
 
 #extracurricular(
   position: "Project Lead",
@@ -87,9 +86,9 @@
   start-date: "Sep 2022",
   end-date: "Present",
 )
-- Building open-source robotic arms for compliant human interaction, leveraging Mediapipe and OpenCV for real-time pose detection and integrating ROS2 for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
-- Simulated pose mimicking systems in Gazebo, using MoveIt2 & ros2_control for collision detection and motion planning.
-- Designed & fabricated a custom PCB for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
+- Building open-source robotic arms for compliant human interaction, leveraging *Mediapipe* and *OpenCV* for real-time pose detection and integrating *ROS2* for seamless control logic and interfacing with the OpenMANIPULATOR-X system.
+- Simulated pose mimic systems in *Gazebo*, using *MoveIt2* & *ros2_control* for collision detection and motion planning.
+- Designed & fabricated a PCB in *Altium* for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
 
 #extracurricular(
   position: "Research Assistant",
@@ -99,7 +98,7 @@
   start-date: "Feb 2024",
   end-date: "Aug 2024",
 )
-- Spearheaded the analysis of Xsens IMU data using MATLAB to quantify mechanical exposure in industrial workers.
+- Spearheaded the analysis of Xsens IMU data using *MATLAB* to quantify mechanical exposure in industrial workers.
 - Implemented an automated pipeline for data collection, labeling, and analysis, streamlining the research process.
 
 #extracurricular(
@@ -121,14 +120,14 @@
   start-date: "Nov 2024",
   end-date: "Dec 2024",
 )
-- Designed schematic and layout using Virtuoso, performed layout-versus-schematic (LVS) and design rule check (DRC).
+- Designed schematic and layout using *Virtuoso*, with clean layout-versus-schematic (LVS) and design rule check (DRC).
 
 #project(
   name: "32-bit Pipelined MIPS Processor",
   start-date: "Sep 2024",
   end-date: "Oct 2024",
 )
-- Designed, implemented and simulated the processor in Vivado, achieved full positive slack with a clock period of 14 ns.
+- Designed, implemented and simulated the processor in *Vivado*, achieved full positive slack with a clock period of 14 ns.
 
 #project(
   name: "Prosthetic Hand",
