@@ -24,4 +24,4 @@ jobs:
 
       - name: Sync Resume to OneDrive
         run: |
-          rclone copy Jaeho_Cho_Resume.pdf "onedrive:/" --progress
+          rclone copy Jaeho_Cho_Resume.pdf "Cooper Union OneDrive:/" --progress
