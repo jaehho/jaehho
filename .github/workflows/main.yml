@@ -20,8 +20,8 @@ jobs:
       - name: Configure rclone
         run: |
           mkdir -p ~/.config/rclone
-          echo -e "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
+          echo "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
 
       - name: Sync Resume to OneDrive
         run: |
-          rclone copy Jaeho_Cho_Resume.pdf "Cooper Union OneDrive:Jaeho_Cho_Resume.pdf" --progress
+          rclone copy Jaeho_Cho_Resume.pdf "Cooper Union OneDrive:" --progress
