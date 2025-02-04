@@ -3,7 +3,9 @@ name: Sync Resume to OneDrive
 on:
   push:
     branches:
-      - main  # Runs when you push to the main branch
+      - main  # Runs only on push to main branch
+    paths:
+      - 'Jaeho_Cho_Resume.pdf'  # Runs only if this file is modified
 
 jobs:
   sync:
