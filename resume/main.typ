@@ -139,6 +139,6 @@
 
 == Skills
 
-- Programming: Python, MATLAB, Rust, C, C++, Verilog, VHDL, Git, Docker, Django, SQL
+- Programming: Python, MATLAB, Rust, C, C++, Verilog, VHDL, Git, Docker, JavaScript, SQL
 - Software: Virtuoso, LTspice, Altium, Vivado, ROS2, Gazebo, Blender, Onshape, Fusion360, Inventor
 - Certification: NYS EMT, CPR
