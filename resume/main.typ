@@ -108,7 +108,7 @@
   start-date: "Feb 2024",
   end-date: "Aug 2024",
 )
-- Developed data-processing pipelines in MATLAB and Python to interpret quaternions from IMUs, analyzing the mechanical stress on joints, with the considerations of subtle rotations like the supination and pronation of the forearm.
+- Developed data-processing pipelines in MATLAB and Python to interpret IMU data with quaternions, analyzing the mechanical stress on joints with the consideration of subtle anatomical movements like supination and pronation.
 - Refined the methodology and analysis of the study, introducing an algorithmic labeling system that parsed complex physical tasks into more precise categories, allowing for the separate assay of concentrated movements and tasks.
 
 #extracurricular(
