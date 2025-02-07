@@ -41,6 +41,16 @@
 
 == Work Experience
 
+// #work(
+//   position: "Computer Center Operator",
+//   details: "Brooks Lab",
+//   company: "The Cooper Union",
+//   location: "New York, NY",
+//   start-date: "Jan 2025",
+//   end-date: "Present",
+// )
+// - #lorem(18)
+
 #work(
   position: "Data and AI Intern",
   details: "Hanwha TotalEnergies Petrochemical",
@@ -98,8 +108,8 @@
   start-date: "Feb 2024",
   end-date: "Aug 2024",
 )
-- Led the analysis of Xsens IMU data using MATLAB to analyize and quantify mechanical exposure in industrial workers.
-- Automated data collection, labeling, and analysis pipelines to streamline research processes and minimize human error.
+- Developed data-processing pipelines in MATLAB and Python to interpret quaternions from IMUs, analyzing the mechanical stress on joints, with the considerations of subtle rotations like the supination and pronation of the forearm.
+- Refined the methodology and analysis of the study, introducing an algorithmic labeling system that parsed complex physical tasks into more precise categories, allowing for the separate assay of concentrated movements and tasks.
 
 #extracurricular(
   position: "Shadow",
@@ -122,12 +132,12 @@
 )
 - Designed schematic and layout with Virtuoso; clean layout-versus-schematic (LVS) and design rule check (DRC).
 
-#project(
-  name: "32-bit Pipelined MIPS Processor",
-  start-date: "Sep 2024",
-  end-date: "Oct 2024",
-)
-- Designed, implemented, and simulated the processor in Vivado, achieving full positive slack with a 14 ns clock period.
+// #project(
+//   name: "32-bit Pipelined MIPS Processor",
+//   start-date: "Sep 2024",
+//   end-date: "Oct 2024",
+// )
+// - Designed, implemented, and simulated the processor in Vivado, achieving full positive slack with a 14 ns clock period.
 
 #project(
   name: "Prosthetic Hand",
