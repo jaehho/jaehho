@@ -96,7 +96,7 @@
   start-date: "Sep 2022",
   end-date: "Present",
 )
-- Building open-source robotic arms for compliant human interaction, using Mediapipe and OpenCV Python libraries for pose landmark detection and ROS2 for the kinematic mapping of joint positions to the OpenMANIPULATOR-X system.
+- Building open-source robotic arms for direct human-robot interaction, using Mediapipe and OpenCV Python libraries for pose landmark detection and ROS2 for the kinematic mapping of joint positions to the OpenMANIPULATOR-X system.
 - Simulated real-time systems in Gazebo using MoveIt2 and ros2_control for collision detection and motion planning.
 - Designed and fabricated a PCB in Altium for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
 
