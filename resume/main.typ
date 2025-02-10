@@ -54,7 +54,7 @@
 #work(
   position: "Data and AI Intern",
   details: "Hanwha TotalEnergies Petrochemical",
-  company: "PWC",
+  company: "PwC",
   location: "Seoul, South Korea",
   start-date: "May 2024",
   end-date: "Aug 2024",
