@@ -120,7 +120,7 @@
   end-date: "Jul 2023",
 )
 - Observed medical procedures, including endoscopies, laparoscopies, lithotripsies, orthopedic, and open surgeries.
-- Gained insight into medical equipment, from ultrasound and anesthesia machines to the Da Vinci surgical system.
+- Gained insight into medical equipment, from ultrasound and anesthesia machines to robotic-arm assisted surgeries.
 
 
 == #link("https://jaehho.github.io/portfolio/")[Projects]
