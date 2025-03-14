@@ -2,6 +2,7 @@ md2typ() {
     if [ -t 0 ] && [ -z "$*" ]; then
         echo "Usage: md2typ 'your markdown text'"
         echo "       or use: echo 'text' | md2typ"
+        echo "horizontal lines and blockquotes are not standalone"
         return 1
     fi
 
@@ -17,15 +18,15 @@ md2typ() {
     fi
 
     # Perform bracket replacements before conversion
-    sed -E 's/\\\( /$ /g; s/ \\\)/ $/g; s/\\\(|\\\)/$/g; s/\\\[|\\\]/$$/g' "$tmpfile" > "$tmpfile.tmp"
+    sed -E 's/\\\( /$/g; s/ \\\)/$/g; s/\\\(|\\\)/$/g; s/\\\[|\\\]/$$/g' "$tmpfile" > "$tmpfile.tmp"
     mv "$tmpfile.tmp" "$tmpfile"
 
-    # # Echo the modified Markdown
-    # echo "Modified Markdown:" 
-    # echo "------------------------"
-    # cat "$tmpfile"
-    # echo ""
-    # echo "------------------------"
+    # Echo the modified Markdown
+    echo "Modified Markdown:" 
+    echo "------------------------"
+    cat "$tmpfile"
+    echo ""
+    echo "------------------------"
 
     # Convert Markdown to Typst
     output=$(pandoc "$tmpfile" -f markdown -t typst)
