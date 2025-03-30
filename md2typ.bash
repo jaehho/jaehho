@@ -1,3 +1,6 @@
+
+# Add this to your .bashrc or .bash_profile:
+# source jaehho/md2typ.bash && echo "Sourced md2typ"
 md2typ() {
     if [ -t 0 ] && [ -z "$*" ]; then
         echo "Usage: md2typ 'your markdown text'"
