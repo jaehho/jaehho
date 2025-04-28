@@ -61,7 +61,7 @@
 )
 - Developed and optimized advanced time-series forecasting models utilizing GluonTS, Chronos, and Darts Python libraries to generate price predictions for flagship petrochemical products with a 3-month forecasting horizon.
 - Refactored backend data pipelines in Django, transitioning from MongoDB to ClickHouse and improving performance.
-- Developed a web backend that automates news and article aggregation via private and public APIs, algorithmically integrating forecasts and market indicators to enhance LLM-driven sentiment analysis and deliver actionable insights.
+- Built a Django service that automates article aggregation via private and public APIs, analytically integrating forecasts and market indicators to enhance LLM-driven sentiment analysis, ultimately delivering actionable insights to analysts.
 
 #work(
   position: "Teacher Assistant",
