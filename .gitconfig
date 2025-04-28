@@ -1,3 +1,5 @@
+# Create hard link with `ln .gitconfig ~/.gitconfig`
+
 [user]
 	email = jaeho2025@gmail.com
 	name = Jaeho Cho
