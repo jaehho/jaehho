@@ -1,4 +1,3 @@
-
 # Add this to your .bashrc or .bash_profile:
 # source jaehho/md2typ.bash && echo "Sourced md2typ"
 md2typ() {
@@ -33,6 +32,9 @@ md2typ() {
 
     # Convert Markdown to Typst
     output=$(pandoc "$tmpfile" -f markdown -t typst)
+
+    # Replace #horizontalrule with #line()
+    output=$(echo "$output" | sed 's/#horizontalrule/#line(length: 100%)/g')
 
     # Display the converted output
     echo "Converted Typst Output:"
