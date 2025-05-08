@@ -126,11 +126,25 @@
 == #link("https://jaehho.github.io/portfolio/")[Projects]
 
 #project(
-  name: "Differential to Single-ended Amplifier",
-  start-date: "Nov 2024",
-  end-date: "Dec 2024",
+  name: "Theoretical Neuroscience Modeling",
+  start-date: "Jan 2025",
+  end-date: "May 2025",
 )
-- Designed schematic and layout with Virtuoso; clean layout-versus-schematic (LVS) and design rule check (DRC).
+- Developed computational models, from neural encoding and decoding to the Hodgkin-Huxley model and cable theory.
+
+#project(
+  name: "Delay Locked Loop (DLL)",
+  start-date: "Apr 2025",
+  end-date: "May 2025",
+)
+- Designed schematic and layout of DLL in Cadence Virtuoso, validating functionality with Verilog-A behavioral simulation.
+
+// #project(
+//   name: "Differential to Single-ended Amplifier",
+//   start-date: "Nov 2024",
+//   end-date: "Dec 2024",
+// )
+// - Designed schematic and layout with Virtuoso; clean layout-versus-schematic (LVS) and design rule check (DRC).
 
 // #project(
 //   name: "32-bit Pipelined MIPS Processor",
@@ -139,12 +153,12 @@
 // )
 // - Designed, implemented, and simulated the processor in Vivado, achieving full positive slack with a 14 ns clock period.
 
-#project(
-  name: "Prosthetic Hand",
-  start-date: "Aug 2021",
-  end-date: "Sep 2023",
-)
-- Designed and built a 6-DoF myoelectric prosthetic hand for a friend with a congenital left-hand anomaly (acheiria).
+// #project(
+//   name: "Prosthetic Hand",
+//   start-date: "Aug 2021",
+//   end-date: "Sep 2023",
+// )
+// - Designed and built a 6-DoF myoelectric prosthetic hand for a friend with a congenital left-hand anomaly (acheiria).
 
 
 == Skills
