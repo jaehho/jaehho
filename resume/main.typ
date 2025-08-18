@@ -52,6 +52,17 @@
 // - #lorem(18)
 
 #work(
+  position: "Research Intern",
+  details: "Neuroscience",
+  company: "NYU Langone Health",
+  location: "New York, NY",
+  start-date: "June 2025",
+  end-date: "Present",
+)
+- Designing and constructing a custom robotic bird platform to study vocal learning and social behavior in budgerigars.
+- Developing closed-loop control and sensory feedback systems in ROS2 to enable precise experimental tutoring for neuroscience research.
+
+#work(
   position: "Data and AI Intern",
   details: "Hanwha TotalEnergies Petrochemical",
   company: "PwC",
@@ -123,21 +134,21 @@
 - Gained insight into medical equipment, from ultrasound and anesthesia machines to robotic-arm assisted surgeries.
 
 
-== #link("https://jaehho.github.io/portfolio/")[Projects]
+// == #link("https://jaehho.github.io/portfolio/")[Projects]
 
-#project(
-  name: "Theoretical Neuroscience Modeling",
-  start-date: "Jan 2025",
-  end-date: "May 2025",
-)
-- Developed computational models, from neural encoding and decoding to the Hodgkin-Huxley model and cable theory.
+// #project(
+//   name: "Theoretical Neuroscience Modeling",
+//   start-date: "Jan 2025",
+//   end-date: "May 2025",
+// )
+// - Developed computational models, from neural encoding and decoding to the Hodgkin-Huxley model and cable theory.
 
-#project(
-  name: "Delay Locked Loop (DLL)",
-  start-date: "Apr 2025",
-  end-date: "May 2025",
-)
-- Designed schematic and layout of DLL in Cadence Virtuoso, validating functionality with Verilog-A behavioral simulation.
+// #project(
+//   name: "Delay Locked Loop (DLL)",
+//   start-date: "Apr 2025",
+//   end-date: "May 2025",
+// )
+// - Designed schematic and layout of DLL in Cadence Virtuoso, validating functionality with Verilog-A behavioral simulation.
 
 // #project(
 //   name: "Differential to Single-ended Amplifier",
