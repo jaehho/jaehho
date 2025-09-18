@@ -59,8 +59,9 @@
   start-date: "June 2025",
   end-date: "Present",
 )
-- Designing and constructing a custom robotic bird platform to study vocal learning and social behavior in budgerigars.
-- Developing closed-loop control and sensory feedback systems in ROS2 to enable precise experimental tutoring for neuroscience research.
+- Building a custom robotic bird to study vocal learning and social behavior in budgerigars, using ROS2 for robot control.
+- Optimizing budgerigar vocalization analysis pipelines to extract acoustic features and classify songs using clustering.
+
 
 #work(
   position: "Data and AI Intern",
@@ -89,6 +90,17 @@
 == Extracurricular Activities
 
 #extracurricular(
+  position: "Research Assistant",
+  details: "Ergonomics in Otolaryngology, Computer Vision in Operating Room",
+  company: "Mount Sinai",
+  location: "New York, NY",
+  start-date: "Feb 2024",
+  end-date: "Present",
+)
+- Applied deep learning and computer vision to classify surgical instruments and phases in endoscopic sinus surgeries.
+- Developed data-processing pipelines to interpret raw data from Xsens IMUs, analyzing the ergonomic stress on joints.
+
+#extracurricular(
   position: "Founder/President",
   details: "The Pre-Medical & Pre-Dental Society",
   company: "The Cooper Union",
@@ -110,17 +122,6 @@
 - Building open-source robotic arms for direct human-robot interaction, using Mediapipe and OpenCV Python libraries for pose landmark detection and ROS2 for the kinematic mapping of joint positions to the OpenMANIPULATOR-X system.
 - Simulated real-time systems in Gazebo using MoveIt2 and ros2_control for collision detection and motion planning.
 - Designed and fabricated a PCB in Altium for an eTextile sensor, presented at the 2024 ASTM International Exo Games.
-
-#extracurricular(
-  position: "Research Assistant",
-  details: "Mechanical Exposure Study",
-  company: "Mount Sinai",
-  location: "New York, NY",
-  start-date: "Feb 2024",
-  end-date: "Aug 2024",
-)
-- Developed data-processing pipelines in MATLAB and Python to interpret IMU data with quaternions, analyzing the mechanical stress on joints with the consideration of subtle anatomical movements like supination and pronation.
-- Refined the methodology and analysis of the study, introducing an algorithmic labeling system that parsed complex physical tasks into more precise categories, allowing for the separate assay of concentrated movements and tasks.
 
 #extracurricular(
   position: "Shadow",
