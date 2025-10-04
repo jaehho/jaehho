@@ -62,6 +62,16 @@
 - Building a custom robotic bird to study vocal learning and social behavior in budgerigars, using ROS2 for robot control.
 - Optimizing budgerigar vocalization analysis pipelines to extract acoustic features and classify songs using clustering.
 
+#work(
+  position: "Research Assistant",
+  details: "Ergonomics in Otolaryngology, Computer Vision in Operating Room",
+  company: "Mount Sinai",
+  location: "New York, NY",
+  start-date: "Feb 2024",
+  end-date: "Present",
+)
+- Applied deep learning and computer vision to classify surgical instruments and phases in endoscopic sinus surgeries.
+- Developed data-processing pipelines to interpret raw data from Xsens IMUs, analyzing the ergonomic stress on joints.
 
 #work(
   position: "Data and AI Intern",
@@ -88,17 +98,6 @@
 
 
 == Extracurricular Activities
-
-#extracurricular(
-  position: "Research Assistant",
-  details: "Ergonomics in Otolaryngology, Computer Vision in Operating Room",
-  company: "Mount Sinai",
-  location: "New York, NY",
-  start-date: "Feb 2024",
-  end-date: "Present",
-)
-- Applied deep learning and computer vision to classify surgical instruments and phases in endoscopic sinus surgeries.
-- Developed data-processing pipelines to interpret raw data from Xsens IMUs, analyzing the ergonomic stress on joints.
 
 #extracurricular(
   position: "Founder/President",
