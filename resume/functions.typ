@@ -1,4 +1,4 @@
-#import "@preview/fontawesome:0.5.0": fa-icon
+#import "@preview/fontawesome:0.6.0": fa-icon
 
 // Generic two by two binding
 #let generic-two-by-two(

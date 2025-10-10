@@ -8,7 +8,7 @@
   author: name,
   paper: "us-letter",
   accent-color: "#000000",
-  font: "Arial",
+  // font: "",
   font-size: 10pt,
   paragraph-leading: 0.59em,
   paragraph-spacing: 0.7em,
@@ -64,7 +64,7 @@
 
 #work(
   position: "Research Assistant",
-  details: "Ergonomics in Otolaryngology, Computer Vision in Operating Room",
+  details: "Ergonomics in Otolaryngology, Computer Vision Surgical Workflow Analysis",
   company: "Mount Sinai",
   location: "New York, NY",
   start-date: "Feb 2024",

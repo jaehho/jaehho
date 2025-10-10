@@ -1,4 +1,3 @@
-#import "@preview/fontawesome:0.5.0": fa-icon
 #import "functions.typ": contact-helper
 
 #let conf(
