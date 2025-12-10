@@ -1,0 +1,31 @@
+#!/usr/bin/expect -f
+set timeout -1
+
+# argv[0] is the target, e.g. "jaeho.cho@ice03.ee.cooper.edu"
+if { $argc < 1 } {
+    puts "Usage: ssh-ice.exp user@host [extra ssh args...]"
+    exit 1
+}
+
+set target [lindex $argv 0]
+set extra_args [lrange $argv 1 end]
+
+# Your account password
+set password "4r4sbtuhudW!"
+
+# Start SSH
+eval spawn ssh $target $extra_args
+
+# Handle first-time host key prompt + password prompt
+expect {
+    -re "Are you sure you want to continue connecting.*" {
+        send "yes\r"
+        exp_continue
+    }
+    -re "password:*" {
+        send "$password\r"
+    }
+}
+
+# Hand control back to you
+interact
