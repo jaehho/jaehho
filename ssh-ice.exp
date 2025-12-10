@@ -14,7 +14,7 @@ set extra_args [lrange $argv 1 end]
 set password "4r4sbtuhudW!"
 
 # Start SSH
-eval spawn ssh $target $extra_args
+eval spawn ssh -X $target $extra_args
 
 # Handle first-time host key prompt + password prompt
 expect {
