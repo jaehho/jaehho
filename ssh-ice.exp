@@ -10,8 +10,12 @@ if { $argc < 1 } {
 set target [lindex $argv 0]
 set extra_args [lrange $argv 1 end]
 
-# Your account password
-set password "4r4sbtuhudW!"
+# Load password from environment variable ICE_PASSWORD
+if { ! [info exists env(ICE_PASSWORD)] } {
+    puts "ERROR: ICE_PASSWORD environment variable is not set."
+    exit 1
+}
+set password $env(ICE_PASSWORD)
 
 # Start SSH
 eval spawn ssh -X $target $extra_args
@@ -27,5 +31,5 @@ expect {
     }
 }
 
-# Hand control back to you
+# Hand control back to user
 interact
