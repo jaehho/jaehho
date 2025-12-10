@@ -1,0 +1,15 @@
+[Unit]
+Description=SSHFS mount for Cooper ICE servers (ice00–ice11)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/home/jaeho/jaehho/.env
+ExecStart=/home/jaeho/jaehho/mount-ice.sh
+ExecStop=/bin/fusermount -u /mnt/ice
+TimeoutStartSec=30
+
+[Install]
+WantedBy=multi-user.target
