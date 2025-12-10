@@ -31,7 +31,7 @@ md2typ() {
     echo "------------------------"
 
     # Convert Markdown to Typst
-    output=$(pandoc "$tmpfile" -f markdown -t typst)
+    output=$(pandoc "$tmpfile" -f markdown -t typst --wrap=none)
 
     # Replace #horizontalrule with #line()
     output=$(echo "$output" | sed 's/#horizontalrule/#line(length: 100%)/g')
@@ -43,10 +43,12 @@ md2typ() {
     echo "------------------------"
 
     # Copy to clipboard
-    echo "$output" | xclip -selection clipboard
+    if command -v xclip >/dev/null 2>&1; then
+        echo "$output" | xclip -selection clipboard
+        echo -e "\U2705 Copied to clipboard!"
+    fi
 
     # Cleanup temporary file
     rm "$tmpfile"
 
-    echo -e "\U2705 Copied to clipboard!"
 }

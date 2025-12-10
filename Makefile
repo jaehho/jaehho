@@ -10,8 +10,6 @@ help: ## Show this help message
 		     /^# Section:/ {gsub("^# Section: ", ""); print "\n\033[1;35m" $$0 "\033[0m"}; \
 		     /^[a-zA-Z_-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-compile: ## Compile a file once
-	typst compile resume/main.typ Jaeho_Cho_Resume.pdf
-
-watch: ## Compile a file on every change
-	typst watch resume/main.typ Jaeho_Cho_Resume.pdf
+list-files: ## List all files in the current directory
+	@echo "Listing files in the current directory:"
+	ls -la
