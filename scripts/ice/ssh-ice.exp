@@ -18,7 +18,7 @@ if { ! [info exists env(ICE_PASSWORD)] } {
 set password $env(ICE_PASSWORD)
 
 # Start SSH
-eval spawn ssh -X $target $extra_args
+eval spawn ssh -X -p31415 $target $extra_args
 
 # Handle first-time host key prompt + password prompt
 expect {
