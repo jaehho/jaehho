@@ -58,3 +58,14 @@ alias ssh-mililab='ssh -J jaeho.cho@dev.ee.cooper.edu:31415 jaeho@10.5.1.124 -X 
 if [ -f "$JAEHHO_ROOT/scripts/md2typ.bash" ]; then
     source "$JAEHHO_ROOT/scripts/md2typ.bash" && echo "source md2typ"
 fi
+
+nh() {
+    # 1. Create a clean filename from arguments
+    # 2. Add 'nohup_' prefix and a timestamp
+    local timestamp=$(date +%Y%m%d_%H%M%S)
+    local cmd_clean=$(echo "$*" | tr ' /' '__' | tr -dc '[:alnum:]_')
+    local log_file="nohup_${timestamp}_${cmd_clean}.log"
+
+    # Run in background, redirecting stdout and stderr
+    nohup "$@" > "$log_file" 2>&1 &
+}
