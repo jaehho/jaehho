@@ -60,12 +60,23 @@ if [ -f "$JAEHHO_ROOT/scripts/md2typ.bash" ]; then
 fi
 
 nh() {
-    # 1. Create a clean filename from arguments
-    # 2. Add 'nohup_' prefix and a timestamp
     local timestamp=$(date +%Y%m%d_%H%M%S)
+    # Clean the command string for the filename
     local cmd_clean=$(echo "$*" | tr ' /' '__' | tr -dc '[:alnum:]_')
     local log_file="nohup_${timestamp}_${cmd_clean}.log"
 
-    # Run in background, redirecting stdout and stderr
+    # Start the command in the background
     nohup "$@" > "$log_file" 2>&1 &
+    
+    local pid=$!
+    echo "PID: $pid"
+    echo "Watching log (Ctrl+C to stop watching, process will keep running)..."
+    echo ""
+
+    # 'tail -f' the log file. 
+    # The --pid flag tells tail to exit automatically if the process finishes.
+    tail -f "$log_file" --pid=$pid
 }
+
+export COMPOSE_BAKE=true
+echo "docker COMPOSE_BAKE=true"
