@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync Zotero bib from Windows to WSL
+After=network.target
+
+[Service]
+Type=simple
+User=jaeho
+ExecStart=/bin/bash /home/jaeho/jaehho/scripts/zotero/sync-bib.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
