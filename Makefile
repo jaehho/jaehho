@@ -15,33 +15,60 @@ help: ## Show this help message
 		     /^[a-zA-Z_-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 ## Systemd ICE mount service
-SERVICE_NAME = ice.service
-SERVICE_SRC  = $(REPO_ROOT)/systemd/$(SERVICE_NAME)
-SERVICE_DST  = /etc/systemd/system/$(SERVICE_NAME)
+ICE_SERVICE_NAME = ice.service
+ICE_SERVICE_SRC  = $(REPO_ROOT)/systemd/$(ICE_SERVICE_NAME)
+ICE_SERVICE_DST  = /etc/systemd/system/$(ICE_SERVICE_NAME)
 
-.PHONY: service-link service-reload service-enable service-start service-stop service-restart service-status
-.PHONY: link reload enable start stop restart status
+.PHONY: ice-link ice-reload ice-enable ice-start ice-stop ice-restart ice-status
 
-service-link: ## Link the service file to systemd directory
-	sudo ln -sf $(SERVICE_SRC) $(SERVICE_DST)
+ice-link: ## Link ice service file to systemd directory
+	sudo ln -sf $(ICE_SERVICE_SRC) $(ICE_SERVICE_DST)
 
-service-reload: ## Reload systemd daemon
+ice-reload: ## Reload systemd daemon
 	sudo systemctl daemon-reload
 
-service-enable: service-reload ## Enable the service
-	sudo systemctl enable $(SERVICE_NAME)
+ice-enable: ice-reload ## Enable the ice service
+	sudo systemctl enable $(ICE_SERVICE_NAME)
 
-service-start: service-enable ## Start the service
-	sudo systemctl start $(SERVICE_NAME)
+ice-start: ice-enable ## Start the ice service
+	sudo systemctl start $(ICE_SERVICE_NAME)
 
-service-stop: ## Stop the service
-	sudo systemctl stop $(SERVICE_NAME)
+ice-stop: ## Stop the ice service
+	sudo systemctl stop $(ICE_SERVICE_NAME)
 
-service-restart: ## Restart the service
-	sudo systemctl restart $(SERVICE_NAME)
+ice-restart: ## Restart the ice service
+	sudo systemctl restart $(ICE_SERVICE_NAME)
 
-service-status: ## Show the status of the service
-	systemctl status $(SERVICE_NAME)
+ice-status: ## Show the status of the ice service
+	systemctl status $(ICE_SERVICE_NAME)
+
+## Systemd Zotero sync service
+ZOTERO_SERVICE_NAME = zotero.service
+ZOTERO_SERVICE_SRC  = $(REPO_ROOT)/systemd/$(ZOTERO_SERVICE_NAME)
+ZOTERO_SERVICE_DST  = /etc/systemd/system/$(ZOTERO_SERVICE_NAME)
+
+.PHONY: zotero-link zotero-reload zotero-enable zotero-start zotero-stop zotero-restart zotero-status
+
+zotero-link: ## Link zotero service file to systemd directory
+	sudo ln -sf $(ZOTERO_SERVICE_SRC) $(ZOTERO_SERVICE_DST)
+
+zotero-reload: ## Reload systemd daemon
+	sudo systemctl daemon-reload
+
+zotero-enable: zotero-reload ## Enable the zotero service
+	sudo systemctl enable $(ZOTERO_SERVICE_NAME)
+
+zotero-start: zotero-enable ## Start the zotero service
+	sudo systemctl start $(ZOTERO_SERVICE_NAME)
+
+zotero-stop: ## Stop the zotero service
+	sudo systemctl stop $(ZOTERO_SERVICE_NAME)
+
+zotero-restart: ## Restart the zotero service
+	sudo systemctl restart $(ZOTERO_SERVICE_NAME)
+
+zotero-status: ## Show the status of the zotero service
+	systemctl status $(ZOTERO_SERVICE_NAME)
 
 ## Personal setup
 GITCONFIG_SRC = $(REPO_ROOT)/config/.gitconfig
@@ -50,7 +77,6 @@ BASH_PROFILE_SRC = $(REPO_ROOT)/config/.bash_profile
 BASHRC_DST = $(HOME)/.bashrc
 
 .PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux
-.PHONY: setup link-gitconfig bashrc
 
 setup-all: setup-gitconfig setup-bashrc setup-tmux ## Run all personal setup steps
 

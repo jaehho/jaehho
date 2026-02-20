@@ -95,6 +95,8 @@ nh_list() {
     mv "$tmp" ~/.nh_jobs
 }
 
+alias nhls="lsof | grep "nohup_.*\.log""
+
 export COMPOSE_BAKE=true
 echo "docker COMPOSE_BAKE=true"
 
