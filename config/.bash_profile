@@ -55,28 +55,78 @@ ssh() {
 
 alias ssh-mililab='ssh -J jaeho.cho@dev.ee.cooper.edu:31415 jaeho@10.5.1.124 -X -Y'
 
-if [ -f "$JAEHHO_ROOT/scripts/md2typ.bash" ]; then
-    source "$JAEHHO_ROOT/scripts/md2typ.bash" && echo "source md2typ"
-fi
-
 nh() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: nh <command> [args...]"
+        return 1
+    fi
+
     local timestamp=$(date +%Y%m%d_%H%M%S)
-    # Clean the command string for the filename
-    local cmd_clean=$(echo "$*" | tr ' /' '__' | tr -dc '[:alnum:]_')
+    local cmd_clean=$(echo "$*" | tr ' /' '__' | tr -dc '[:alnum:]_' | cut -c1-30)
     local log_file="nohup_${timestamp}_${cmd_clean}.log"
 
-    # Start the command in the background
     nohup "$@" > "$log_file" 2>&1 &
-    
     local pid=$!
-    echo "PID: $pid"
-    echo "Watching log (Ctrl+C to stop watching, process will keep running)..."
+
+    echo "PID:     $pid"
+    echo "Log:     $log_file"
+    echo "(Ctrl+C stops watching — process keeps running)"
     echo ""
 
-    # 'tail -f' the log file. 
-    # The --pid flag tells tail to exit automatically if the process finishes.
-    tail -f "$log_file" --pid=$pid
+    echo "$pid $log_file $*" >> ~/.nh_jobs
+
+    # portable tail -f that exits when process finishes
+    tail -f "$log_file" &
+    local tail_pid=$!
+    wait $pid 2>/dev/null
+    kill $tail_pid 2>/dev/null
+}
+
+nh_list() {
+    local tmp=$(mktemp)
+    while read -r pid log cmd; do
+        if kill -0 "$pid" 2>/dev/null; then
+            echo "RUNNING  pid=$pid log=$log cmd=$cmd"
+            echo "$pid $log $cmd" >> "$tmp"
+        else
+            echo "DONE     pid=$pid log=$log cmd=$cmd"
+        fi
+    done < ~/.nh_jobs
+    mv "$tmp" ~/.nh_jobs
 }
 
 export COMPOSE_BAKE=true
 echo "docker COMPOSE_BAKE=true"
+
+[ -z "$TMUX" ] && tmux attach 2>/dev/null || tmux new -s main
+
+
+start_tmux() {
+    # Check if TMUX is already running
+    [ "$TMUX" == "" ] || return
+
+    # Get a list of available sessions
+    sessions=($(tmux list-sessions -F "#S" 2>/dev/null))
+
+    # If there are available sessions, display them and ask to choose
+    if [ ${#sessions[@]} -gt 0 ]; then
+        PS3="Please choose a session: "
+        echo "Available sessions"
+        echo "------------------"
+        select session in "${sessions[@]}"
+        do
+            tmux attach-session -t "$session"
+            return
+        done
+    fi
+
+    # If no sessions, ask to create a new one
+    read -rp "Enter new session name (press Enter to use default): " SESSION_NAME
+    if [ -z "$SESSION_NAME" ]; then
+        tmux
+    else
+        tmux new -s "$SESSION_NAME"
+        # If you want to stay in the new session after creating it, remove the "exit" command.
+        # exit
+    fi
+}

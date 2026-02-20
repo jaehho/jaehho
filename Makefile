@@ -49,10 +49,10 @@ GITCONFIG_DST = $(HOME)/.gitconfig
 BASH_PROFILE_SRC = $(REPO_ROOT)/config/.bash_profile
 BASHRC_DST = $(HOME)/.bashrc
 
-.PHONY: setup-all setup-gitconfig setup-bashrc
+.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux
 .PHONY: setup link-gitconfig bashrc
 
-setup-all: setup-gitconfig setup-bashrc ## Run all personal setup steps
+setup-all: setup-gitconfig setup-bashrc setup-tmux ## Run all personal setup steps
 
 setup-gitconfig: ## Hard link repo .gitconfig into home
 	ln -f $(GITCONFIG_SRC) $(GITCONFIG_DST)
@@ -62,3 +62,5 @@ setup-bashrc: ## Source repo .bash_profile from ~/.bashrc
 	grep -qxF 'source $(BASH_PROFILE_SRC)' $(BASHRC_DST) || \
 		echo 'source $(BASH_PROFILE_SRC)' >> $(BASHRC_DST)
 
+setup-tmux: ## Link tmux configuration
+	ln -f $(REPO_ROOT)/config/.tmux.conf $(HOME)/.tmux.conf
