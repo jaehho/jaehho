@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/mpstat 1 1 | awk '/Average:/{printf "%d", 100-$NF}'
