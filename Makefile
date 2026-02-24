@@ -90,3 +90,24 @@ setup-bashrc: ## Source repo .bash_profile from ~/.bashrc
 
 setup-tmux: ## Link tmux configuration
 	ln -f $(REPO_ROOT)/config/.tmux.conf $(HOME)/.tmux.conf
+
+## Dependencies
+PYTORCH_INDEX = https://download.pytorch.org/whl/cu130
+
+.PHONY: install-deps install-apt install-python
+
+install-deps: install-apt install-python ## Install all dependencies (apt + python)
+
+install-apt: ## Install required apt packages
+	sudo apt-get update -qq
+	sudo apt-get install -y \
+		curl \
+		direnv \
+		expect \
+		iproute2 \
+		sshfs \
+		sysstat \
+		tmux
+
+install-python: ## Install required Python packages via uv
+	uv pip install torch torchvision --index-url $(PYTORCH_INDEX)

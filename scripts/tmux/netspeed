@@ -1,5 +1,8 @@
 #!/bin/bash
-IFACE="enp78s0"
+# Auto-detect the default route interface (works on native Linux and WSL)
+IFACE=$(ip route show default 2>/dev/null | awk '/default/{print $5; exit}')
+# Fallback: first non-loopback interface listed in /proc/net/dev
+[[ -z "$IFACE" ]] && IFACE=$(awk 'NR>2{gsub(/:$/,"",$1); if($1!="lo"){print $1; exit}}' /proc/net/dev)
 
 R1=$(awk -v i="$IFACE:" '$1==i {print $2}' /proc/net/dev)
 T1=$(awk -v i="$IFACE:" '$1==i {print $10}' /proc/net/dev)
