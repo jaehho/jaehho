@@ -90,7 +90,7 @@ alias nhls='lsof | grep "nohup_.*\.log"'
 [[ $- == *i* ]] && [[ -t 1 ]] && [[ -z "$TMUX" ]] && [[ -z "$VSCODE_INJECTION" ]] && \
   { tmux attach 2>/dev/null || tmux new -s main; }
 
-eval "$(direnv hook bash)"
+[[ -z "$VSCODE_INJECTION" ]] && eval "$(direnv hook bash)"
 
 show_virtual_env() {
   if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
