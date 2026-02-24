@@ -71,14 +71,18 @@ zotero-status: ## Show the status of the zotero service
 	systemctl status $(ZOTERO_SERVICE_NAME)
 
 ## Personal setup
-GITCONFIG_SRC = $(REPO_ROOT)/config/.gitconfig
-GITCONFIG_DST = $(HOME)/.gitconfig
+GITCONFIG_SRC    = $(REPO_ROOT)/config/.gitconfig
+GITCONFIG_DST    = $(HOME)/.gitconfig
 BASH_PROFILE_SRC = $(REPO_ROOT)/config/.bash_profile
-BASHRC_DST = $(HOME)/.bashrc
+BASHRC_DST       = $(HOME)/.bashrc
+ENV_SAMPLE       = $(REPO_ROOT)/.env.sample
+ENVRC_SAMPLE     = $(REPO_ROOT)/.envrc.sample
+ENV_DST          = $(REPO_ROOT)/.env
+ENVRC_DST        = $(REPO_ROOT)/.envrc
 
-.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux
+.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux setup-env setup-envrc setup-env-files
 
-setup-all: setup-gitconfig setup-bashrc setup-tmux ## Run all personal setup steps
+setup-all: setup-gitconfig setup-bashrc setup-tmux setup-env-files ## Run all personal setup steps
 
 setup-gitconfig: ## Hard link repo .gitconfig into home
 	ln -f $(GITCONFIG_SRC) $(GITCONFIG_DST)
@@ -90,6 +94,30 @@ setup-bashrc: ## Source repo .bash_profile from ~/.bashrc
 
 setup-tmux: ## Link tmux configuration
 	ln -f $(REPO_ROOT)/config/.tmux.conf $(HOME)/.tmux.conf
+
+setup-envrc: ## Generate .envrc from .envrc.sample
+	@if [ -f $(ENVRC_DST) ]; then \
+		echo ".envrc already exists. Delete it first to regenerate."; \
+	else \
+		cp $(ENVRC_SAMPLE) $(ENVRC_DST); \
+		echo ".envrc created."; \
+	fi
+
+setup-env: ## Generate .env interactively from .env.sample
+	@if [ -f $(ENV_DST) ]; then \
+		echo ".env already exists. Delete it first to regenerate."; \
+	else \
+		cp $(ENV_SAMPLE) $(ENV_DST); \
+		echo "Filling out .env (press Enter to leave a field empty):"; \
+		read -rp "  MOUNTPOINT: "    v < /dev/tty && sed -i "s|^MOUNTPOINT=.*|MOUNTPOINT=\"$$v\"|"   $(ENV_DST); \
+		read -rp "  REMOTE_PATH: "   v < /dev/tty && sed -i "s|^REMOTE_PATH=.*|REMOTE_PATH=\"$$v\"|"  $(ENV_DST); \
+		read -rp "  REMOTE_USER: "   v < /dev/tty && sed -i "s|^REMOTE_USER=.*|REMOTE_USER=\"$$v\"|"  $(ENV_DST); \
+		read -rp "  LOCAL_USER: "    v < /dev/tty && sed -i "s|^LOCAL_USER=.*|LOCAL_USER=\"$$v\"|"    $(ENV_DST); \
+		read -rsp "  ICE_PASSWORD: " v < /dev/tty && echo && sed -i "s|^ICE_PASSWORD=.*|ICE_PASSWORD='$$v'|" $(ENV_DST); \
+		echo ".env created."; \
+	fi
+
+setup-env-files: setup-envrc setup-env ## Generate both .env and .envrc from samples
 
 ## Dependencies
 PYTORCH_INDEX = https://download.pytorch.org/whl/cu130
