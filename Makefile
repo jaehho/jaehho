@@ -95,7 +95,7 @@ setup-bashrc: ## Source repo .bash_profile from ~/.bashrc
 setup-tmux: ## Link tmux configuration
 	ln -f $(REPO_ROOT)/config/.tmux.conf $(HOME)/.tmux.conf
 
-setup-envrc: ## Generate .envrc from .envrc.sample
+setup-envrc: ## Generate .envrc
 	@if [ -f $(ENVRC_DST) ]; then \
 		echo ".envrc already exists. Delete it first to regenerate."; \
 	else \
@@ -103,17 +103,24 @@ setup-envrc: ## Generate .envrc from .envrc.sample
 		echo ".envrc created."; \
 	fi
 
-setup-env: ## Generate .env interactively from .env.sample
+setup-env: ## Generate .env interactively
 	@if [ -f $(ENV_DST) ]; then \
 		echo ".env already exists. Delete it first to regenerate."; \
 	else \
 		cp $(ENV_SAMPLE) $(ENV_DST); \
 		echo "Filling out .env (press Enter to leave a field empty):"; \
-		read -rp "  MOUNTPOINT: "    v < /dev/tty && sed -i "s|^MOUNTPOINT=.*|MOUNTPOINT=\"$$v\"|"   $(ENV_DST); \
-		read -rp "  REMOTE_PATH: "   v < /dev/tty && sed -i "s|^REMOTE_PATH=.*|REMOTE_PATH=\"$$v\"|"  $(ENV_DST); \
-		read -rp "  REMOTE_USER: "   v < /dev/tty && sed -i "s|^REMOTE_USER=.*|REMOTE_USER=\"$$v\"|"  $(ENV_DST); \
-		read -rp "  LOCAL_USER: "    v < /dev/tty && sed -i "s|^LOCAL_USER=.*|LOCAL_USER=\"$$v\"|"    $(ENV_DST); \
-		read -rsp "  ICE_PASSWORD: " v < /dev/tty && echo && sed -i "s|^ICE_PASSWORD=.*|ICE_PASSWORD='$$v'|" $(ENV_DST); \
+		while IFS= read -r line || [ -n "$$line" ]; do \
+			[[ "$$line" =~ ^#.*$$ || -z "$$line" ]] && continue; \
+			key=$$(echo "$$line" | cut -d= -f1); \
+			default=$$(echo "$$line" | cut -d= -f2-); \
+			if echo "$$key" | grep -qiE 'PASSWORD|SECRET|KEY|TOKEN'; then \
+				read -rsp "  $$key: " v < /dev/tty && echo; \
+			else \
+				read -rp  "  $$key [$$default]: " v < /dev/tty; \
+			fi; \
+			[ -z "$$v" ] && v="$$default"; \
+			sed -i "s|^$$key=.*|$$key=$$v|" $(ENV_DST); \
+		done < $(ENV_SAMPLE); \
 		echo ".env created."; \
 	fi
 
