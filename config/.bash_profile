@@ -31,13 +31,17 @@ ssh() {
             _ice_load_env || return 1
             "$JAEHHO_ROOT/scripts/ice/ssh-ice.exp" "$host" "$@"
             ;;
+        mililab)
+            _ice_load_env || return 1
+            "$JAEHHO_ROOT/scripts/ice/ssh-mililab.exp" "$@"
+            ;;
         *)
             command ssh "$host" "$@"
             ;;
     esac
 }
 
-alias ssh-mililab='ssh -J jaeho.cho@dev.ee.cooper.edu:31415 jaeho@10.5.1.124 -X -Y'
+alias ssh-mililab='ssh mililab'
 
 # ── nohup helpers ──────────────────────────────────────────────────────────────
 nh() {

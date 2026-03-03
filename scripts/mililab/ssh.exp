@@ -1,14 +1,7 @@
 #!/usr/bin/expect -f
 set timeout -1
 
-# argv[0] is the target, e.g. "jaeho.cho@ice03.ee.cooper.edu"
-if { $argc < 1 } {
-    puts "Usage: ssh-ice.exp user@host [extra ssh args...]"
-    exit 1
-}
-
-set target [lindex $argv 0]
-set extra_args [lrange $argv 1 end]
+set extra_args [lrange $argv 0 end]
 
 # Load password from environment variable ICE_PASSWORD
 if { ! [info exists env(ICE_PASSWORD)] } {
@@ -17,17 +10,21 @@ if { ! [info exists env(ICE_PASSWORD)] } {
 }
 set password $env(ICE_PASSWORD)
 
-# Start SSH
-eval spawn ssh -X -p31415 $target $extra_args
+# Connect to mililab via Cooper dev jump host
+eval spawn ssh -J jaeho.cho@dev.ee.cooper.edu:31415 jaeho@10.5.1.124 -X -Y $extra_args
 
-# Handle first-time host key prompt + password prompt
+# Handle host key prompts and jump host password (dev.ee.cooper.edu uses ICE_PASSWORD)
 expect {
     -re "Are you sure you want to continue connecting.*" {
         send "yes\r"
         exp_continue
     }
-    -re "password:*" {
+    -re "password:" {
         send "$password\r"
+        exp_continue
+    }
+    eof {
+        exit
     }
 }
 
