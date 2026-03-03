@@ -24,24 +24,18 @@ ssh() {
     case "$host" in
         ice0[0-9]|ice1[01])
             _ice_load_env || return 1
-            "$JAEHHO_ROOT/scripts/ice/ssh-ice.exp" \
+            "$JAEHHO_ROOT/scripts/ice/ssh.exp" \
                 "jaeho.cho@${host}.ee.cooper.edu" "$@"
             ;;
         jaeho.cho@ice0[0-9].ee.cooper.edu|jaeho.cho@ice1[01].ee.cooper.edu)
             _ice_load_env || return 1
-            "$JAEHHO_ROOT/scripts/ice/ssh-ice.exp" "$host" "$@"
-            ;;
-        mililab)
-            _ice_load_env || return 1
-            "$JAEHHO_ROOT/scripts/ice/ssh-mililab.exp" "$@"
+            "$JAEHHO_ROOT/scripts/ice/ssh.exp" "$host" "$@"
             ;;
         *)
             command ssh "$host" "$@"
             ;;
     esac
 }
-
-alias ssh-mililab='ssh mililab'
 
 # ── nohup helpers ──────────────────────────────────────────────────────────────
 nh() {
