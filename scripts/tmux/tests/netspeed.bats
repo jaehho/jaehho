@@ -5,6 +5,7 @@ setup() {
   export PATH="$MOCK_BIN:$PATH"
   FIXTURE_DIR="$(mktemp -d)"
   SCRIPT="$(cd "$BATS_TEST_DIRNAME/.." && pwd)/netspeed"
+  export SLEEP_INTERVAL=0
 
   # Mock ip route to return a known interface name
   cat > "$MOCK_BIN/ip" << 'EOF'
@@ -38,4 +39,29 @@ teardown() {
   [ "$status" -eq 0 ]
   # Format: ↓N ↑N KB/s  (N is a non-negative integer)
   [[ "$output" =~ ^↓[0-9]+\ ↑[0-9]+\ KB/s$ ]]
+}
+
+@test "netspeed outputs exact delta when bytes change between reads" {
+  local fixture1="$FIXTURE_DIR/proc_net_dev_1"
+  local fixture2="$FIXTURE_DIR/proc_net_dev_2"
+
+  # t=0: eth0 rx=1024, tx=0
+  cat > "$fixture1" << 'EOF'
+Inter-|   Receive                                                |  Transmit
+ face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+    lo:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0
+  eth0:    1024       1    0    0    0     0          0         0        0       0    0    0    0     0       0          0
+EOF
+
+  # t=1: eth0 rx=2048, tx=1024 → delta rx=1024, tx=1024 → ↓1 ↑1 KB/s
+  cat > "$fixture2" << 'EOF'
+Inter-|   Receive                                                |  Transmit
+ face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+    lo:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0
+  eth0:    2048       2    0    0    0     0          0         0     1024       1    0    0    0     0       0          0
+EOF
+
+  SLEEP_INTERVAL=0 PROC_NET_DEV_1="$fixture1" PROC_NET_DEV_2="$fixture2" run "$SCRIPT"
+  [ "$status" -eq 0 ]
+  [ "$output" = "↓1 ↑1 KB/s" ]
 }

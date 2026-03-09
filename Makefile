@@ -1,4 +1,6 @@
 SHELL := /bin/bash
+
+export PATH := $(HOME)/.local/bin:$(PATH)
 .SILENT:
 .IGNORE:
 .DEFAULT_GOAL := help
@@ -18,6 +20,12 @@ help: ## Show this help message
 .PHONY: test
 
 test: ## Run bats test suite for tmux status scripts
+	@if ! command -v bats &>/dev/null; then \
+		echo "bats not found — install with:"; \
+		echo "  git clone https://github.com/bats-core/bats-core.git /tmp/bats-core"; \
+		echo "  /tmp/bats-core/install.sh ~/.local"; \
+		exit 1; \
+	fi
 	bats scripts/tmux/tests/
 
 ## Systemd ICE mount service
