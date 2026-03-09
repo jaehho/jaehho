@@ -1,16 +1,2 @@
 #!/bin/bash
-PROC_STAT="${PROC_STAT:-/proc/stat}"
-snap1=$(grep '^cpu ' "${PROC_STAT_1:-$PROC_STAT}")
-sleep "${CPU_SAMPLE_INTERVAL:-1}"
-snap2=$(grep '^cpu ' "${PROC_STAT_2:-$PROC_STAT}")
-awk -v s1="$snap1" -v s2="$snap2" 'BEGIN {
-  split(s1, a)
-  split(s2, b)
-  idle1 = a[5] + a[6]
-  idle2 = b[5] + b[6]
-  total1 = 0; for (i = 2; i <= 10; i++) total1 += a[i]
-  total2 = 0; for (i = 2; i <= 10; i++) total2 += b[i]
-  dt = total2 - total1
-  if (dt > 0) printf "%d", 100 * (dt - (idle2 - idle1)) / dt
-  else printf "0"
-}'
+LC_ALL=C mpstat 1 1 | awk '/Average:.*all/{printf "%d", 100-$NF}'
