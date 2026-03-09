@@ -17,14 +17,14 @@
 
 ### Unit Tests
 
-- [ ] **TEST-01**: Bats test suite installed and runnable via `make test`
-- [ ] **TEST-02**: `cpu` tests mock `mpstat` output for both Ubuntu and Fedora locale formats and assert integer output
-- [ ] **TEST-03**: `gpu` tests mock `nvidia-smi` present/absent and assert correct output in both cases
-- [ ] **TEST-04**: `ram` tests mock `free` output and assert integer output
-- [ ] **TEST-05**: `disk` tests mock `df` output and assert percentage string output
-- [ ] **TEST-06**: `netspeed` tests mock `/proc/net/dev` and assert KB/s format output
-- [ ] **TEST-07**: All tests pass without real hardware (nvidia-smi, GPU, physical network interface)
-- [ ] **TEST-08**: All tests complete without blocking sleeps (CI-safe)
+- [x] **TEST-01**: Bats test suite installed and runnable via `make test`
+- [x] **TEST-02**: `cpu` tests mock `mpstat` output for both Ubuntu and Fedora locale formats and assert integer output
+- [x] **TEST-03**: `gpu` tests mock `nvidia-smi` present/absent and assert correct output in both cases
+- [x] **TEST-04**: `ram` tests mock `free` output and assert integer output
+- [x] **TEST-05**: `disk` tests mock `df` output and assert percentage string output
+- [x] **TEST-06**: `netspeed` tests mock `/proc/net/dev` and assert KB/s format output
+- [x] **TEST-07**: All tests pass without real hardware (nvidia-smi, GPU, physical network interface)
+- [x] **TEST-08**: All tests complete without blocking sleeps (CI-safe)
 
 ## v2 Requirements
 
@@ -53,14 +53,14 @@
 | SCRP-05 | Phase 1 | Complete |
 | SCRP-06 | Phase 1 | Complete |
 | SCRP-07 | Phase 1 | Complete |
-| TEST-01 | Phase 2 | Pending |
-| TEST-02 | Phase 2 | Pending |
-| TEST-03 | Phase 2 | Pending |
-| TEST-04 | Phase 2 | Pending |
-| TEST-05 | Phase 2 | Pending |
-| TEST-06 | Phase 2 | Pending |
-| TEST-07 | Phase 2 | Pending |
-| TEST-08 | Phase 2 | Pending |
+| TEST-01 | Phase 2 | Complete |
+| TEST-02 | Phase 2 | Complete |
+| TEST-03 | Phase 2 | Complete |
+| TEST-04 | Phase 2 | Complete |
+| TEST-05 | Phase 2 | Complete |
+| TEST-06 | Phase 2 | Complete |
+| TEST-07 | Phase 2 | Complete |
+| TEST-08 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 15 total

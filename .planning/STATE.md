@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-09T04:44:57.239Z"
+stopped_at: Completed 02-bats-test-suite-01-PLAN.md
+last_updated: "2026-03-09T04:59:28.118Z"
 last_activity: 2026-03-08 — Roadmap created
 progress:
   total_phases: 2
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 2
+  total_plans: 4
+  completed_plans: 4
   percent: 33
 ---
 
@@ -53,6 +53,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 01-script-fixes P01 | 12 | 2 tasks | 6 files |
 | Phase 01-script-fixes P03 | 1 | 2 tasks | 1 files |
 | Phase 01-script-fixes P02 | 2 | 2 tasks | 2 files |
+| Phase 02-bats-test-suite P01 | 2 | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,9 @@ Recent decisions affecting current work:
 - [Phase 01-script-fixes]: Used /Average:.*all/ awk filter (not /Average:/) to handle mocks that emit both header and data rows starting with Average:
 - [Phase 01-script-fixes]: Kept LC_ALL=C mpstat approach (not /proc/stat alternative) — minimal diff, matches research recommendation
 - [Phase 01-script-fixes]: Used command -v (not which) for nvidia-smi guard — POSIX built-in
+- [Phase 02-bats-test-suite]: Use 'run env PATH=MOCK_BIN cmd' to scope PATH restriction to subprocess — prevents stripped PATH from affecting bats teardown
+- [Phase 02-bats-test-suite]: Set SLEEP_INTERVAL=0 in setup() for non-blocking bats tests; PROC_NET_DEV_1/2 dual-fixture for delta assertions
+- [Phase 02-bats-test-suite]: export PATH := in Makefile at top level so bats at ~/.local/bin found without manual PATH export
 
 ### Pending Todos
 
@@ -81,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T04:44:57.237Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-bats-test-suite/02-CONTEXT.md
+Last session: 2026-03-09T04:59:28.116Z
+Stopped at: Completed 02-bats-test-suite-01-PLAN.md
+Resume file: None

@@ -13,7 +13,7 @@ Two phases of focused work: first fix all 5 status bar scripts to produce correc
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Script Fixes** - Make all 5 status scripts output correctly on Ubuntu and Fedora (completed 2026-03-09)
-- [ ] **Phase 2: Bats Test Suite** - Automated tests with mocked commands verify all scripts without real hardware
+- [x] **Phase 2: Bats Test Suite** - Automated tests with mocked commands verify all scripts without real hardware (completed 2026-03-09)
 
 ## Phase Details
 
@@ -57,4 +57,4 @@ Phases execute in numeric order: 1 → 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Script Fixes | 3/3 | Complete   | 2026-03-09 |
-| 2. Bats Test Suite | 0/1 | Not started | - |
+| 2. Bats Test Suite | 1/1 | Complete   | 2026-03-09 |
