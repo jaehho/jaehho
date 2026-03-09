@@ -14,6 +14,12 @@ help: ## Show this help message
 		     /^## / {gsub("^## ", ""); print "\n\033[1;35m" $$0 "\033[0m"}; \
 		     /^[a-zA-Z_-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+## Tmux scripts
+.PHONY: test
+
+test: ## Run bats test suite for tmux status scripts
+	bats scripts/tmux/tests/
+
 ## Systemd ICE mount service
 ICE_SERVICE_NAME = ice.service
 ICE_SERVICE_SRC  = $(REPO_ROOT)/systemd/$(ICE_SERVICE_NAME)
@@ -75,14 +81,16 @@ GITCONFIG_SRC    = $(REPO_ROOT)/config/.gitconfig
 GITCONFIG_DST    = $(HOME)/.gitconfig
 BASH_PROFILE_SRC = $(REPO_ROOT)/config/.bash_profile
 BASHRC_DST       = $(HOME)/.bashrc
+NVIM_SRC         = $(REPO_ROOT)/config/nvim
+NVIM_DST         = $(HOME)/.config/nvim
 ENV_SAMPLE       = $(REPO_ROOT)/.env.sample
 ENVRC_SAMPLE     = $(REPO_ROOT)/.envrc.sample
 ENV_DST          = $(REPO_ROOT)/.env
 ENVRC_DST        = $(REPO_ROOT)/.envrc
 
-.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux setup-env setup-envrc setup-env-files
+.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-env setup-envrc setup-env-files
 
-setup-all: setup-gitconfig setup-bashrc setup-tmux setup-env-files ## Run all personal setup steps
+setup-all: setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-env-files ## Run all personal setup steps
 
 setup-gitconfig: ## Hard link repo .gitconfig into home
 	ln -f $(GITCONFIG_SRC) $(GITCONFIG_DST)
@@ -94,6 +102,10 @@ setup-bashrc: ## Source repo .bash_profile from ~/.bashrc
 
 setup-tmux: ## Link tmux configuration
 	ln -f $(REPO_ROOT)/config/.tmux.conf $(HOME)/.tmux.conf
+
+setup-nvim: ## Symlink repo nvim config to ~/.config/nvim
+	mkdir -p $(HOME)/.config
+	ln -sfn $(NVIM_SRC) $(NVIM_DST)
 
 setup-envrc: ## Generate .envrc
 	@if [ -f $(ENVRC_DST) ]; then \
@@ -139,10 +151,16 @@ install-apt: ## Install required apt packages
 		curl \
 		direnv \
 		expect \
+		fd-find \
+		gcc \
 		iproute2 \
+		make \
+		nodejs \
+		ripgrep \
 		sshfs \
 		sysstat \
-		tmux
+		tmux \
+		unzip
 
 install-python: ## Install required Python packages via uv
 	uv pip install torch torchvision --index-url $(PYTORCH_INDEX)
