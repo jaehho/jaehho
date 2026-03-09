@@ -1,6 +1,9 @@
 # Repo root for these helpers
 JAEHHO_ROOT="${JAEHHO_ROOT:-$HOME/jaehho}"
 
+# User-local npm binaries (neovim, tree-sitter-cli, etc.)
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 # ── internal helper ────────────────────────────────────────────────────────────
 _ice_load_env() {
     if [ -f "$JAEHHO_ROOT/.env" ]; then
@@ -96,3 +99,5 @@ show_virtual_env() {
   fi
 }
 PS1='$(show_virtual_env)'"$PS1"
+
+alias c='claude --dangerously-skip-permissions'
