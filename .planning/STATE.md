@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-01-PLAN.md (Wave 0 failing tests)
-last_updated: "2026-03-09T03:39:57.020Z"
+stopped_at: Completed 01-03-PLAN.md (Wave 1 netspeed PROC_NET_DEV fix)
+last_updated: "2026-03-09T03:43:14.660Z"
 last_activity: 2026-03-08 — Roadmap created
 progress:
   total_phases: 2
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 33
 ---
 
@@ -51,6 +51,7 @@ Progress: [███░░░░░░░] 33%
 
 *Updated after each plan completion*
 | Phase 01-script-fixes P01 | 12 | 2 tasks | 6 files |
+| Phase 01-script-fixes P03 | 1 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,7 @@ Recent decisions affecting current work:
 - Fix all 5 scripts (not just cpu+gpu) to prevent future cross-distro surprises
 - Mock system commands in tests so suite runs CI-safe without hardware
 - [Phase 01-script-fixes]: bats installed from git source to ~/.local/bin (no sudo); netspeed test uses format-only assertion; cpu comma-decimal test uses range check
+- [Phase 01-script-fixes]: netspeed PROC_NET_DEV uses bash default-value expansion; test verifies format only (delta=0 valid); sleep 1 preserved per EXT-03 deferral
 
 ### Pending Todos
 
@@ -75,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T03:39:57.018Z
-Stopped at: Completed 01-01-PLAN.md (Wave 0 failing tests)
+Last session: 2026-03-09T03:43:14.658Z
+Stopped at: Completed 01-03-PLAN.md (Wave 1 netspeed PROC_NET_DEV fix)
 Resume file: None
