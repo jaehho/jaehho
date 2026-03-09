@@ -1,2 +1,6 @@
 #!/bin/bash
-nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | tr -d ' '
+if ! command -v nvidia-smi &>/dev/null; then
+  echo "N/A"
+  exit 0
+fi
+nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | tr -d ' ' || echo "N/A"
