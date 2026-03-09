@@ -1,36 +1,35 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
-status: planning
-stopped_at: Completed 02-bats-test-suite-01-PLAN.md
-last_updated: "2026-03-09T05:01:50.653Z"
-last_activity: 2026-03-08 — Roadmap created
+milestone_name: Cross-Distro Fix
+status: milestone_complete
+stopped_at: v1.0 milestone archived
+last_updated: "2026-03-09"
+last_activity: 2026-03-09 — v1.0 milestone complete
 progress:
   total_phases: 2
   completed_phases: 2
   total_plans: 4
   completed_plans: 4
-  percent: 33
+  percent: 100
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-08)
+See: .planning/PROJECT.md (updated 2026-03-09 after v1.0 milestone)
 
 **Core value:** Every tmux status bar widget prints a valid value on any supported Linux distro, verified by automated tests that run without real hardware.
-**Current focus:** Phase 1 — Script Fixes
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 1 of 2 (Script Fixes)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-08 — Roadmap created
+Phase: 2 of 2 (Bats Test Suite) — COMPLETE
+Status: Milestone v1.0 archived
+Last activity: 2026-03-09 — v1.0 milestone complete
 
-Progress: [███░░░░░░░] 33%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -80,8 +79,7 @@ None yet.
 
 ### Blockers/Concerns
 
-- CPU script: mpstat locale issue (comma vs dot decimal) is the primary known failure mode on Fedora — fix must use locale-agnostic parsing (e.g., `LC_ALL=C` or awk substitution)
-- GPU script: silent failure mode when nvidia-smi is missing must be handled explicitly
+None — milestone complete.
 
 ## Session Continuity
 
