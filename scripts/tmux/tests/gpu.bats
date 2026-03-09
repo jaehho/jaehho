@@ -2,7 +2,6 @@
 
 setup() {
   MOCK_BIN="$(mktemp -d)"
-  export PATH="$MOCK_BIN:$PATH"
   SCRIPT="$(cd "$BATS_TEST_DIRNAME/.." && pwd)/gpu"
 }
 
@@ -16,14 +15,14 @@ teardown() {
 echo "45"
 EOF
   chmod +x "$MOCK_BIN/nvidia-smi"
+  export PATH="$MOCK_BIN:/usr/bin:/bin"
   run "$SCRIPT"
   [ "$status" -eq 0 ]
   [[ "$output" =~ ^[0-9]+%$ ]]
 }
 
 @test "gpu outputs N/A when nvidia-smi is absent" {
-  # MOCK_BIN is empty; real nvidia-smi is not in PATH (masked by MOCK_BIN prefix)
-  run "$SCRIPT"
+  run env PATH="$MOCK_BIN" "$SCRIPT"
   [ "$status" -eq 0 ]
   [ "$output" = "N/A" ]
 }
@@ -35,6 +34,7 @@ echo "NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driv
 exit 1
 EOF
   chmod +x "$MOCK_BIN/nvidia-smi"
+  export PATH="$MOCK_BIN:/usr/bin:/bin"
   run "$SCRIPT"
   [ "$status" -eq 0 ]
   [ "$output" = "N/A" ]
