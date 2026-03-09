@@ -44,7 +44,10 @@ Plans:
   3. The gpu test file covers the nvidia-smi present and absent scenarios and asserts the correct output format in each case
   4. All tests complete without real hardware (no actual nvidia-smi, GPU, or physical network interface) and without blocking sleeps
   5. Introducing a format regression in any script causes at least one bats test to fail
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — Wave 1: fix gpu absent test PATH, add netspeed SLEEP_INTERVAL + PROC_NET_DEV_1/2, add delta test, fix Makefile PATH
 
 ## Progress
 
@@ -54,4 +57,4 @@ Phases execute in numeric order: 1 → 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Script Fixes | 3/3 | Complete   | 2026-03-09 |
-| 2. Bats Test Suite | 0/TBD | Not started | - |
+| 2. Bats Test Suite | 0/1 | Not started | - |
