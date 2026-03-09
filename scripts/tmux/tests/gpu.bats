@@ -27,3 +27,15 @@ EOF
   [ "$status" -eq 0 ]
   [ "$output" = "N/A" ]
 }
+
+@test "gpu outputs N/A when nvidia-smi fails (driver not loaded)" {
+  cat > "$MOCK_BIN/nvidia-smi" << 'EOF'
+#!/bin/bash
+echo "NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver." >&2
+exit 1
+EOF
+  chmod +x "$MOCK_BIN/nvidia-smi"
+  run "$SCRIPT"
+  [ "$status" -eq 0 ]
+  [ "$output" = "N/A" ]
+}
