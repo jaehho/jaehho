@@ -121,3 +121,16 @@ None - no external service configuration required.
 ---
 *Phase: 01-script-fixes*
 *Completed: 2026-03-09*
+
+## Self-Check: PASSED
+
+- FOUND: scripts/tmux/tests/cpu.bats
+- FOUND: scripts/tmux/tests/gpu.bats
+- FOUND: scripts/tmux/tests/ram.bats
+- FOUND: scripts/tmux/tests/disk.bats
+- FOUND: scripts/tmux/tests/netspeed.bats
+- FOUND: Makefile (test target added)
+- FOUND: .planning/phases/01-script-fixes/01-01-SUMMARY.md
+- FOUND commit 5511dea: test(01-01): add failing bats tests for cpu and gpu scripts
+- FOUND commit 9daaed5: test(01-01): add ram/disk/netspeed bats tests and make test target
+- FOUND commit bdcdf19: docs(01-01): complete Wave 0 failing tests plan
