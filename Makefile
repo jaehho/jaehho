@@ -32,11 +32,16 @@ test: ## Run bats test suite for tmux status scripts
 ICE_SERVICE_NAME = ice.service
 ICE_SERVICE_SRC  = $(REPO_ROOT)/systemd/$(ICE_SERVICE_NAME)
 ICE_SERVICE_DST  = /etc/systemd/system/$(ICE_SERVICE_NAME)
+ICE_ENV          = $(REPO_ROOT)/.env
+ICE_MOUNT_SCRIPT = $(REPO_ROOT)/scripts/ice/mount.sh
 
 .PHONY: ice-link ice-reload ice-enable ice-start ice-stop ice-restart ice-status
 
 ice-link: ## Link ice service file to systemd directory
 	sudo ln -sf $(ICE_SERVICE_SRC) $(ICE_SERVICE_DST)
+	sudo chcon -t systemd_unit_file_t $(ICE_SERVICE_SRC)
+	sudo chcon -t systemd_unit_file_t $(ICE_ENV)
+	sudo chcon -t bin_t $(ICE_MOUNT_SCRIPT)
 
 ice-reload: ## Reload systemd daemon
 	sudo systemctl daemon-reload
@@ -153,22 +158,39 @@ PYTORCH_INDEX = https://download.pytorch.org/whl/cu130
 
 install-deps: install-apt install-python ## Install all dependencies (apt + python)
 
-install-apt: ## Install required apt packages
-	sudo apt-get update -qq
-	sudo apt-get install -y \
-		curl \
-		direnv \
-		expect \
-		fd-find \
-		gcc \
-		iproute2 \
-		make \
-		nodejs \
-		ripgrep \
-		sshfs \
-		sysstat \
-		tmux \
-		unzip
+install-apt: ## Install required system packages (apt or dnf)
+	@if command -v dnf &>/dev/null; then \
+		sudo dnf install -y \
+			curl \
+			direnv \
+			expect \
+			fd-find \
+			fuse-sshfs \
+			gcc \
+			iproute \
+			make \
+			nodejs \
+			ripgrep \
+			sysstat \
+			tmux \
+			unzip; \
+	else \
+		sudo apt-get update -qq && \
+		sudo apt-get install -y \
+			curl \
+			direnv \
+			expect \
+			fd-find \
+			gcc \
+			iproute2 \
+			make \
+			nodejs \
+			ripgrep \
+			sshfs \
+			sysstat \
+			tmux \
+			unzip; \
+	fi
 
 install-python: ## Install required Python packages via uv
 	uv pip install torch torchvision --index-url $(PYTORCH_INDEX)
