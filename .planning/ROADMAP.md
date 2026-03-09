@@ -53,5 +53,5 @@ Phases execute in numeric order: 1 → 2
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Script Fixes | 0/3 | Not started | - |
+| 1. Script Fixes | 1/3 | In Progress|  |
 | 2. Bats Test Suite | 0/TBD | Not started | - |

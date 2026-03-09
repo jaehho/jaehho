@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: planning
+stopped_at: Completed 01-01-PLAN.md (Wave 0 failing tests)
+last_updated: "2026-03-09T03:39:57.020Z"
+last_activity: 2026-03-08 — Roadmap created
+progress:
+  total_phases: 2
+  completed_phases: 0
+  total_plans: 3
+  completed_plans: 1
+  percent: 33
+---
+
 # Project State
 
 ## Project Reference
@@ -14,7 +30,7 @@ Plan: 0 of TBD in current phase
 Status: Ready to plan
 Last activity: 2026-03-08 — Roadmap created
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [███░░░░░░░] 33%
 
 ## Performance Metrics
 
@@ -34,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01-script-fixes P01 | 12 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -45,6 +62,7 @@ Recent decisions affecting current work:
 - Bash only for scripts; bats for testing framework
 - Fix all 5 scripts (not just cpu+gpu) to prevent future cross-distro surprises
 - Mock system commands in tests so suite runs CI-safe without hardware
+- [Phase 01-script-fixes]: bats installed from git source to ~/.local/bin (no sudo); netspeed test uses format-only assertion; cpu comma-decimal test uses range check
 
 ### Pending Todos
 
@@ -57,6 +75,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-08
-Stopped at: Roadmap created, no plans written yet
+Last session: 2026-03-09T03:39:57.018Z
+Stopped at: Completed 01-01-PLAN.md (Wave 0 failing tests)
 Resume file: None

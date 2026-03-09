@@ -7,13 +7,13 @@
 
 ### Script Fixes
 
-- [ ] **SCRP-01**: `cpu` script outputs a valid integer (0–100) on Fedora with locale-agnostic mpstat parsing
-- [ ] **SCRP-02**: `cpu` script outputs a valid integer (0–100) on Ubuntu (no regression)
-- [ ] **SCRP-03**: `gpu` script outputs a valid integer (0–100) when nvidia-smi is available
-- [ ] **SCRP-04**: `gpu` script outputs a graceful fallback string (e.g., `N/A`) when nvidia-smi is absent or fails
-- [ ] **SCRP-05**: `ram` script outputs a valid integer (0–100) on both Ubuntu and Fedora
-- [ ] **SCRP-06**: `disk` script outputs a valid percentage string (e.g., `42%`) on both Ubuntu and Fedora
-- [ ] **SCRP-07**: `netspeed` script outputs a valid KB/s string (e.g., `↓12 ↑3 KB/s`) on both Ubuntu and Fedora
+- [x] **SCRP-01**: `cpu` script outputs a valid integer (0–100) on Fedora with locale-agnostic mpstat parsing
+- [x] **SCRP-02**: `cpu` script outputs a valid integer (0–100) on Ubuntu (no regression)
+- [x] **SCRP-03**: `gpu` script outputs a valid integer (0–100) when nvidia-smi is available
+- [x] **SCRP-04**: `gpu` script outputs a graceful fallback string (e.g., `N/A`) when nvidia-smi is absent or fails
+- [x] **SCRP-05**: `ram` script outputs a valid integer (0–100) on both Ubuntu and Fedora
+- [x] **SCRP-06**: `disk` script outputs a valid percentage string (e.g., `42%`) on both Ubuntu and Fedora
+- [x] **SCRP-07**: `netspeed` script outputs a valid KB/s string (e.g., `↓12 ↑3 KB/s`) on both Ubuntu and Fedora
 
 ### Unit Tests
 
@@ -46,13 +46,13 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCRP-01 | Phase 1 | Pending |
-| SCRP-02 | Phase 1 | Pending |
-| SCRP-03 | Phase 1 | Pending |
-| SCRP-04 | Phase 1 | Pending |
-| SCRP-05 | Phase 1 | Pending |
-| SCRP-06 | Phase 1 | Pending |
-| SCRP-07 | Phase 1 | Pending |
+| SCRP-01 | Phase 1 | Complete |
+| SCRP-02 | Phase 1 | Complete |
+| SCRP-03 | Phase 1 | Complete |
+| SCRP-04 | Phase 1 | Complete |
+| SCRP-05 | Phase 1 | Complete |
+| SCRP-06 | Phase 1 | Complete |
+| SCRP-07 | Phase 1 | Complete |
 | TEST-01 | Phase 2 | Pending |
 | TEST-02 | Phase 2 | Pending |
 | TEST-03 | Phase 2 | Pending |
