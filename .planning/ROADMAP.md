@@ -27,7 +27,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The ram script outputs a valid integer (0–100) on both Ubuntu and Fedora
   4. The disk script outputs a valid percentage string (e.g., 42%) on both Ubuntu and Fedora
   5. The netspeed script outputs a valid KB/s string (e.g., ↓12 ↑3 KB/s) on both Ubuntu and Fedora
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Wave 0: create failing bats test stubs for all 5 scripts and add make test target
+- [ ] 01-02-PLAN.md — Wave 1a: fix cpu (LC_ALL=C) and gpu (command -v guard + N/A fallback)
+- [ ] 01-03-PLAN.md — Wave 1b: add PROC_NET_DEV env var to netspeed; verify ram and disk pass unchanged
 
 ### Phase 2: Bats Test Suite
 **Goal**: Automated tests verify correct behavior for all 5 scripts without real hardware
@@ -48,5 +53,5 @@ Phases execute in numeric order: 1 → 2
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Script Fixes | 0/TBD | Not started | - |
+| 1. Script Fixes | 0/3 | Not started | - |
 | 2. Bats Test Suite | 0/TBD | Not started | - |
