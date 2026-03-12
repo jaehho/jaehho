@@ -189,7 +189,8 @@ install-apt: ## Install required system packages (apt or dnf)
 			sshfs \
 			sysstat \
 			tmux \
-			unzip; \
+			unzip \
+			wl-clipboard; \
 	fi
 
 install-python: ## Install required Python packages via uv
