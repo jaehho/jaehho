@@ -39,11 +39,11 @@ ICE_MOUNT_SCRIPT = $(REPO_ROOT)/scripts/ice/mount.sh
 
 ice-link: ## Link ice service file to systemd directory
 	sudo ln -sf $(ICE_SERVICE_SRC) $(ICE_SERVICE_DST)
-	sudo chcon -t systemd_unit_file_t $(ICE_SERVICE_SRC)
-	sudo chcon -t systemd_unit_file_t $(ICE_ENV)
-	sudo chcon -t bin_t $(ICE_MOUNT_SCRIPT)
+	command -v chcon &>/dev/null && sudo chcon -t systemd_unit_file_t $(ICE_SERVICE_SRC) || true
+	command -v chcon &>/dev/null && sudo chcon -t systemd_unit_file_t $(ICE_ENV) || true
+	command -v chcon &>/dev/null && sudo chcon -t bin_t $(ICE_MOUNT_SCRIPT) || true
 
-ice-reload: ## Reload systemd daemon
+ice-reload: ice-link ## Reload systemd daemon
 	sudo systemctl daemon-reload
 
 ice-enable: ice-reload ## Enable the ice service
@@ -165,7 +165,7 @@ install-apt: ## Install required system packages (apt or dnf)
 			direnv \
 			expect \
 			fd-find \
-			fuse-sshfs \
+			rclone \
 			gcc \
 			iproute \
 			make \
@@ -186,7 +186,7 @@ install-apt: ## Install required system packages (apt or dnf)
 			make \
 			nodejs \
 			ripgrep \
-			sshfs \
+			rclone \
 			sysstat \
 			tmux \
 			unzip \

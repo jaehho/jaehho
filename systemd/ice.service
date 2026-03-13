@@ -1,14 +1,13 @@
 [Unit]
-Description=SSHFS mount for Cooper ICE servers (ice00–ice11)
+Description=rclone SFTP mount for Cooper ICE server
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=oneshot
-RemainAfterExit=yes
+Type=simple
 EnvironmentFile=/home/jaeho/jaehho/.env
 ExecStart=/home/jaeho/jaehho/scripts/ice/mount.sh
-ExecStop=/bin/fusermount -u /mnt/ice
+ExecStop=/bin/fusermount3 -u /mnt/ice
 TimeoutStartSec=30
 
 [Install]
