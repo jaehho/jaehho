@@ -151,6 +151,12 @@ setup-env: ## Generate .env interactively
 
 setup-env-files: setup-envrc setup-env ## Generate both .env and .envrc from samples
 
+## Neovim
+.PHONY: update-nvim
+
+update-nvim: ## Build and install latest stable Neovim from source
+	$(REPO_ROOT)/scripts/update-nvim.sh
+
 ## Dependencies
 PYTORCH_INDEX = https://download.pytorch.org/whl/cu130
 
