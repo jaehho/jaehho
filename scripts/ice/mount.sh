@@ -31,11 +31,9 @@ fi
 
 mkdir -p "$MOUNTPOINT"
 
-RCLONE_CONFIG="$REPO_ROOT/config/rclone/rclone.conf"
 OBSCURED_PASS=$(rclone obscure "$ICE_PASSWORD")
 
 exec rclone mount ice:/afs/ee.cooper.edu/user/j/jaeho.cho "$MOUNTPOINT" \
-    --config "$RCLONE_CONFIG" \
     --sftp-pass "$OBSCURED_PASS" \
     --allow-other \
     --default-permissions \
