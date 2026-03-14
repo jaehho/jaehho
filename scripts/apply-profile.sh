@@ -82,7 +82,14 @@ for pkg in $ALL_STOW; do
     fi
 done
 
-# 3. Bash source line (always applied regardless of profile)
+# 3. Install TPM if tmux was stowed
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+if [[ " $ALL_STOW " == *" tmux "* ]] && [[ ! -d "$TPM_DIR" ]]; then
+    echo "Installing TPM (Tmux Plugin Manager)..."
+    git clone --depth 1 https://github.com/tmux-plugins/tpm "$TPM_DIR"
+fi
+
+# 4. Bash source line (always applied regardless of profile)
 BASH_PROFILE_SRC="$STOW_DIR/bash/.bash_profile"
 BASHRC="$HOME/.bashrc"
 if [[ -f "$BASH_PROFILE_SRC" ]]; then
@@ -93,7 +100,7 @@ if [[ -f "$BASH_PROFILE_SRC" ]]; then
     fi
 fi
 
-# 4. Systemd services
+# 5. Systemd services
 for svc in $ALL_SERVICES; do
     local_service="$SYSTEMD_DIR/${svc}.service"
     system_service="/etc/systemd/system/${svc}.service"
