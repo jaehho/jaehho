@@ -3,3 +3,4 @@ neovim
 hyprland
 waybar
 wl-clipboard
+keyd

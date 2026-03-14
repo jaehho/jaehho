@@ -105,22 +105,31 @@ for svc in $ALL_SERVICES; do
     local_service="$SYSTEMD_DIR/${svc}.service"
     system_service="/etc/systemd/system/${svc}.service"
 
-    if [[ ! -f "$local_service" ]]; then
-        echo "WARNING: service file not found: $local_service" >&2
-        continue
-    fi
-
     echo "Setting up service: $svc"
-    sudo ln -sf "$local_service" "$system_service"
 
-    # SELinux context if applicable
-    if command -v chcon &>/dev/null; then
-        sudo chcon -t systemd_unit_file_t "$local_service" 2>/dev/null || true
+    # Link custom service file if we provide one
+    if [[ -f "$local_service" ]]; then
+        sudo ln -sf "$local_service" "$system_service"
+        if command -v chcon &>/dev/null; then
+            sudo chcon -t systemd_unit_file_t "$local_service" 2>/dev/null || true
+        fi
+        sudo systemctl daemon-reload
     fi
 
-    sudo systemctl daemon-reload
     sudo systemctl enable "${svc}.service"
     echo "Service $svc enabled (start with: sudo systemctl start ${svc}.service)"
+
+    # Link config files for services that need them (e.g., keyd)
+    local_conf_dir="$REPO_ROOT/$svc"
+    system_conf_dir="/etc/$svc"
+    if [[ -d "$local_conf_dir" ]]; then
+        echo "  Linking $svc config files to $system_conf_dir"
+        sudo mkdir -p "$system_conf_dir"
+        for conf in "$local_conf_dir"/*; do
+            sudo ln -sf "$conf" "$system_conf_dir/$(basename "$conf")"
+        done
+        sudo systemctl restart "${svc}.service"
+    fi
 done
 
 echo "Profile applied successfully."
