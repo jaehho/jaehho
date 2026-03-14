@@ -135,7 +135,7 @@ if [[ "$PM" == "apt" ]]; then
         if command -v nvim &>/dev/null; then
             NVIM_INSTALLED="v$(nvim --version | head -1 | grep -oP '\d+\.\d+\.\d+')"
         fi
-        NVIM_LATEST="$(git ls-remote --tags --sort=-v:refname https://github.com/neovim/neovim.git 'refs/tags/v[0-9]*' | head -1 | sed 's|.*refs/tags/||')"
+        NVIM_LATEST="$(git ls-remote --tags --sort=-v:refname https://github.com/neovim/neovim.git 'refs/tags/v[0-9]*' | head -1 | sed 's|.*refs/tags/||; s|\^{}||')"
         if [[ "$NVIM_INSTALLED" == "$NVIM_LATEST" ]]; then
             echo "Neovim $NVIM_INSTALLED is already the latest stable, skipping build."
         else
