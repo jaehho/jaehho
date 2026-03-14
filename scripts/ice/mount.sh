@@ -11,6 +11,11 @@ if [ -f "$ENV_FILE" ]; then
     set +a
 fi
 
+if [ -z "${ICE_USER:-}" ]; then
+    echo "ERROR: ICE_USER is not set (check your .env or service EnvironmentFile)" >&2
+    exit 1
+fi
+
 if [ -z "${ICE_PASSWORD:-}" ]; then
     echo "ERROR: ICE_PASSWORD is not set (check your .env or service EnvironmentFile)" >&2
     exit 1
@@ -33,7 +38,9 @@ mkdir -p "$MOUNTPOINT"
 
 OBSCURED_PASS=$(rclone obscure "$ICE_PASSWORD")
 
-exec rclone mount ice:/afs/ee.cooper.edu/user/j/jaeho.cho "$MOUNTPOINT" \
+ICE_HOME="/afs/ee.cooper.edu/user/${ICE_USER:0:1}/${ICE_USER}"
+
+exec rclone mount "ice:${ICE_HOME}" "$MOUNTPOINT" \
     --sftp-pass "$OBSCURED_PASS" \
     --allow-other \
     --default-permissions \

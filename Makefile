@@ -28,14 +28,23 @@ test: ## Run bats test suite for tmux status scripts
 	fi
 	bats scripts/tmux/tests/
 
-## Systemd ICE mount service
-ICE_SERVICE_NAME = ice.service
-ICE_SERVICE_SRC  = $(REPO_ROOT)/systemd/$(ICE_SERVICE_NAME)
-ICE_SERVICE_DST  = /etc/systemd/system/$(ICE_SERVICE_NAME)
-ICE_ENV          = $(REPO_ROOT)/.env
-ICE_MOUNT_SCRIPT = $(REPO_ROOT)/scripts/ice/mount.sh
+## Systemd ICE mount service (prereqs: ICE_USER and ICE_PASSWORD in .env)
+-include $(REPO_ROOT)/.env
+ICE_HOST             = ice00.ee.cooper.edu
+ICE_PORT             = 31415
+ICE_SERVICE_NAME     = ice.service
+ICE_SERVICE_SRC      = $(REPO_ROOT)/systemd/$(ICE_SERVICE_NAME)
+ICE_SERVICE_DST      = /etc/systemd/system/$(ICE_SERVICE_NAME)
+ICE_ENV              = $(REPO_ROOT)/.env
+ICE_MOUNT_SCRIPT     = $(REPO_ROOT)/scripts/ice/mount.sh
 
-.PHONY: ice-link ice-reload ice-enable ice-start ice-stop ice-restart ice-status
+.PHONY: ice-setup ice-link ice-reload ice-enable ice-start ice-stop ice-restart ice-status
+
+ice-setup: ## Set up rclone "ice" remote (run once, reads ICE_USER from .env)
+	@if [ -z "$(ICE_USER)" ]; then echo "ERROR: ICE_USER is not set in .env" >&2; exit 1; fi
+	rclone config create ice sftp \
+		host=$(ICE_HOST) user=$(ICE_USER) port=$(ICE_PORT) \
+		shell_type=unix md5sum_command=md5sum sha1sum_command=sha1sum
 
 ice-link: ## Link ice service file to systemd directory
 	sudo ln -sf $(ICE_SERVICE_SRC) $(ICE_SERVICE_DST)
@@ -49,16 +58,16 @@ ice-reload: ice-link ## Reload systemd daemon
 ice-enable: ice-reload ## Enable the ice service
 	sudo systemctl enable $(ICE_SERVICE_NAME)
 
-ice-start: ice-enable ## Start the ice service
+ice-start: ice-enable ## Start the ice mount (links, enables, and starts the service)
 	sudo systemctl start $(ICE_SERVICE_NAME)
 
-ice-stop: ## Stop the ice service
+ice-stop: ## Stop the ice mount
 	sudo systemctl stop $(ICE_SERVICE_NAME)
 
-ice-restart: ## Restart the ice service
+ice-restart: ## Restart the ice mount
 	sudo systemctl restart $(ICE_SERVICE_NAME)
 
-ice-status: ## Show the status of the ice service
+ice-status: ## Show ice mount status
 	systemctl status $(ICE_SERVICE_NAME)
 
 ## Systemd Zotero sync service
@@ -96,14 +105,18 @@ BASH_PROFILE_SRC = $(REPO_ROOT)/config/.bash_profile
 BASHRC_DST       = $(HOME)/.bashrc
 NVIM_SRC         = $(REPO_ROOT)/config/nvim
 NVIM_DST         = $(HOME)/.config/nvim
+HYPR_SRC         = $(REPO_ROOT)/config/hypr
+HYPR_DST         = $(HOME)/.config/hypr
+WAYBAR_SRC       = $(REPO_ROOT)/config/waybar
+WAYBAR_DST       = $(HOME)/.config/waybar
 ENV_SAMPLE       = $(REPO_ROOT)/.env.sample
 ENVRC_SAMPLE     = $(REPO_ROOT)/.envrc.sample
 ENV_DST          = $(REPO_ROOT)/.env
 ENVRC_DST        = $(REPO_ROOT)/.envrc
 
-.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-env setup-envrc setup-env-files
+.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-hypr setup-waybar setup-env setup-envrc setup-env-files
 
-setup-all: setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-env-files ## Run all personal setup steps
+setup-all: setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-hypr setup-waybar setup-env-files ## Run all personal setup steps
 
 setup-gitconfig: ## Hard link repo .gitconfig into home
 	ln -f $(GITCONFIG_SRC) $(GITCONFIG_DST)
@@ -119,6 +132,14 @@ setup-tmux: ## Link tmux configuration
 setup-nvim: ## Symlink repo nvim config to ~/.config/nvim
 	mkdir -p $(HOME)/.config
 	ln -sfn $(NVIM_SRC) $(NVIM_DST)
+
+setup-hypr: ## Symlink repo hypr config to ~/.config/hypr
+	mkdir -p $(HOME)/.config
+	ln -sfn $(HYPR_SRC) $(HYPR_DST)
+
+setup-waybar: ## Symlink repo waybar config to ~/.config/waybar
+	mkdir -p $(HOME)/.config
+	ln -sfn $(WAYBAR_SRC) $(WAYBAR_DST)
 
 setup-envrc: ## Generate .envrc
 	@if [ -f $(ENVRC_DST) ]; then \
