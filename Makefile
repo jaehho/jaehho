@@ -16,15 +16,6 @@ help: ## Show this help message
 		     /^## / {gsub("^## ", ""); print "\n\033[1;35m" $$0 "\033[0m"}; \
 		     /^[a-zA-Z_%-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-test: ## Run bats test suite for tmux status scripts
-	@if ! command -v bats &>/dev/null; then \
-		echo "bats not found — install with:"; \
-		echo "  git clone https://github.com/bats-core/bats-core.git /tmp/bats-core"; \
-		echo "  /tmp/bats-core/install.sh ~/.local"; \
-		exit 1; \
-	fi
-	bats scripts/tmux/tests/
-
 ## Setup (bootstrap = install + setup + setup-env-files)
 bootstrap: ## Full setup: install packages, stow configs, prompt for secrets
 	./bootstrap.sh --profile $(PROFILE)
