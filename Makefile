@@ -2,22 +2,19 @@ SHELL := /bin/bash
 
 export PATH := $(HOME)/.local/bin:$(PATH)
 .SILENT:
-.IGNORE:
 .DEFAULT_GOAL := help
 
 REPO_ROOT := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+PROFILE ?= $(shell cat ~/.dotfiles-profile 2>/dev/null || echo common)
 
 ## General
 help: ## Show this help message
 	echo "Available targets:"
 	echo "=================="
-	grep -E '(^[a-zA-Z_-]+:.*?## .*$$|^## )' $(MAKEFILE_LIST) | \
+	grep -hE '(^[a-zA-Z_%-]+:.*?## .*$$|^## )' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; \
 		     /^## / {gsub("^## ", ""); print "\n\033[1;35m" $$0 "\033[0m"}; \
-		     /^[a-zA-Z_-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
-
-## Tmux scripts
-.PHONY: test
+		     /^[a-zA-Z_%-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 test: ## Run bats test suite for tmux status scripts
 	@if ! command -v bats &>/dev/null; then \
@@ -28,122 +25,50 @@ test: ## Run bats test suite for tmux status scripts
 	fi
 	bats scripts/tmux/tests/
 
-## Systemd ICE mount service (prereqs: ICE_USER and ICE_PASSWORD in .env)
+## Setup (bootstrap = install + setup + setup-env-files)
+bootstrap: ## Full setup: install packages, stow configs, prompt for secrets
+	./bootstrap.sh --profile $(PROFILE)
+
+install: ## Install system packages for current profile
+	./scripts/install-packages.sh $(PROFILE)
+
+setup: ## Stow configs and enable services for current profile
+	./scripts/apply-profile.sh $(PROFILE)
+
+## Stow (bootstrap stows all profile packages; these are for ad-hoc use)
+stow-%: ## Stow a single package (e.g., make stow-nvim)
+	stow -d stow -t ~ --no-folding $*
+
+unstow-%: ## Unstow a single package (e.g., make unstow-nvim)
+	stow -d stow -t ~ -D $*
+
+## Environment (included in bootstrap)
 -include $(REPO_ROOT)/.env
-ICE_HOST             = ice00.ee.cooper.edu
-ICE_PORT             = 31415
-ICE_SERVICE_NAME     = ice.service
-ICE_SERVICE_SRC      = $(REPO_ROOT)/systemd/$(ICE_SERVICE_NAME)
-ICE_SERVICE_DST      = /etc/systemd/system/$(ICE_SERVICE_NAME)
-ICE_ENV              = $(REPO_ROOT)/.env
-ICE_MOUNT_SCRIPT     = $(REPO_ROOT)/scripts/ice/mount.sh
-
-.PHONY: ice-setup ice-link ice-reload ice-enable ice-start ice-stop ice-restart ice-status
-
-ice-setup: ## Set up rclone "ice" remote (run once, reads ICE_USER from .env)
-	@if [ -z "$(ICE_USER)" ]; then echo "ERROR: ICE_USER is not set in .env" >&2; exit 1; fi
-	rclone config create ice sftp \
-		host=$(ICE_HOST) user=$(ICE_USER) port=$(ICE_PORT) \
-		shell_type=unix md5sum_command=md5sum sha1sum_command=sha1sum
-
-ice-link: ## Link ice service file to systemd directory
-	sudo ln -sf $(ICE_SERVICE_SRC) $(ICE_SERVICE_DST)
-	command -v chcon &>/dev/null && sudo chcon -t systemd_unit_file_t $(ICE_SERVICE_SRC) || true
-	command -v chcon &>/dev/null && sudo chcon -t systemd_unit_file_t $(ICE_ENV) || true
-	command -v chcon &>/dev/null && sudo chcon -t bin_t $(ICE_MOUNT_SCRIPT) || true
-
-ice-reload: ice-link ## Reload systemd daemon
-	sudo systemctl daemon-reload
-
-ice-enable: ice-reload ## Enable the ice service
-	sudo systemctl enable $(ICE_SERVICE_NAME)
-
-ice-start: ice-enable ## Start the ice mount (links, enables, and starts the service)
-	sudo systemctl start $(ICE_SERVICE_NAME)
-
-ice-stop: ## Stop the ice mount
-	sudo systemctl stop $(ICE_SERVICE_NAME)
-
-ice-restart: ## Restart the ice mount
-	sudo systemctl restart $(ICE_SERVICE_NAME)
-
-ice-status: ## Show ice mount status
-	systemctl status $(ICE_SERVICE_NAME)
-
-## Systemd Zotero sync service
-ZOTERO_SERVICE_NAME = zotero.service
-ZOTERO_SERVICE_SRC  = $(REPO_ROOT)/systemd/$(ZOTERO_SERVICE_NAME)
-ZOTERO_SERVICE_DST  = /etc/systemd/system/$(ZOTERO_SERVICE_NAME)
-
-.PHONY: zotero-link zotero-reload zotero-enable zotero-start zotero-stop zotero-restart zotero-status
-
-zotero-link: ## Link zotero service file to systemd directory
-	sudo ln -sf $(ZOTERO_SERVICE_SRC) $(ZOTERO_SERVICE_DST)
-
-zotero-reload: ## Reload systemd daemon
-	sudo systemctl daemon-reload
-
-zotero-enable: zotero-reload ## Enable the zotero service
-	sudo systemctl enable $(ZOTERO_SERVICE_NAME)
-
-zotero-start: zotero-enable ## Start the zotero service
-	sudo systemctl start $(ZOTERO_SERVICE_NAME)
-
-zotero-stop: ## Stop the zotero service
-	sudo systemctl stop $(ZOTERO_SERVICE_NAME)
-
-zotero-restart: ## Restart the zotero service
-	sudo systemctl restart $(ZOTERO_SERVICE_NAME)
-
-zotero-status: ## Show the status of the zotero service
-	systemctl status $(ZOTERO_SERVICE_NAME)
-
-## Personal setup
-GITCONFIG_SRC    = $(REPO_ROOT)/config/.gitconfig
-GITCONFIG_DST    = $(HOME)/.gitconfig
-BASH_PROFILE_SRC = $(REPO_ROOT)/config/.bash_profile
-BASHRC_DST       = $(HOME)/.bashrc
-NVIM_SRC         = $(REPO_ROOT)/config/nvim
-NVIM_DST         = $(HOME)/.config/nvim
-HYPR_SRC         = $(REPO_ROOT)/config/hypr
-HYPR_DST         = $(HOME)/.config/hypr
-WAYBAR_SRC       = $(REPO_ROOT)/config/waybar
-WAYBAR_DST       = $(HOME)/.config/waybar
 ENV_SAMPLE       = $(REPO_ROOT)/.env.sample
 ENVRC_SAMPLE     = $(REPO_ROOT)/.envrc.sample
 ENV_DST          = $(REPO_ROOT)/.env
 ENVRC_DST        = $(REPO_ROOT)/.envrc
 
-.PHONY: setup-all setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-hypr setup-waybar setup-env setup-envrc setup-env-files
-
-setup-all: setup-gitconfig setup-bashrc setup-tmux setup-nvim setup-hypr setup-waybar setup-env-files ## Run all personal setup steps
-
-setup-gitconfig: ## Hard link repo .gitconfig into home
-	ln -f $(GITCONFIG_SRC) $(GITCONFIG_DST)
-
-setup-bashrc: ## Source repo .bash_profile from ~/.bashrc
-	touch $(BASHRC_DST)
-	grep -qxF 'source $(BASH_PROFILE_SRC)' $(BASHRC_DST) || \
-		echo 'source $(BASH_PROFILE_SRC)' >> $(BASHRC_DST)
-
-setup-tmux: ## Link tmux configuration
-	ln -f $(REPO_ROOT)/config/.tmux.conf $(HOME)/.tmux.conf
-
-setup-nvim: ## Symlink repo nvim config to ~/.config/nvim
-	mkdir -p $(HOME)/.config
-	ln -sfn $(NVIM_SRC) $(NVIM_DST)
-
-setup-hypr: ## Symlink repo hypr config to ~/.config/hypr
-	mkdir -p $(HOME)/.config
-	ln -sfn $(HYPR_SRC) $(HYPR_DST)
-
-setup-waybar: ## Symlink repo waybar config to ~/.config/waybar
-	mkdir -p $(HOME)/.config
-	ln -sfn $(WAYBAR_SRC) $(WAYBAR_DST)
+.PHONY: setup-env setup-envrc setup-env-files
 
 setup-envrc: ## Generate .envrc
 	@if [ -f $(ENVRC_DST) ]; then \
-		echo ".envrc already exists. Delete it first to regenerate."; \
+		if diff -q $(ENVRC_DST) $(ENVRC_SAMPLE) >/dev/null 2>&1; then \
+			echo ".envrc is up to date."; \
+		else \
+			diff -u --color=always \
+				--label "current .envrc" --label "new .envrc (from sample)" \
+				$(ENVRC_DST) $(ENVRC_SAMPLE) || true; \
+			echo; \
+			read -rp "Regenerate .envrc? [y/N]: " ans < /dev/tty; \
+			if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
+				rm $(ENVRC_DST); \
+				cp $(ENVRC_SAMPLE) $(ENVRC_DST); \
+				echo ".envrc regenerated."; \
+			else \
+				echo "Keeping existing .envrc."; \
+			fi; \
+		fi; \
 	else \
 		cp $(ENVRC_SAMPLE) $(ENVRC_DST); \
 		echo ".envrc created."; \
@@ -151,8 +76,27 @@ setup-envrc: ## Generate .envrc
 
 setup-env: ## Generate .env interactively
 	@if [ -f $(ENV_DST) ]; then \
-		echo ".env already exists. Delete it first to regenerate."; \
-	else \
+		masked=$$(mktemp); \
+		awk '{ if ($$0 ~ /PASSWORD|SECRET|KEY|TOKEN/) { split($$0,a,"="); print a[1] "=****" } else { print } }' $(ENV_DST) > "$$masked"; \
+		if diff -q "$$masked" $(ENV_SAMPLE) >/dev/null 2>&1; then \
+			rm "$$masked"; \
+			echo ".env is up to date."; \
+			exit 0; \
+		fi; \
+		diff -u --color=always \
+			--label "current .env (secrets masked)" --label "new .env (from sample)" \
+			"$$masked" $(ENV_SAMPLE) || true; \
+		rm "$$masked"; \
+		echo; \
+		read -rp "Delete and regenerate .env? [y/N]: " ans < /dev/tty; \
+		if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
+			rm $(ENV_DST); \
+		else \
+			echo "Keeping existing .env."; \
+			exit 0; \
+		fi; \
+	fi; \
+	if [ ! -f $(ENV_DST) ]; then \
 		cp $(ENV_SAMPLE) $(ENV_DST); \
 		echo "Filling out .env (press Enter to leave a field empty):"; \
 		while IFS= read -r line || [ -n "$$line" ]; do \
@@ -170,55 +114,5 @@ setup-env: ## Generate .env interactively
 		echo ".env created."; \
 	fi
 
-setup-env-files: setup-envrc setup-env ## Generate both .env and .envrc from samples
+setup-env-files: setup-envrc setup-env ## Generate both .env and .envrc
 
-## Neovim
-.PHONY: update-nvim
-
-update-nvim: ## Build and install latest stable Neovim from source
-	$(REPO_ROOT)/scripts/update-nvim.sh
-
-## Dependencies
-PYTORCH_INDEX = https://download.pytorch.org/whl/cu130
-
-.PHONY: install-deps install-apt install-python
-
-install-deps: install-apt install-python ## Install all dependencies (apt + python)
-
-install-apt: ## Install required system packages (apt or dnf)
-	@if command -v dnf &>/dev/null; then \
-		sudo dnf install -y \
-			curl \
-			direnv \
-			expect \
-			fd-find \
-			rclone \
-			gcc \
-			iproute \
-			make \
-			nodejs \
-			ripgrep \
-			sysstat \
-			tmux \
-			unzip; \
-	else \
-		sudo apt-get update -qq && \
-		sudo apt-get install -y \
-			curl \
-			direnv \
-			expect \
-			fd-find \
-			gcc \
-			iproute2 \
-			make \
-			nodejs \
-			ripgrep \
-			rclone \
-			sysstat \
-			tmux \
-			unzip \
-			wl-clipboard; \
-	fi
-
-install-python: ## Install required Python packages via uv
-	uv pip install torch torchvision --index-url $(PYTORCH_INDEX)

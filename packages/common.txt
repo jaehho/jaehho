@@ -1,0 +1,13 @@
+# Packages shared across all profiles
+curl
+direnv
+expect
+fd-find
+gcc
+iproute2
+make
+nodejs
+ripgrep
+stow
+tmux
+unzip

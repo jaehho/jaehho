@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PACKAGES_DIR="$REPO_ROOT/packages"
+MAPPINGS="$PACKAGES_DIR/mappings.conf"
+
+DRY_RUN=false
+PROFILE="${1:-}"
+
+usage() {
+    echo "Usage: $(basename "$0") [--dry-run] <profile>"
+    exit 1
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dry-run) DRY_RUN=true; shift ;;
+        -*) echo "Unknown option: $1"; usage ;;
+        *) PROFILE="$1"; shift ;;
+    esac
+done
+
+[[ -z "$PROFILE" ]] && usage
+
+# Detect package manager
+detect_pm() {
+    if command -v pacman &>/dev/null; then
+        echo "pacman"
+    elif command -v apt-get &>/dev/null; then
+        echo "apt"
+    else
+        echo "unknown"
+    fi
+}
+
+PM=$(detect_pm)
+
+# Load mappings into associative arrays
+declare -A APT_MAP PACMAN_MAP
+if [[ -f "$MAPPINGS" ]]; then
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+        IFS=: read -r canonical apt pacman <<< "$line"
+        APT_MAP["$canonical"]="$apt"
+        PACMAN_MAP["$canonical"]="$pacman"
+    done < "$MAPPINGS"
+fi
+
+# Map a package name for the current package manager
+map_pkg() {
+    local pkg="$1"
+    case "$PM" in
+        apt)    echo "${APT_MAP[$pkg]:-$pkg}" ;;
+        pacman) echo "${PACMAN_MAP[$pkg]:-$pkg}" ;;
+        *)      echo "$pkg" ;;
+    esac
+}
+
+# Read package lists for the profile (common + profile-specific)
+read_packages() {
+    local profile="$1"
+    local pkgs=()
+    local aur_pkgs=()
+
+    # Read common packages
+    if [[ -f "$PACKAGES_DIR/common.txt" ]]; then
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+            pkgs+=("$(map_pkg "$line")")
+        done < "$PACKAGES_DIR/common.txt"
+    fi
+
+    # Read profile-specific packages
+    if [[ -f "$PACKAGES_DIR/${profile}.txt" ]]; then
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+            if [[ "$line" == AUR:* ]]; then
+                aur_pkgs+=("${line#AUR:}")
+            else
+                pkgs+=("$(map_pkg "$line")")
+            fi
+        done < "$PACKAGES_DIR/${profile}.txt"
+    fi
+
+    # Install regular packages
+    if [[ ${#pkgs[@]} -gt 0 ]]; then
+        case "$PM" in
+            apt)
+                if $DRY_RUN; then
+                    echo "[dry-run] apt-get install ${pkgs[*]}"
+                else
+                    sudo apt-get update -qq
+                    sudo apt-get install -y "${pkgs[@]}"
+                fi
+                ;;
+            pacman)
+                if $DRY_RUN; then
+                    echo "[dry-run] pacman -S --needed ${pkgs[*]}"
+                else
+                    sudo pacman -S --needed --noconfirm "${pkgs[@]}"
+                fi
+                ;;
+            *)
+                echo "ERROR: Unsupported package manager" >&2
+                exit 1
+                ;;
+        esac
+    fi
+
+    # Install AUR packages (Arch only)
+    if [[ ${#aur_pkgs[@]} -gt 0 && "$PM" == "pacman" ]]; then
+        if $DRY_RUN; then
+            echo "[dry-run] paru -S --needed ${aur_pkgs[*]}"
+        else
+            if ! command -v paru &>/dev/null; then
+                echo "WARNING: paru not found, skipping AUR packages: ${aur_pkgs[*]}" >&2
+            else
+                paru -S --needed --noconfirm "${aur_pkgs[@]}"
+            fi
+        fi
+    fi
+}
+
+echo "Installing packages for profile: $PROFILE (package manager: $PM)"
+read_packages "$PROFILE"
+
+# On apt-based systems, build neovim from source (apt version is too old)
+if [[ "$PM" == "apt" ]]; then
+    if $DRY_RUN; then
+        echo "[dry-run] Build neovim from source via scripts/update-nvim.sh"
+    else
+        echo "Building neovim from source (apt version is too old)..."
+        "$REPO_ROOT/scripts/update-nvim.sh"
+    fi
+fi
+
+echo "Package installation complete."
