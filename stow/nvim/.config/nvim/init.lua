@@ -317,7 +317,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>m', group = '[M]arkdown' },
+        { '<leader>m', group = '[M]arkview' },
         { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
     },
@@ -919,23 +919,8 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { -- Render markdown inline in Neovim
-    'MeanderingProgrammer/render-markdown.nvim',
-    ft = { 'markdown' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    keys = {
-      { '<leader>mr', '<cmd>RenderMarkdown toggle<CR>', desc = '[M]arkdown [R]ender toggle' },
-    },
-    opts = {},
-  },
-
-  { -- Markdown preview in browser
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    ft = { 'markdown' },
-    build = 'cd app && npx --yes yarn install',
-    keys = {
-      { '<leader>mp', '<cmd>MarkdownPreviewToggle<CR>', desc = '[M]arkdown [P]review toggle' },
-    },
+    'OXY2DEV/markview.nvim',
+    lazy = false,
   },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
