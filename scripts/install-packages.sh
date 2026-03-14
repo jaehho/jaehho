@@ -130,8 +130,18 @@ if [[ "$PM" == "apt" ]]; then
     if $DRY_RUN; then
         echo "[dry-run] Build neovim from source via scripts/update-nvim.sh"
     else
-        echo "Building neovim from source (apt version is too old)..."
-        "$REPO_ROOT/scripts/update-nvim.sh"
+        # Skip build if installed nvim is already the latest stable
+        NVIM_INSTALLED=""
+        if command -v nvim &>/dev/null; then
+            NVIM_INSTALLED="v$(nvim --version | head -1 | grep -oP '\d+\.\d+\.\d+')"
+        fi
+        NVIM_LATEST="$(git ls-remote --tags --sort=-v:refname https://github.com/neovim/neovim.git 'refs/tags/v[0-9]*' | head -1 | sed 's|.*refs/tags/||')"
+        if [[ "$NVIM_INSTALLED" == "$NVIM_LATEST" ]]; then
+            echo "Neovim $NVIM_INSTALLED is already the latest stable, skipping build."
+        else
+            echo "Building neovim from source (installed: ${NVIM_INSTALLED:-none}, latest: $NVIM_LATEST)..."
+            "$REPO_ROOT/scripts/update-nvim.sh"
+        fi
     fi
 fi
 
