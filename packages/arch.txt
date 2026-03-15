@@ -4,3 +4,4 @@ hyprland
 waybar
 wl-clipboard
 keyd
+blueman
