@@ -1,0 +1,26 @@
+#!/bin/bash
+# Fix frozen HDMI monitor after suspend (Nvidia + Hyprland)
+# Install: sudo cp this /usr/lib/systemd/system-sleep/hypr-resume-monitor
+
+case "$1" in
+    post)
+        sleep 2
+        # Find the Hyprland user and socket
+        for uid_dir in /run/user/*/hypr; do
+            [ -d "$uid_dir" ] || continue
+            uid=$(echo "$uid_dir" | grep -oP '/run/user/\K[0-9]+')
+            for instance_dir in "$uid_dir"/*/; do
+                sig=$(basename "$instance_dir")
+                sudo -u "#$uid" \
+                    HYPRLAND_INSTANCE_SIGNATURE="$sig" \
+                    XDG_RUNTIME_DIR="/run/user/$uid" \
+                    hyprctl keyword monitor HDMI-A-2,disable
+                sleep 1
+                sudo -u "#$uid" \
+                    HYPRLAND_INSTANCE_SIGNATURE="$sig" \
+                    XDG_RUNTIME_DIR="/run/user/$uid" \
+                    hyprctl keyword monitor "HDMI-A-2, 1920x1080@60, 0x0, 1"
+            done
+        done
+        ;;
+esac
