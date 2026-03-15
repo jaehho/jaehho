@@ -89,11 +89,27 @@ for pkg in $ALL_STOW; do
     fi
 done
 
-# 3. Install TPM if tmux was stowed
+# 3. Install TPM and clean unused plugins if tmux was stowed
 TPM_DIR="$HOME/.tmux/plugins/tpm"
-if [[ " $ALL_STOW " == *" tmux "* ]] && [[ ! -d "$TPM_DIR" ]]; then
-    echo "Installing TPM (Tmux Plugin Manager)..."
-    git clone --depth 1 https://github.com/tmux-plugins/tpm "$TPM_DIR"
+if [[ " $ALL_STOW " == *" tmux "* ]]; then
+    if [[ ! -d "$TPM_DIR" ]]; then
+        echo "Installing TPM (Tmux Plugin Manager)..."
+        git clone --depth 1 https://github.com/tmux-plugins/tpm "$TPM_DIR"
+    fi
+
+    # Remove plugins not referenced in .tmux.conf
+    TMUX_CONF="$STOW_DIR/tmux/.tmux.conf"
+    PLUGINS_DIR="$HOME/.tmux/plugins"
+    if [[ -f "$TMUX_CONF" ]] && [[ -d "$PLUGINS_DIR" ]]; then
+        declared=$(grep -oP "set -g @plugin '\K[^']+" "$TMUX_CONF" | sed 's|.*/||')
+        for plugin_dir in "$PLUGINS_DIR"/*/; do
+            plugin_name=$(basename "$plugin_dir")
+            if ! echo "$declared" | grep -qxF "$plugin_name"; then
+                echo "Removing unused tmux plugin: $plugin_name"
+                rm -rf "$plugin_dir"
+            fi
+        done
+    fi
 fi
 
 # 4. Bash source line (always applied regardless of profile)
