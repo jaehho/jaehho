@@ -9,6 +9,7 @@ imagemagick
 lua51
 luarocks
 tree-sitter-cli
+otf-font-awesome
 typst
 zathura
 zathura-pdf-mupdf

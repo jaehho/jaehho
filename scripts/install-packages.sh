@@ -111,7 +111,7 @@ read_packages() {
         esac
     fi
 
-    # Install npm global packages
+    # Install npm global packages (skip already-installed)
     if [[ ${#npm_pkgs[@]} -gt 0 ]]; then
         if $DRY_RUN; then
             echo "[dry-run] npm install -g ${npm_pkgs[*]}"
@@ -119,7 +119,17 @@ read_packages() {
             if ! command -v npm &>/dev/null; then
                 echo "WARNING: npm not found, skipping npm packages: ${npm_pkgs[*]}" >&2
             else
-                npm install -g --prefix "$HOME/.npm-global" "${npm_pkgs[@]}"
+                local missing_npm=()
+                for pkg in "${npm_pkgs[@]}"; do
+                    if ! npm ls -g --prefix "$HOME/.npm-global" "$pkg" &>/dev/null; then
+                        missing_npm+=("$pkg")
+                    fi
+                done
+                if [[ ${#missing_npm[@]} -gt 0 ]]; then
+                    npm install -g --prefix "$HOME/.npm-global" "${missing_npm[@]}"
+                else
+                    echo "All npm packages already installed, skipping."
+                fi
             fi
         fi
     fi

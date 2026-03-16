@@ -147,6 +147,10 @@ window#waybar {
 
 /* ── Temperature ── */
 #temperature {
+    color: #89b4fa;
+}
+
+#temperature.warning {
     color: #eba0ac;
 }
 
