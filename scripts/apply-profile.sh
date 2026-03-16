@@ -112,7 +112,17 @@ if [[ " $ALL_STOW " == *" tmux "* ]]; then
     fi
 fi
 
-# 4. Bash source line (always applied regardless of profile)
+# 4. Hyprland plugins via hyprpm (if hypr was stowed)
+if [[ " $ALL_STOW " == *" hypr "* ]] && command -v hyprpm &>/dev/null; then
+    echo "Setting up Hyprland plugins..."
+    hyprpm update || true
+    if ! hyprpm list | grep -q "hyprexpo"; then
+        hyprpm add https://github.com/hyprwm/hyprland-plugins
+    fi
+    hyprpm enable hyprexpo || true
+fi
+
+# 5. Bash source line (always applied regardless of profile)
 BASH_PROFILE_SRC="$STOW_DIR/bash/.bash_profile"
 BASHRC="$HOME/.bashrc"
 if [[ -f "$BASH_PROFILE_SRC" ]]; then
@@ -123,7 +133,7 @@ if [[ -f "$BASH_PROFILE_SRC" ]]; then
     fi
 fi
 
-# 5. Systemd services
+# 6. Systemd services
 for svc in $ALL_SERVICES; do
     local_service="$SYSTEMD_DIR/${svc}.service"
     system_service="/etc/systemd/system/${svc}.service"
@@ -155,7 +165,7 @@ for svc in $ALL_SERVICES; do
     fi
 done
 
-# 6. Sleep hooks
+# 7. Sleep hooks
 SLEEP_HOOK_DIR="$REPO_ROOT/system-sleep"
 for hook in $ALL_SLEEP_HOOKS; do
     local_hook="$SLEEP_HOOK_DIR/$hook"

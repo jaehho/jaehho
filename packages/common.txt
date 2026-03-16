@@ -4,8 +4,10 @@ direnv
 expect
 fd-find
 gcc
+htop
 iproute2
 make
+man-db
 nodejs
 ripgrep
 stow
