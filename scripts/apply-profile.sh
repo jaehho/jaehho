@@ -89,7 +89,6 @@ for pkg in $ALL_STOW; do
         echo "Stowing: $pkg"
         clean_conflicts "$STOW_DIR/$pkg"
         # Snapshot which files have uncommitted changes BEFORE adopt
-        local pre_dirty
         pre_dirty="$(git -C "$REPO_ROOT" diff --name-only -- "$STOW_DIR/$pkg/" 2>/dev/null || true)"
 
         stow -d "$STOW_DIR" -t "$HOME" --no-folding --adopt "$pkg"

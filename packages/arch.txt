@@ -4,6 +4,8 @@ hyprland
 waybar
 wl-clipboard
 keyd
+libnotify
+mako
 blueman
 imagemagick
 lua51
