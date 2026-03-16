@@ -317,7 +317,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>m', group = '[M]arkview' },
+        { '<leader>m', group = '[M]arkdown' },
         { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
     },
@@ -923,6 +923,39 @@ require('lazy').setup({
     lazy = false,
   },
 
+  { -- Inline image rendering via kitty graphics protocol
+    '3rd/image.nvim',
+    ft = { 'markdown' },
+    opts = {
+      backend = 'kitty',
+      integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = true,
+          only_render_image_at_cursor = false,
+        },
+      },
+      max_width = 100,
+      max_height = 30,
+      max_width_window_percentage = 50,
+      max_height_window_percentage = 50,
+    },
+  },
+
+  { -- Render mermaid diagrams inline via image.nvim
+    '3rd/diagram.nvim',
+    ft = { 'markdown' },
+    dependencies = { '3rd/image.nvim' },
+    opts = {
+      renderer_options = {
+        mermaid = {
+          theme = 'dark',
+          background = 'transparent',
+        },
+      },
+    },
+  },
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
@@ -934,7 +967,7 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, { ---@diagnostic disable-line: missing-fields
-  rocks = { enabled = false },
+  rocks = { enabled = true },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

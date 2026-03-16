@@ -5,3 +5,6 @@ waybar
 wl-clipboard
 keyd
 blueman
+imagemagick
+luarocks
+NPM:@mermaid-js/mermaid-cli

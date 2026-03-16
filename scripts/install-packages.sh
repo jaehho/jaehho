@@ -62,6 +62,7 @@ read_packages() {
     local profile="$1"
     local pkgs=()
     local aur_pkgs=()
+    local npm_pkgs=()
 
     # Read common packages
     if [[ -f "$PACKAGES_DIR/common.txt" ]]; then
@@ -77,6 +78,8 @@ read_packages() {
             [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
             if [[ "$line" == AUR:* ]]; then
                 aur_pkgs+=("${line#AUR:}")
+            elif [[ "$line" == NPM:* ]]; then
+                npm_pkgs+=("${line#NPM:}")
             else
                 pkgs+=("$(map_pkg "$line")")
             fi
@@ -106,6 +109,19 @@ read_packages() {
                 exit 1
                 ;;
         esac
+    fi
+
+    # Install npm global packages
+    if [[ ${#npm_pkgs[@]} -gt 0 ]]; then
+        if $DRY_RUN; then
+            echo "[dry-run] npm install -g ${npm_pkgs[*]}"
+        else
+            if ! command -v npm &>/dev/null; then
+                echo "WARNING: npm not found, skipping npm packages: ${npm_pkgs[*]}" >&2
+            else
+                npm install -g --prefix "$HOME/.npm-global" "${npm_pkgs[@]}"
+            fi
+        fi
     fi
 
     # Install AUR packages (Arch only)
