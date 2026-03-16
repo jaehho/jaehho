@@ -1,6 +1,10 @@
 # Repo root for these helpers
 JAEHHO_ROOT="${JAEHHO_ROOT:-$HOME/jaehho}"
 
+# Default editor
+export EDITOR="nvim"
+export VISUAL="nvim"
+
 # User-local npm binaries (neovim, tree-sitter-cli, etc.)
 export PATH="$HOME/.npm-global/bin:$PATH"
 
