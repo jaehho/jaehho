@@ -23,37 +23,44 @@ resolve_profile() {
     inherit=$(grep '^INHERIT=' "$conf" | cut -d= -f2 | tr -d '"' || true)
     stow_pkgs=$(grep '^STOW_PACKAGES=' "$conf" | cut -d= -f2 | tr -d '"' || true)
     services=$(grep '^SERVICES=' "$conf" | cut -d= -f2 | tr -d '"' || true)
+    system_configs=$(grep '^SYSTEM_CONFIGS=' "$conf" | cut -d= -f2 | tr -d '"' || true)
     sleep_hooks=$(grep '^SLEEP_HOOKS=' "$conf" | cut -d= -f2 | tr -d '"' || true)
 
     # Recurse into parent
-    local parent_stow="" parent_services="" parent_sleep_hooks=""
+    local parent_stow="" parent_services="" parent_system_configs="" parent_sleep_hooks=""
     if [[ -n "$inherit" ]]; then
         local parent_output
         parent_output="$(resolve_profile "$inherit")"
         parent_stow="${parent_output%%|*}"
         local rest="${parent_output#*|}"
         parent_services="${rest%%|*}"
+        rest="${rest#*|}"
+        parent_system_configs="${rest%%|*}"
         parent_sleep_hooks="${rest#*|}"
     fi
 
     # Merge (parent first, then child)
-    echo "${parent_stow} ${stow_pkgs}|${parent_services} ${services}|${parent_sleep_hooks} ${sleep_hooks}"
+    echo "${parent_stow} ${stow_pkgs}|${parent_services} ${services}|${parent_system_configs} ${system_configs}|${parent_sleep_hooks} ${sleep_hooks}"
 }
 
 _resolved="$(resolve_profile "$PROFILE")"
 ALL_STOW="${_resolved%%|*}"
 _rest="${_resolved#*|}"
 ALL_SERVICES="${_rest%%|*}"
+_rest="${_rest#*|}"
+ALL_SYSTEM_CONFIGS="${_rest%%|*}"
 ALL_SLEEP_HOOKS="${_rest#*|}"
 
 # Deduplicate and trim
 ALL_STOW=$(echo "$ALL_STOW" | tr ' ' '\n' | { grep -v '^$' || true; } | awk '!seen[$0]++' | tr '\n' ' ')
 ALL_SERVICES=$(echo "$ALL_SERVICES" | tr ' ' '\n' | { grep -v '^$' || true; } | awk '!seen[$0]++' | tr '\n' ' ')
+ALL_SYSTEM_CONFIGS=$(echo "$ALL_SYSTEM_CONFIGS" | tr ' ' '\n' | { grep -v '^$' || true; } | awk '!seen[$0]++' | tr '\n' ' ')
 ALL_SLEEP_HOOKS=$(echo "$ALL_SLEEP_HOOKS" | tr ' ' '\n' | { grep -v '^$' || true; } | awk '!seen[$0]++' | tr '\n' ' ')
 
 echo "Profile: $PROFILE"
 echo "Stow packages: $ALL_STOW"
 echo "Services: $ALL_SERVICES"
+[[ -n "$ALL_SYSTEM_CONFIGS" ]] && echo "System configs: $ALL_SYSTEM_CONFIGS"
 [[ -n "$ALL_SLEEP_HOOKS" ]] && echo "Sleep hooks: $ALL_SLEEP_HOOKS"
 
 # 1. Clean up existing targets that would conflict with stow
@@ -165,7 +172,22 @@ for svc in $ALL_SERVICES; do
     fi
 done
 
-# 7. Sleep hooks
+# 7. System config directories (e.g., libinput quirks)
+for cfg in $ALL_SYSTEM_CONFIGS; do
+    local_conf_dir="$REPO_ROOT/$cfg"
+    system_conf_dir="/etc/$cfg"
+    if [[ -d "$local_conf_dir" ]]; then
+        echo "Linking $cfg config files to $system_conf_dir"
+        sudo mkdir -p "$system_conf_dir"
+        for conf in "$local_conf_dir"/*; do
+            sudo ln -sf "$conf" "$system_conf_dir/$(basename "$conf")"
+        done
+    else
+        echo "WARNING: system config directory not found: $local_conf_dir" >&2
+    fi
+done
+
+# 8. Sleep hooks
 SLEEP_HOOK_DIR="$REPO_ROOT/system-sleep"
 for hook in $ALL_SLEEP_HOOKS; do
     local_hook="$SLEEP_HOOK_DIR/$hook"
