@@ -193,6 +193,37 @@ vim.diagnostic.config {
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Typst preview: compile, then watch + open zathura
+vim.keymap.set('n', '<leader>tp', function()
+  if vim.bo.filetype ~= 'typst' then
+    vim.notify('Not a Typst file', vim.log.levels.WARN)
+    return
+  end
+  if vim.b.typst_preview_jobs then
+    vim.notify('Typst preview already running', vim.log.levels.INFO)
+    return
+  end
+  local src = vim.api.nvim_buf_get_name(0)
+  local pdf = src:gsub('%.typ$', '.pdf')
+  -- Compile once so the PDF exists before zathura opens
+  vim.system({ 'typst', 'compile', src }):wait()
+  local watch_id = vim.fn.jobstart({ 'typst', 'watch', src })
+  local zathura_id = vim.fn.jobstart({ 'zathura', pdf })
+  vim.b.typst_preview_jobs = { watch_id, zathura_id }
+  -- Clean up on buffer delete or Neovim exit
+  local augroup = vim.api.nvim_create_augroup('TypstPreview' .. vim.api.nvim_get_current_buf(), { clear = true })
+  vim.api.nvim_create_autocmd({ 'BufDelete', 'VimLeavePre' }, {
+    group = augroup,
+    buffer = vim.api.nvim_get_current_buf(),
+    callback = function()
+      for _, id in ipairs(vim.b.typst_preview_jobs or {}) do
+        vim.fn.jobstop(id)
+      end
+      vim.b.typst_preview_jobs = nil
+    end,
+  })
+end, { desc = '[T]ypst [P]review' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -953,6 +984,14 @@ require('lazy').setup({
           background = 'transparent',
         },
       },
+    },
+  },
+
+  { -- Autosave buffers
+    'okuuva/auto-save.nvim',
+    event = 'VimEnter',
+    opts = {
+      noautocmd = true,
     },
   },
 
