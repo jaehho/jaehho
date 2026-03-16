@@ -102,11 +102,9 @@ vim.g.loaded_perl_provider = 0
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- Make line numbers default
+-- Hybrid line numbers: relative for motions, absolute on cursor line
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -952,6 +950,11 @@ require('lazy').setup({
   { -- Render markdown inline in Neovim
     'OXY2DEV/markview.nvim',
     lazy = false,
+    opts = {
+      preview = {
+        hybrid_modes = { 'n', 'i' },
+      },
+    },
   },
 
   { -- Inline image rendering via kitty graphics protocol
@@ -984,6 +987,19 @@ require('lazy').setup({
           background = 'transparent',
         },
       },
+    },
+  },
+
+  { -- Jump anywhere on screen with labeled targets
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
+      { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+      { 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
+      { 'R', mode = { 'o', 'x' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
     },
   },
 
