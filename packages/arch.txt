@@ -9,4 +9,8 @@ imagemagick
 lua51
 luarocks
 tree-sitter-cli
+typst
+zathura
+zathura-pdf-mupdf
+AUR:typstfmt
 NPM:@mermaid-js/mermaid-cli
