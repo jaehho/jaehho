@@ -191,13 +191,13 @@ vim.diagnostic.config {
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Typst preview: compile, then watch + open zathura
+-- Typst preview: compile, then watch in tmux pane + open zathura
 vim.keymap.set('n', '<leader>tp', function()
   if vim.bo.filetype ~= 'typst' then
     vim.notify('Not a Typst file', vim.log.levels.WARN)
     return
   end
-  if vim.b.typst_preview_jobs then
+  if vim.b.typst_preview then
     vim.notify('Typst preview already running', vim.log.levels.INFO)
     return
   end
@@ -205,19 +205,25 @@ vim.keymap.set('n', '<leader>tp', function()
   local pdf = src:gsub('%.typ$', '.pdf')
   -- Compile once so the PDF exists before zathura opens
   vim.system({ 'typst', 'compile', src }):wait()
-  local watch_id = vim.fn.jobstart({ 'typst', 'watch', src })
+  -- Open typst watch in a small tmux pane below
+  local result = vim.system({
+    'tmux', 'split-window', '-v', '-d', '-l', '10', '-P', '-F', '#{pane_id}',
+    'typst watch ' .. vim.fn.shellescape(src),
+  }):wait()
+  local pane_id = vim.trim(result.stdout or '')
   local zathura_id = vim.fn.jobstart({ 'zathura', pdf })
-  vim.b.typst_preview_jobs = { watch_id, zathura_id }
+  vim.b.typst_preview = { pane_id = pane_id, zathura_id = zathura_id }
   -- Clean up on buffer delete or Neovim exit
   local augroup = vim.api.nvim_create_augroup('TypstPreview' .. vim.api.nvim_get_current_buf(), { clear = true })
   vim.api.nvim_create_autocmd({ 'BufDelete', 'VimLeavePre' }, {
     group = augroup,
     buffer = vim.api.nvim_get_current_buf(),
     callback = function()
-      for _, id in ipairs(vim.b.typst_preview_jobs or {}) do
-        vim.fn.jobstop(id)
-      end
-      vim.b.typst_preview_jobs = nil
+      local preview = vim.b.typst_preview
+      if not preview then return end
+      vim.system({ 'tmux', 'kill-pane', '-t', preview.pane_id })
+      vim.fn.jobstop(preview.zathura_id)
+      vim.b.typst_preview = nil
     end,
   })
 end, { desc = '[T]ypst [P]review' })
