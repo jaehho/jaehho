@@ -21,6 +21,7 @@ typst
 zathura
 zathura-pdf-mupdf
 AUR:rofi-wayland
+AUR:ttf-jetbrains-mono-nerd
 AUR:typstfmt
 AUR:microsoft-edge-stable-bin
 # x2goclient removed from auto-install (nx-libs dep takes very long to compile)
