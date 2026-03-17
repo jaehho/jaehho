@@ -129,16 +129,6 @@ if [[ " $ALL_STOW " == *" tmux "* ]]; then
     fi
 fi
 
-# 4. Hyprland plugins via hyprpm (if hypr was stowed)
-if [[ " $ALL_STOW " == *" hypr "* ]] && command -v hyprpm &>/dev/null; then
-    echo "Setting up Hyprland plugins..."
-    hyprpm update || true
-    if ! hyprpm list | grep -q "hyprexpo"; then
-        hyprpm add https://github.com/hyprwm/hyprland-plugins
-    fi
-    hyprpm enable hyprexpo || true
-fi
-
 # 5. Bash source line (always applied regardless of profile)
 BASH_PROFILE_SRC="$STOW_DIR/bash/.bash_profile"
 BASHRC="$HOME/.bashrc"

@@ -140,10 +140,14 @@ read_packages() {
             echo "[dry-run] paru -S --needed ${aur_pkgs[*]}"
         else
             if ! command -v paru &>/dev/null; then
-                echo "WARNING: paru not found, skipping AUR packages: ${aur_pkgs[*]}" >&2
-            else
-                paru -S --needed --noconfirm "${aur_pkgs[@]}"
+                echo "paru not found, bootstrapping from AUR (paru-bin)..."
+                local paru_tmp
+                paru_tmp="$(mktemp -d)"
+                git clone --depth=1 https://aur.archlinux.org/paru-bin.git "$paru_tmp/paru-bin"
+                (cd "$paru_tmp/paru-bin" && makepkg -si --noconfirm)
+                rm -rf "$paru_tmp"
             fi
+            paru -S --needed --noconfirm "${aur_pkgs[@]}"
         fi
     fi
 }

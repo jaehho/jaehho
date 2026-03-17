@@ -1,6 +1,7 @@
 # Packages shared across all profiles
 curl
 direnv
+gh
 expect
 fd-find
 gcc

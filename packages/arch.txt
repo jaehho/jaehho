@@ -1,6 +1,11 @@
 # Arch-specific packages
+base-devel
+cpio
+npm
 neovim
 hyprland
+nvidia-open
+nvidia-utils
 waybar
 wl-clipboard
 keyd
@@ -16,5 +21,6 @@ typst
 zathura
 zathura-pdf-mupdf
 AUR:typstfmt
-AUR:x2goclient
+# x2goclient removed from auto-install (nx-libs dep takes very long to compile)
+# To install manually: paru -S x2goclient
 NPM:@mermaid-js/mermaid-cli
