@@ -91,6 +91,11 @@ nh_list() {
 # list open nohup log files (quote carefully to avoid glob/word-split issues)
 alias nhls='lsof | grep "nohup_.*\.log"'
 
+# ── Hyprland auto-start on TTY1 ────────────────────────────────────────────────
+if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+    exec Hyprland
+fi
+
 # ── tmux auto-attach ───────────────────────────────────────────────────────────
 [[ $- == *i* ]] && [[ -t 1 ]] && [[ -z "$TMUX" ]] && [[ -z "$VSCODE_INJECTION" ]] && \
   { tmux attach 2>/dev/null || tmux new -s main; }
