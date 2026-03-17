@@ -143,6 +143,6 @@
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "wofi --show dmenu -p 'Power' <<< $'Lock\nSuspend\nReboot\nShutdown' | xargs -I {} sh -c 'case \"{}\" in Lock) hyprlock;; Suspend) systemctl suspend;; Reboot) systemctl reboot;; Shutdown) systemctl poweroff;; esac'"
+        "on-click": "rofi -dmenu -p 'Power' <<< $'Lock\nSuspend\nReboot\nShutdown' | xargs -I {} sh -c 'case \"{}\" in Lock) hyprlock;; Suspend) systemctl suspend;; Reboot) systemctl reboot;; Shutdown) systemctl poweroff;; esac'"
     }
 }

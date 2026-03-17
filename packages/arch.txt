@@ -20,7 +20,9 @@ otf-font-awesome
 typst
 zathura
 zathura-pdf-mupdf
+AUR:rofi-wayland
 AUR:typstfmt
+AUR:microsoft-edge-stable-bin
 # x2goclient removed from auto-install (nx-libs dep takes very long to compile)
 # To install manually: paru -S x2goclient
 NPM:@mermaid-js/mermaid-cli
