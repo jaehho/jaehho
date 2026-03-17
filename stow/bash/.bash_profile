@@ -107,11 +107,21 @@ fi
 
 [[ -z "$VSCODE_INJECTION" ]] && eval "$(direnv hook bash)"
 
-show_virtual_env() {
-  if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
-    echo "($(basename $(dirname $VIRTUAL_ENV))) "
-  fi
-}
-PS1='$(show_virtual_env)'"$PS1"
+# ── fzf ───────────────────────────────────────────────────────────────────────
+if command -v fzf &>/dev/null; then
+    eval "$(fzf --bash)"
+fi
+
+# ── starship prompt ───────────────────────────────────────────────────────────
+if command -v starship &>/dev/null; then
+    eval "$(starship init bash)"
+else
+    show_virtual_env() {
+      if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+        echo "($(basename $(dirname $VIRTUAL_ENV))) "
+      fi
+    }
+    PS1='$(show_virtual_env)'"$PS1"
+fi
 
 alias c='claude --dangerously-skip-permissions'

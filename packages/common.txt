@@ -2,6 +2,7 @@
 curl
 direnv
 fd-find
+fzf
 gh
 htop
 make

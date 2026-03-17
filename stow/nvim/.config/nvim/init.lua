@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- Provider configuration
 vim.g.node_host_prog = vim.fn.expand('~/.npm-global/bin/neovim-node-host')
@@ -352,6 +352,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>d', group = '[D]ebug' },
         { '<leader>m', group = '[M]arkdown' },
         { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
@@ -637,16 +638,10 @@ require('lazy').setup({
       --  See `:help lsp-config` for information about keys and how to configure
       ---@type table<string, vim.lsp.Config>
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        clangd = {},
+        pyright = {},
+        ts_ls = {},
+        bashls = {},
 
         stylua = {}, -- Used to format Lua code
 
@@ -689,7 +684,10 @@ require('lazy').setup({
       -- You can press `g?` for help in this menu.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        -- You can add other tools here that you want Mason to install
+        'prettier',
+        'black',
+        'isort',
+        'shfmt',
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -733,11 +731,14 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        python = { 'isort', 'black' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettier' },
+        yaml = { 'prettier' },
+        sh = { 'shfmt' },
+        bash = { 'shfmt' },
+        typst = { 'typstfmt' },
       },
     },
   },
@@ -911,7 +912,11 @@ require('lazy').setup({
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local parsers = {
+        'bash', 'c', 'css', 'diff', 'go', 'html', 'javascript', 'json', 'lua', 'luadoc',
+        'markdown', 'markdown_inline', 'python', 'query', 'rust', 'toml', 'typescript',
+        'typst', 'vim', 'vimdoc', 'yaml',
+      }
       require('nvim-treesitter').install(parsers)
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)
@@ -1014,6 +1019,65 @@ require('lazy').setup({
     event = 'VimEnter',
     opts = {
       noautocmd = true,
+    },
+  },
+
+  { -- Pretty diagnostics list
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    cmd = 'Trouble',
+    keys = {
+      { '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
+      { '<leader>xq', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
+    },
+    opts = {},
+  },
+
+  { -- Debug adapter protocol
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'rcarriga/nvim-dap-ui',
+      'nvim-neotest/nvim-nio',
+      'jay-babu/mason-nvim-dap.nvim',
+    },
+    keys = {
+      { '<leader>dc', function() require('dap').continue() end, desc = 'Debug: Start/Continue' },
+      { '<leader>di', function() require('dap').step_into() end, desc = 'Debug: Step Into' },
+      { '<leader>do', function() require('dap').step_over() end, desc = 'Debug: Step Over' },
+      { '<leader>dO', function() require('dap').step_out() end, desc = 'Debug: Step Out' },
+      { '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'Debug: Toggle Breakpoint' },
+      { '<leader>dB', function() require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ') end, desc = 'Debug: Set Breakpoint Condition' },
+      { '<F5>', function() require('dap').continue() end, desc = 'Debug: Start/Continue' },
+      { '<F10>', function() require('dap').step_over() end, desc = 'Debug: Step Over' },
+      { '<F11>', function() require('dap').step_into() end, desc = 'Debug: Step Into' },
+      { '<F12>', function() require('dap').step_out() end, desc = 'Debug: Step Out' },
+    },
+    config = function()
+      local dap = require 'dap'
+      local dapui = require 'dapui'
+
+      require('mason-nvim-dap').setup {
+        automatic_installation = true,
+        handlers = {},
+        ensure_installed = { 'debugpy', 'codelldb' },
+      }
+
+      dapui.setup()
+      dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+      dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+      vim.keymap.set('n', '<leader>du', dapui.toggle, { desc = 'Debug: Toggle UI' })
+    end,
+  },
+
+  { -- Session persistence
+    'rmagatti/auto-session',
+    lazy = false,
+    opts = {
+      suppressed_dirs = { '~/', '~/Downloads', '~/Documents', '/' },
     },
   },
 

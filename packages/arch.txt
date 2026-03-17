@@ -4,6 +4,7 @@ blueman
 brightnessctl
 cliphist
 cpio
+dust
 expect
 grim
 hypridle
@@ -14,6 +15,7 @@ imagemagick
 jq
 keyd
 kitty
+lazygit
 libnotify
 lua51
 luarocks
@@ -24,17 +26,21 @@ npm
 nvidia-open
 nvidia-utils
 otf-font-awesome
+pavucontrol
 playerctl
 polkit-gnome
 slurp
+starship
 thunar
 tree-sitter-cli
 typst
 waybar
+wf-recorder
 wl-clipboard
 zathura
 zathura-pdf-mupdf
 AUR:rofi-wayland
+AUR:satty
 AUR:ttf-jetbrains-mono-nerd
 AUR:typstfmt
 AUR:microsoft-edge-stable-bin
