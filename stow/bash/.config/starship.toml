@@ -1,5 +1,6 @@
-# Minimal prompt — Catppuccin Mocha palette
-format = """$directory$git_branch$git_status$character"""
+# Two-line prompt — Catppuccin Mocha palette
+format = """$directory$git_branch$git_status
+$character"""
 
 [directory]
 style = "bold #89b4fa"
@@ -7,11 +8,11 @@ truncation_length = 3
 truncate_to_repo = true
 
 [git_branch]
-format = " [$branch]($style)"
+format = " on [$symbol$branch]($style)"
 style = "#a6adc8"
 
 [git_status]
-format = "[$all_status$ahead_behind]($style) "
+format = " [$all_status$ahead_behind]($style)"
 style = "#f9e2af"
 modified = "!"
 untracked = "?"
