@@ -61,7 +61,7 @@ status: ## Show current dotfiles state
 
 ## Stow (bootstrap stows all profile packages; these are for ad-hoc use)
 stow-%: ## Stow a single package (e.g., make stow-nvim)
-	stow -d stow -t ~ --no-folding $*
+	stow -d stow -t ~ --no-folding --adopt $* && git checkout -- stow/$*
 
 unstow-%: ## Unstow a single package (e.g., make unstow-nvim)
 	stow -d stow -t ~ -D $*
