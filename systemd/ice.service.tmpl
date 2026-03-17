@@ -5,8 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-EnvironmentFile=/home/jaeho/jaehho/.env
-ExecStart=/home/jaeho/jaehho/scripts/ice/mount.sh
+EnvironmentFile=%REPO_ROOT%/.env
+ExecStart=%REPO_ROOT%/scripts/ice/mount.sh
 ExecStop=/bin/fusermount3 -u /mnt/ice
 TimeoutStartSec=30
 

@@ -1,3 +1,5 @@
 # Ubuntu-specific packages
+expect
+gcc
 rclone
 sysstat

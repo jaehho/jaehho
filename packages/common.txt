@@ -1,15 +1,11 @@
 # Packages shared across all profiles
 curl
 direnv
-gh
-expect
 fd-find
-gcc
+gh
 htop
-iproute2
 make
 man-db
-nodejs
 openssh
 ripgrep
 stow

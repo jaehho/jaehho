@@ -129,25 +129,35 @@ if [[ " $ALL_STOW " == *" tmux "* ]]; then
     fi
 fi
 
-# 5. Bash source line (always applied regardless of profile)
-BASH_PROFILE_SRC="$STOW_DIR/bash/.bash_profile"
+# 5. Bash source line (only if bash is a stow package)
 BASHRC="$HOME/.bashrc"
-if [[ -f "$BASH_PROFILE_SRC" ]]; then
+if [[ " $ALL_STOW " == *" bash "* ]]; then
     touch "$BASHRC"
-    if ! grep -qxF "source $BASH_PROFILE_SRC" "$BASHRC"; then
-        echo "source $BASH_PROFILE_SRC" >> "$BASHRC"
-        echo "Added bash_profile source line to ~/.bashrc"
-    fi
+    # Remove any existing marker line, then add fresh
+    sed -i '/# DOTFILES_BASH_PROFILE/d' "$BASHRC"
+    echo 'source ~/.bash_profile # DOTFILES_BASH_PROFILE' >> "$BASHRC"
+    echo "Added bash_profile source line to ~/.bashrc"
 fi
 
 # 6. Systemd services
+GENERATED_DIR="$SYSTEMD_DIR/.generated"
+mkdir -p "$GENERATED_DIR"
+
 for svc in $ALL_SERVICES; do
-    local_service="$SYSTEMD_DIR/${svc}.service"
+    local_tmpl="$SYSTEMD_DIR/${svc}.service.tmpl"
+    local_service="$GENERATED_DIR/${svc}.service"
     system_service="/etc/systemd/system/${svc}.service"
 
     echo "Setting up service: $svc"
 
-    # Link custom service file if we provide one
+    # Generate service file from template if available
+    if [[ -f "$local_tmpl" ]]; then
+        sed -e "s|%REPO_ROOT%|$REPO_ROOT|g" \
+            -e "s|%USER%|$(whoami)|g" \
+            "$local_tmpl" > "$local_service"
+    fi
+
+    # Link generated service file if we have one
     if [[ -f "$local_service" ]]; then
         sudo ln -sf "$local_service" "$system_service"
         if command -v chcon &>/dev/null; then

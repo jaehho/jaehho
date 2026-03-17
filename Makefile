@@ -16,7 +16,7 @@ help: ## Show this help message
 		     /^## / {gsub("^## ", ""); print "\n\033[1;35m" $$0 "\033[0m"}; \
 		     /^[a-zA-Z_%-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-## Setup (bootstrap = install + setup + setup-env-files)
+## Setup (bootstrap = install + setup + setup-env)
 bootstrap: ## Full setup: install packages, stow configs, prompt for secrets
 	./bootstrap.sh --profile $(PROFILE)
 
@@ -25,6 +25,39 @@ install: ## Install system packages for current profile
 
 setup: ## Stow configs and enable services for current profile
 	./scripts/apply-profile.sh $(PROFILE)
+
+clean: ## Reverse setup: unstow packages, disable services, remove hooks
+	./scripts/clean-profile.sh $(PROFILE)
+
+status: ## Show current dotfiles state
+	@echo "Profile: $(PROFILE)"
+	@echo ""
+	@echo "Stowed packages:"
+	@for pkg in stow/*/; do \
+		pkg_name=$$(basename "$$pkg"); \
+		first_file=$$(find "$$pkg" -type f -print -quit 2>/dev/null); \
+		if [ -n "$$first_file" ]; then \
+			rel="$${first_file#stow/$$pkg_name/}"; \
+			if [ -L "$$HOME/$$rel" ]; then \
+				echo "  $$pkg_name: stowed"; \
+			else \
+				echo "  $$pkg_name: not stowed"; \
+			fi; \
+		else \
+			echo "  $$pkg_name: empty"; \
+		fi; \
+	done
+	@echo ""
+	@echo "Services:"
+	@for svc in systemd/*.service.tmpl; do \
+		[ -f "$$svc" ] || continue; \
+		svc_name=$$(basename "$$svc" .service.tmpl); \
+		if systemctl is-enabled "$$svc_name.service" 2>/dev/null | grep -q 'enabled'; then \
+			echo "  $$svc_name: enabled"; \
+		else \
+			echo "  $$svc_name: disabled"; \
+		fi; \
+	done
 
 ## Stow (bootstrap stows all profile packages; these are for ad-hoc use)
 stow-%: ## Stow a single package (e.g., make stow-nvim)
@@ -36,34 +69,9 @@ unstow-%: ## Unstow a single package (e.g., make unstow-nvim)
 ## Environment (included in bootstrap)
 -include $(REPO_ROOT)/.env
 ENV_SAMPLE       = $(REPO_ROOT)/.env.sample
-ENVRC_SAMPLE     = $(REPO_ROOT)/.envrc.sample
 ENV_DST          = $(REPO_ROOT)/.env
-ENVRC_DST        = $(REPO_ROOT)/.envrc
 
-.PHONY: setup-env setup-envrc setup-env-files
-
-setup-envrc: ## Generate .envrc
-	@if [ -f $(ENVRC_DST) ]; then \
-		if diff -q $(ENVRC_DST) $(ENVRC_SAMPLE) >/dev/null 2>&1; then \
-			echo ".envrc is up to date."; \
-		else \
-			diff -u --color=always \
-				--label "current .envrc" --label "new .envrc (from sample)" \
-				$(ENVRC_DST) $(ENVRC_SAMPLE) || true; \
-			echo; \
-			read -rp "Regenerate .envrc? [y/N]: " ans < /dev/tty; \
-			if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
-				rm $(ENVRC_DST); \
-				cp $(ENVRC_SAMPLE) $(ENVRC_DST); \
-				echo ".envrc regenerated."; \
-			else \
-				echo "Keeping existing .envrc."; \
-			fi; \
-		fi; \
-	else \
-		cp $(ENVRC_SAMPLE) $(ENVRC_DST); \
-		echo ".envrc created."; \
-	fi
+.PHONY: setup-env
 
 setup-env: ## Generate .env interactively
 	@if [ -f $(ENV_DST) ]; then \
@@ -104,6 +112,3 @@ setup-env: ## Generate .env interactively
 		done < $(ENV_SAMPLE); \
 		echo ".env created."; \
 	fi
-
-setup-env-files: setup-envrc setup-env ## Generate both .env and .envrc
-

@@ -97,7 +97,7 @@ nh_list() {
 alias nhls='lsof | grep "nohup_.*\.log"'
 
 # ── Hyprland auto-start on TTY1 ────────────────────────────────────────────────
-if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+if command -v Hyprland &>/dev/null && [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
     exec Hyprland
 fi
 

@@ -7,7 +7,7 @@ PROFILE=""
 NO_SECRETS=false
 
 usage() {
-    echo "Usage: $(basename "$0") [--profile arch|ubuntu|wsl] [--no-secrets]"
+    echo "Usage: $(basename "$0") [--profile arch|ubuntu] [--no-secrets]"
     exit 1
 }
 
@@ -22,9 +22,7 @@ done
 
 # Step 1: Auto-detect profile if not specified
 detect_profile() {
-    if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
-        echo "wsl"
-    elif command -v pacman &>/dev/null; then
+    if command -v pacman &>/dev/null; then
         echo "arch"
     else
         echo "ubuntu"
@@ -43,7 +41,7 @@ fi
 
 # Validate profile
 if [[ ! -f "$REPO_ROOT/profiles/${PROFILE}.conf" ]]; then
-    echo "ERROR: Unknown profile '$PROFILE'. Available: arch, ubuntu, wsl" >&2
+    echo "ERROR: Unknown profile '$PROFILE'. Available: arch, ubuntu" >&2
     exit 1
 fi
 
@@ -78,7 +76,7 @@ echo "=== Applying profile ==="
 if ! $NO_SECRETS; then
     echo ""
     echo "=== Environment setup ==="
-    make -C "$REPO_ROOT" setup-env-files
+    make -C "$REPO_ROOT" setup-env
 fi
 
 # Step 6: Summary
