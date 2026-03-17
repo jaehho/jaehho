@@ -1,3 +1,8 @@
+# Bash completions
+if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+    source /usr/share/bash-completion/bash_completion
+fi
+
 # Repo root for these helpers
 JAEHHO_ROOT="${JAEHHO_ROOT:-$HOME/jaehho}"
 
