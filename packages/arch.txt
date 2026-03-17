@@ -16,4 +16,5 @@ typst
 zathura
 zathura-pdf-mupdf
 AUR:typstfmt
+AUR:x2goclient
 NPM:@mermaid-js/mermaid-cli
