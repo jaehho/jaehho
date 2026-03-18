@@ -94,7 +94,7 @@ for svc in $ALL_SERVICES; do
     system_conf_dir="/etc/$svc"
     if [[ -d "$local_conf_dir" ]] && [[ -d "$system_conf_dir" ]]; then
         for conf in "$local_conf_dir"/*; do
-            local target="$system_conf_dir/$(basename "$conf")"
+            target="$system_conf_dir/$(basename "$conf")"
             if [[ -L "$target" ]]; then
                 echo "  Removing config symlink: $target"
                 sudo rm "$target"
@@ -112,7 +112,7 @@ for cfg in $ALL_SYSTEM_CONFIGS; do
     local_conf_dir="$REPO_ROOT/$cfg"
     if [[ -d "$local_conf_dir" ]] && [[ -d "$system_conf_dir" ]]; then
         for conf in "$local_conf_dir"/*; do
-            local target="$system_conf_dir/$(basename "$conf")"
+            target="$system_conf_dir/$(basename "$conf")"
             if [[ -L "$target" ]]; then
                 echo "Removing system config symlink: $target"
                 sudo rm "$target"

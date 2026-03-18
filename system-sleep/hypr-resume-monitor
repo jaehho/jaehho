@@ -1,29 +1,36 @@
 #!/bin/bash
-# Fix frozen HDMI monitor after suspend (Nvidia + Hyprland)
-# Install: sudo cp this /usr/lib/systemd/system-sleep/hypr-resume-monitor
-#
-# NOTE: HDMI-A-2 and 1920x1080@60 are hardcoded for the current machine.
-# Update these values if your monitor setup differs. This is a workaround
-# for an Nvidia suspend bug and may become unnecessary in future drivers.
+# Fix frozen external monitors after suspend (Nvidia + Hyprland)
+# Dynamically enumerates all non-eDP monitors and power-cycles them.
 
 case "$1" in
     post)
         sleep 2
-        # Find the Hyprland user and socket
         for uid_dir in /run/user/*/hypr; do
             [ -d "$uid_dir" ] || continue
             uid=$(echo "$uid_dir" | grep -oP '/run/user/\K[0-9]+')
             for instance_dir in "$uid_dir"/*/; do
                 sig=$(basename "$instance_dir")
-                sudo -u "#$uid" \
+                export HYPRLAND_INSTANCE_SIGNATURE="$sig"
+                export XDG_RUNTIME_DIR="/run/user/$uid"
+
+                # Get all non-laptop monitors and their current config
+                monitors=$(sudo -u "#$uid" \
                     HYPRLAND_INSTANCE_SIGNATURE="$sig" \
                     XDG_RUNTIME_DIR="/run/user/$uid" \
-                    hyprctl keyword monitor HDMI-A-2,disable
-                sleep 1
-                sudo -u "#$uid" \
-                    HYPRLAND_INSTANCE_SIGNATURE="$sig" \
-                    XDG_RUNTIME_DIR="/run/user/$uid" \
-                    hyprctl keyword monitor "HDMI-A-2, 1920x1080@60, 0x0, 1"
+                    hyprctl monitors -j 2>/dev/null) || continue
+
+                echo "$monitors" | jq -r '.[] | select(.name != "eDP-1") | "\(.name) \(.width)x\(.height)@\(.refreshRate | floor) \(.x)x\(.y) \(.scale)"' | \
+                while read -r name res pos scale; do
+                    sudo -u "#$uid" \
+                        HYPRLAND_INSTANCE_SIGNATURE="$sig" \
+                        XDG_RUNTIME_DIR="/run/user/$uid" \
+                        hyprctl keyword monitor "$name,disable"
+                    sleep 1
+                    sudo -u "#$uid" \
+                        HYPRLAND_INSTANCE_SIGNATURE="$sig" \
+                        XDG_RUNTIME_DIR="/run/user/$uid" \
+                        hyprctl keyword monitor "$name, $res, $pos, $scale"
+                done
             done
         done
         ;;

@@ -1,5 +1,6 @@
 # Arch-specific packages
 base-devel
+bat
 blueman
 bluez
 bluez-utils
@@ -7,12 +8,15 @@ brightnessctl
 cliphist
 cpio
 dust
+eza
 expect
+fastfetch
+fish
 grim
 hypridle
 hyprland
 hyprlock
-hyprpaper
+hyprpicker
 imagemagick
 iwd
 jq
@@ -42,6 +46,7 @@ qt6ct
 slurp
 sof-firmware
 starship
+swww
 thunar
 tree-sitter-cli
 typst
@@ -49,11 +54,14 @@ waybar
 wev
 wf-recorder
 wireplumber
+wl-clip-persist
 wl-clipboard
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 zathura
 zathura-pdf-mupdf
+AUR:hyprsunset
+AUR:matugen-bin
 AUR:networkmanager-dmenu-git
 AUR:rofi-wayland
 AUR:satty

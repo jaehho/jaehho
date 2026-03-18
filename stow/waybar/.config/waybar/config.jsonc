@@ -144,6 +144,6 @@
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "rofi -dmenu -p 'Power' <<< $'Lock\nSuspend\nReboot\nShutdown' | xargs -I {} sh -c 'case \"{}\" in Lock) loginctl lock-session;; Suspend) systemctl suspend;; Reboot) systemctl reboot;; Shutdown) systemctl poweroff;; esac'"
+        "on-click": "~/.local/lib/dotfiles/rofi-power.sh"
     }
 }

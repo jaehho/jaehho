@@ -117,3 +117,12 @@ env: ## Generate .env interactively
 		done < $(ENV_SAMPLE); \
 		echo ".env created."; \
 	fi
+
+## Theming
+theme-reset: ## Reset all colors to Catppuccin Mocha defaults
+	git checkout -- stow/kitty/.config/kitty/theme.conf \
+	    stow/hypr/.config/hypr/conf.d/colors.conf \
+	    stow/hypr/.config/hypr/hyprlock-colors.conf \
+	    stow/waybar/.config/waybar/colors.css \
+	    stow/mako/.config/mako/config \
+	    stow/rofi/.config/rofi/catppuccin-mocha.rasi

@@ -213,43 +213,21 @@ for hook in $ALL_SLEEP_HOOKS; do
 done
 
 # 9. Reload running applications whose configs were stowed
+#    Each stow package can provide its own reload.sh script.
 echo ""
 echo "=== Reloading apps ==="
 
 reload_count=0
 set +e  # Disable exit-on-error for reload section
 
+RELOAD_DIR="$REPO_ROOT/reload"
 for pkg in $ALL_STOW; do
-    case "$pkg" in
-        hypr)
-            if command -v hyprctl &>/dev/null && pgrep -x Hyprland &>/dev/null; then
-                echo "Reloading Hyprland..."
-                hyprctl reload 2>&1 || true
-                ((reload_count++))
-            fi
-            ;;
-        waybar)
-            if pgrep -x waybar &>/dev/null; then
-                echo "Reloading Waybar..."
-                pkill -SIGUSR2 waybar
-                ((reload_count++))
-            fi
-            ;;
-        mako)
-            if command -v makoctl &>/dev/null && pgrep -x mako &>/dev/null; then
-                echo "Reloading Mako..."
-                makoctl reload
-                ((reload_count++))
-            fi
-            ;;
-        tmux)
-            if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null 2>&1; then
-                echo "Reloading Tmux..."
-                tmux source-file ~/.tmux.conf
-                ((reload_count++))
-            fi
-            ;;
-    esac
+    reload_script="$RELOAD_DIR/${pkg}.sh"
+    if [[ -x "$reload_script" ]]; then
+        echo "Reloading: $pkg"
+        bash "$reload_script" 2>&1 || true
+        ((reload_count++))
+    fi
 done
 
 if [[ $reload_count -eq 0 ]]; then
