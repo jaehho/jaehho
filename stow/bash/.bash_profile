@@ -101,9 +101,10 @@ if command -v Hyprland &>/dev/null && [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLA
     exec /usr/bin/start-hyprland
 fi
 
-# ── tmux auto-attach ───────────────────────────────────────────────────────────
-[[ $- == *i* ]] && [[ -t 1 ]] && [[ -z "$TMUX" ]] && [[ -z "$VSCODE_INJECTION" ]] && \
-  { tmux attach 2>/dev/null || tmux new -s main; }
+# ── tmux hint ─────────────────────────────────────────────────────────────────
+if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && command -v tmux &>/dev/null; then
+    echo "tmux: attach (-a) | new (-s name) | list (ls)"
+fi
 
 [[ -z "$VSCODE_INJECTION" ]] && eval "$(direnv hook bash)"
 
@@ -124,4 +125,4 @@ else
     PS1='$(show_virtual_env)'"$PS1"
 fi
 
-alias c='claude --dangerously-skip-permissions'
+alias c='claude --dangerously-skip-permissions --model opus --effort max'
