@@ -61,7 +61,12 @@ status: ## Show current dotfiles state
 
 ## Stow (bootstrap stows all profile packages; these are for ad-hoc use)
 stow-%: ## Stow a single package (e.g., make stow-nvim)
-	stow -d stow -t ~ --no-folding --adopt $* && git checkout -- stow/$*
+	pre_dirty=$$(git diff --name-only -- stow/$*/ 2>/dev/null); \
+	stow -d stow -t ~ --no-folding --adopt $* && \
+	git diff --name-only -- stow/$*/ 2>/dev/null | while IFS= read -r f; do \
+		[ -z "$$f" ] && continue; \
+		echo "$$pre_dirty" | grep -qxF "$$f" || git checkout -- "$$f"; \
+	done
 
 unstow-%: ## Unstow a single package (e.g., make unstow-nvim)
 	stow -d stow -t ~ -D $*

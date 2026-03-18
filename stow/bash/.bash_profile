@@ -98,7 +98,7 @@ alias nhls='lsof | grep "nohup_.*\.log"'
 
 # ── Hyprland auto-start on TTY1 ────────────────────────────────────────────────
 if command -v Hyprland &>/dev/null && [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec Hyprland
+    exec /usr/bin/start-hyprland
 fi
 
 # ── tmux auto-attach ───────────────────────────────────────────────────────────
