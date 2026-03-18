@@ -21,6 +21,7 @@ kitty
 lazygit
 libinput-tools
 libnotify
+linux-firmware-intel
 lua51
 luarocks
 mako
@@ -39,6 +40,7 @@ playerctl
 polkit-gnome
 qt6ct
 slurp
+sof-firmware
 starship
 thunar
 tree-sitter-cli
