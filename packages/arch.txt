@@ -12,10 +12,12 @@ hyprland
 hyprlock
 hyprpaper
 imagemagick
+iwd
 jq
 keyd
 kitty
 lazygit
+libinput-tools
 libnotify
 lua51
 luarocks
@@ -35,10 +37,12 @@ thunar
 tree-sitter-cli
 typst
 waybar
+wev
 wf-recorder
 wl-clipboard
 zathura
 zathura-pdf-mupdf
+AUR:networkmanager-dmenu-git
 AUR:rofi-wayland
 AUR:satty
 AUR:ttf-jetbrains-mono-nerd
