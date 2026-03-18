@@ -212,4 +212,48 @@ for hook in $ALL_SLEEP_HOOKS; do
     fi
 done
 
+# 9. Reload running applications whose configs were stowed
+echo ""
+echo "=== Reloading apps ==="
+
+reload_count=0
+
+for pkg in $ALL_STOW; do
+    case "$pkg" in
+        hypr)
+            if command -v hyprctl &>/dev/null && pgrep -x Hyprland &>/dev/null; then
+                echo "Reloading Hyprland..."
+                hyprctl reload || true
+                ((reload_count++))
+            fi
+            ;;
+        waybar)
+            if pgrep -x waybar &>/dev/null; then
+                echo "Reloading Waybar..."
+                pkill -SIGUSR2 waybar
+                ((reload_count++))
+            fi
+            ;;
+        mako)
+            if command -v makoctl &>/dev/null && pgrep -x mako &>/dev/null; then
+                echo "Reloading Mako..."
+                makoctl reload
+                ((reload_count++))
+            fi
+            ;;
+        tmux)
+            if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null 2>&1; then
+                echo "Reloading Tmux..."
+                tmux source-file ~/.tmux.conf
+                ((reload_count++))
+            fi
+            ;;
+    esac
+done
+
+if [[ $reload_count -eq 0 ]]; then
+    echo "No running apps to reload."
+fi
+
+echo ""
 echo "Profile applied successfully."
