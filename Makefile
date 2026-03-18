@@ -16,14 +16,14 @@ help: ## Show this help message
 		     /^## / {gsub("^## ", ""); print "\n\033[1;35m" $$0 "\033[0m"}; \
 		     /^[a-zA-Z_%-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-## Setup (bootstrap = install + setup + setup-env)
-bootstrap: ## Full setup: install packages, stow configs, prompt for secrets
+## Sync (sync = upgrade + apply + env)
+sync: ## Full sync: install packages, stow configs, reload apps, prompt for secrets
 	./bootstrap.sh --profile $(PROFILE)
 
-install: ## Install system packages for current profile
+upgrade: ## Install/upgrade system packages for current profile
 	./scripts/install-packages.sh $(PROFILE)
 
-setup: ## Stow configs and enable services for current profile
+apply: ## Stow configs, enable services, and reload running apps
 	./scripts/apply-profile.sh $(PROFILE)
 
 clean: ## Reverse setup: unstow packages, disable services, remove hooks
@@ -59,7 +59,7 @@ status: ## Show current dotfiles state
 		fi; \
 	done
 
-## Stow (bootstrap stows all profile packages; these are for ad-hoc use)
+## Stow (sync/apply stows all profile packages; these are for ad-hoc use)
 stow-%: ## Stow a single package (e.g., make stow-nvim)
 	pre_dirty=$$(git diff --name-only -- stow/$*/ 2>/dev/null); \
 	stow -d stow -t ~ --no-folding --adopt $* && \
@@ -71,14 +71,14 @@ stow-%: ## Stow a single package (e.g., make stow-nvim)
 unstow-%: ## Unstow a single package (e.g., make unstow-nvim)
 	stow -d stow -t ~ -D $*
 
-## Environment (included in bootstrap)
+## Environment (included in sync)
 -include $(REPO_ROOT)/.env
 ENV_SAMPLE       = $(REPO_ROOT)/.env.sample
 ENV_DST          = $(REPO_ROOT)/.env
 
-.PHONY: setup-env
+.PHONY: env
 
-setup-env: ## Generate .env interactively
+env: ## Generate .env interactively
 	@if [ -f $(ENV_DST) ]; then \
 		masked=$$(mktemp); \
 		awk '{ if ($$0 ~ /PASSWORD|SECRET|KEY|TOKEN/) { split($$0,a,"="); print a[1] "=****" } else { print } }' $(ENV_DST) > "$$masked"; \

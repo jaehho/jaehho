@@ -9,13 +9,13 @@ Personal dotfiles repo using GNU Stow, Make, and profile-based configuration. Ma
 ## Key Commands
 
 - `make help` — list all targets
-- `make bootstrap` — full setup (install packages, stow configs, create .env)
-- `make install` — install system packages only
-- `make setup` — stow configs and enable services only
+- `make sync` — full sync (install packages, stow configs, reload apps, create .env)
+- `make upgrade` — install/upgrade system packages
+- `make apply` — stow configs, enable services, and reload running apps
 - `make clean` — reverse setup (unstow, disable services, remove hooks)
 - `make status` — show current dotfiles state
 - `make stow-<pkg>` / `make unstow-<pkg>` — stow/unstow a single package (e.g., `make stow-nvim`)
-- `make setup-env` — interactively generate `.env` from `.env.sample`
+- `make env` — interactively generate `.env` from `.env.sample`
 
 Profile auto-detects if not specified (saved to `~/.dotfiles-profile`).
 

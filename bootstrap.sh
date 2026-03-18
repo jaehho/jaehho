@@ -76,7 +76,7 @@ echo "=== Applying profile ==="
 if ! $NO_SECRETS; then
     echo ""
     echo "=== Environment setup ==="
-    make -C "$REPO_ROOT" setup-env
+    make -C "$REPO_ROOT" env
 fi
 
 # Step 6: Summary
@@ -85,5 +85,5 @@ echo "=== Bootstrap complete ==="
 echo "Profile: $PROFILE"
 echo "Dotfiles profile saved to: ~/.dotfiles-profile"
 echo ""
-echo "To re-apply configs:  make setup"
-echo "To install packages:  make install"
+echo "To re-apply configs:  make apply"
+echo "To upgrade packages:  make upgrade"
