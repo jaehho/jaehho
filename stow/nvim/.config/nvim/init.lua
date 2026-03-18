@@ -194,16 +194,35 @@ vim.diagnostic.config {
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Typst preview: compile, then watch in tmux pane + open zathura
+-- Typst preview: compile, then watch in tmux pane + open zathura (toggle)
 vim.keymap.set('n', '<leader>tp', function()
   if vim.bo.filetype ~= 'typst' then
     vim.notify('Not a Typst file', vim.log.levels.WARN)
     return
   end
+
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  local function stop_preview()
+    local ok, preview = pcall(function() return vim.b[bufnr].typst_preview end)
+    if not ok or not preview then return end
+    if preview.pane_id and preview.pane_id ~= '' then
+      vim.system({ 'tmux', 'kill-pane', '-t', preview.pane_id })
+    end
+    if preview.zathura_id then
+      pcall(vim.fn.jobstop, preview.zathura_id)
+    end
+    pcall(function() vim.b[bufnr].typst_preview = nil end)
+    pcall(vim.api.nvim_del_augroup_by_name, 'TypstPreview' .. bufnr)
+  end
+
+  -- Toggle: if preview is running, stop it
   if vim.b.typst_preview then
-    vim.notify('Typst preview already running', vim.log.levels.INFO)
+    stop_preview()
+    vim.notify('Typst preview stopped', vim.log.levels.INFO)
     return
   end
+
   local src = vim.api.nvim_buf_get_name(0)
   local pdf = src:gsub('%.typ$', '.pdf')
   -- Compile once so the PDF exists before zathura opens
@@ -214,22 +233,20 @@ vim.keymap.set('n', '<leader>tp', function()
     'typst watch ' .. vim.fn.shellescape(src),
   }):wait()
   local pane_id = vim.trim(result.stdout or '')
-  local zathura_id = vim.fn.jobstart({ 'zathura', pdf })
-  vim.b.typst_preview = { pane_id = pane_id, zathura_id = zathura_id }
-  -- Clean up on buffer delete or Neovim exit
-  local augroup = vim.api.nvim_create_augroup('TypstPreview' .. vim.api.nvim_get_current_buf(), { clear = true })
-  vim.api.nvim_create_autocmd({ 'BufDelete', 'VimLeavePre' }, {
-    group = augroup,
-    buffer = vim.api.nvim_get_current_buf(),
-    callback = function()
-      local preview = vim.b.typst_preview
-      if not preview then return end
-      vim.system({ 'tmux', 'kill-pane', '-t', preview.pane_id })
-      vim.fn.jobstop(preview.zathura_id)
-      vim.b.typst_preview = nil
+  local zathura_id = vim.fn.jobstart({ 'zathura', pdf }, {
+    on_exit = function()
+      vim.schedule(function() stop_preview() end)
     end,
   })
-end, { desc = '[T]ypst [P]review' })
+  vim.b.typst_preview = { pane_id = pane_id, zathura_id = zathura_id }
+  -- Clean up on buffer delete or Neovim exit
+  local augroup = vim.api.nvim_create_augroup('TypstPreview' .. bufnr, { clear = true })
+  vim.api.nvim_create_autocmd({ 'BufDelete', 'VimLeavePre' }, {
+    group = augroup,
+    buffer = bufnr,
+    callback = function() stop_preview() end,
+  })
+end, { desc = '[T]ypst [P]review (toggle)' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
