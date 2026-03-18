@@ -72,8 +72,8 @@ read_packages() {
         done < "$PACKAGES_DIR/common.txt"
     fi
 
-    # Read profile-specific packages
-    if [[ -f "$PACKAGES_DIR/${profile}.txt" ]]; then
+    # Read profile-specific packages (skip if same as common to avoid duplicates)
+    if [[ "$profile" != "common" && -f "$PACKAGES_DIR/${profile}.txt" ]]; then
         while IFS= read -r line || [[ -n "$line" ]]; do
             [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
             if [[ "$line" == AUR:* ]]; then
@@ -101,7 +101,7 @@ read_packages() {
                 if $DRY_RUN; then
                     echo "[dry-run] pacman -S --needed ${pkgs[*]}"
                 else
-                    sudo pacman -S --needed --noconfirm "${pkgs[@]}"
+                    sudo pacman -S --needed --noconfirm --ask 4 "${pkgs[@]}"
                 fi
                 ;;
             *)

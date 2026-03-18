@@ -1,6 +1,8 @@
 # Arch-specific packages
 base-devel
 blueman
+bluez
+bluez-utils
 brightnessctl
 cliphist
 cpio
@@ -23,14 +25,19 @@ lua51
 luarocks
 mako
 neovim
+networkmanager
 nodejs
 npm
 nvidia-open
 nvidia-utils
 otf-font-awesome
+papirus-icon-theme
 pavucontrol
+pipewire
+pipewire-pulse
 playerctl
 polkit-gnome
+qt6ct
 slurp
 starship
 thunar
@@ -39,7 +46,10 @@ typst
 waybar
 wev
 wf-recorder
+wireplumber
 wl-clipboard
+xdg-desktop-portal-gtk
+xdg-desktop-portal-hyprland
 zathura
 zathura-pdf-mupdf
 AUR:networkmanager-dmenu-git
