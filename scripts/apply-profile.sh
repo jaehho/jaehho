@@ -217,13 +217,14 @@ echo ""
 echo "=== Reloading apps ==="
 
 reload_count=0
+set +e  # Disable exit-on-error for reload section
 
 for pkg in $ALL_STOW; do
     case "$pkg" in
         hypr)
             if command -v hyprctl &>/dev/null && pgrep -x Hyprland &>/dev/null; then
                 echo "Reloading Hyprland..."
-                hyprctl reload || true
+                hyprctl reload 2>&1 || true
                 ((reload_count++))
             fi
             ;;
@@ -254,6 +255,8 @@ done
 if [[ $reload_count -eq 0 ]]; then
     echo "No running apps to reload."
 fi
+
+set -e  # Re-enable exit-on-error
 
 echo ""
 echo "Profile applied successfully."
